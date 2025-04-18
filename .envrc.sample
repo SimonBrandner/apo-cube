@@ -1,6 +1,7 @@
 export SSH_OPTIONS="-o 'ProxyJump=brandsi1@postel.felk.cvut.cz'"
 export CC=arm-linux-gnueabihf-gcc
 export CXX=arm-linux-gnueabihf-g++
+export TARGET_IP=192.168.223.219
 
 # For NixOS users
 # use flake
