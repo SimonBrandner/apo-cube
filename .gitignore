@@ -1,3 +1,7 @@
 main
 .envrc
 .direnv
+*.o
+depend
+change_me
+connect.gdb
