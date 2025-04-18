@@ -1,6 +1,3 @@
-# CC = arm-linux-gnueabihf-gcc
-# CXX = arm-linux-gnueabihf-g++
-
 CPPFLAGS = -I .
 CFLAGS =-g -std=gnu99 -O1 -Wall
 CXXFLAGS = -g -std=gnu++11 -O1 -Wall
@@ -26,7 +23,6 @@ TARGET_USER ?= root
 #SSH_OPTIONS=-o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "Port=2222"
 #SSH_GDB_TUNNEL_REQUIRED=y
 #SSH_OPTIONS=-i /opt/zynq/ssh-connect/mzapo-root-key
-SSH_OPTIONS=-o 'ProxyJump=brandsi1@postel.felk.cvut.cz'
 
 OBJECTS += $(filter %.o,$(SOURCES:%.c=%.o))
 OBJECTS += $(filter %.o,$(SOURCES:%.cpp=%.o))

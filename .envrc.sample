@@ -1,1 +1,6 @@
-use flake
+export SSH_OPTIONS="-o 'ProxyJump=brandsi1@postel.felk.cvut.cz'"
+export CC=arm-linux-gnueabihf-gcc
+export CXX=arm-linux-gnueabihf-g++
+
+# For NixOS users
+# use flake
