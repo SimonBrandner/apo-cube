@@ -1,7 +1,7 @@
 #include "camera.hpp"
 
-Camera::Camera() : yaw(0), pitch(0), position(10, 0, 0) {}
+Camera::Camera() : position(10, 0, 0), yaw(0), pitch(0) {}
 
-void update() {
+void Camera::update(InputDelta input_delta) {
 	// update props
 }

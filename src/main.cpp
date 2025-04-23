@@ -29,7 +29,7 @@ void math_do_smt() {
 }
 
 CubeColorConfig main_menu() {
-	CubeColorConfig cube_color_config;
+	CubeColorConfig cube_color_config = CubeColorConfig();
 	InputPeripherals input_peripherals = InputPeripherals();
 
 	while (true) {

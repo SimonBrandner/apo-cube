@@ -6,7 +6,7 @@ LDFLAGS += -static
 LDLIBS += -lrt -lpthread
 #LDLIBS += -lm
 
-SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c
+SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp
 #SOURCES += src/font_prop14x16.c src/font_rom8x16.c
 TARGET_EXE = apo_cube
 #TARGET_IP ?= 192.168.202.127
