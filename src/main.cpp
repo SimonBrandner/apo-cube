@@ -4,10 +4,10 @@
 
 #include "./math/matrix.hpp"
 #include "./math/vector.hpp"
-#include "./serialize_lock.h"
-#include "mzapo_parlcd.h"
-#include "mzapo_phys.h"
-#include "mzapo_regs.h"
+#include "./mz_apo/mzapo_parlcd.h"
+#include "./mz_apo/mzapo_phys.h"
+#include "./mz_apo/mzapo_regs.h"
+#include "./mz_apo/serialize_lock.h"
 
 void lcd_do_smt() {
 	std::cout << "LCD test:" << std::endl;
