@@ -9,6 +9,8 @@ LDLIBS += -lrt -lpthread
 SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp
 #SOURCES += src/font_prop14x16.c src/font_rom8x16.c
 TARGET_EXE = apo_cube
+
+# ===================== Main Build =====================
 #TARGET_IP ?= 192.168.202.127
 ifeq ($(TARGET_IP),)
 ifneq ($(filter debug run,$(MAKECMDGOALS)),)
@@ -87,5 +89,18 @@ debug: copy-executable $(TARGET_EXE)
 	echo >>connect.gdb "b main"
 	echo >>connect.gdb "c"
 	ddd --debugger gdb-multiarch -x connect.gdb $(TARGET_EXE)
+
+# ===================== Virtual Build (runv) =====================
+runv_SRC = src/periphs_virtual/test_virtual.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp
+runv_TARGET = a.out
+runv_CXX = g++
+runv_CXXFLAGS = -Wall
+
+runv:
+	$(runv_CXX) $(runv_CXXFLAGS) $(runv_SRC) -o $(runv_TARGET)
+	./$(runv_TARGET)
+
+buildv:
+	$(runv_CXX) $(runv_CXXFLAGS) $(runv_SRC) -o $(runv_TARGET)
 
 -include depend
