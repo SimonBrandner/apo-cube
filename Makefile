@@ -92,7 +92,7 @@ debug: copy-executable $(TARGET_EXE)
 
 # ===================== Virtual Build (runv) =====================
 runv_SRC = src/periphs_virtual/test_virtual.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/render/utils.cpp
-runv_TARGET = a.out
+runv_TARGET = apo_cube_virtual
 runv_CXX = g++
 runv_CXXFLAGS = -Wall
 
@@ -102,5 +102,11 @@ runv:
 
 buildv:
 	$(runv_CXX) $(runv_CXXFLAGS) $(runv_SRC) -o $(runv_TARGET)
+
+executev:
+	./$(runv_TARGET)
+
+cleanv:
+	rm -f $(runv_TARGET)
 
 -include depend
