@@ -91,7 +91,7 @@ debug: copy-executable $(TARGET_EXE)
 	ddd --debugger gdb-multiarch -x connect.gdb $(TARGET_EXE)
 
 # ===================== Virtual Build (runv) =====================
-runv_SRC = src/periphs_virtual/test_virtual.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp
+runv_SRC = src/periphs_virtual/test_virtual.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/render/utils.cpp
 runv_TARGET = a.out
 runv_CXX = g++
 runv_CXXFLAGS = -Wall
