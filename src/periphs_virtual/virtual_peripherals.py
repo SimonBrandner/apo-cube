@@ -18,7 +18,7 @@ LEDS_OUT = os.path.join(MEM_DIR, "leds.out")
 KNOBS_IN = os.path.join(MEM_DIR, "knobs.in")
 KNOB_PRESSES_IN = os.path.join(MEM_DIR, "knob_presses.in")
 
-ENDIANITY = "BIG"  # BIG, LITTLE
+ENDIANITY = "BIG" if sys.byteorder == "big" else "LITTLE"
 
 def is_big_endian():
     return ENDIANITY.upper() == "BIG"
@@ -124,9 +124,12 @@ class VirtualPeripherals:
 
 
     def save_knob_presses(self):
-        val = (self.knob_presses[0] << 2) | (self.knob_presses[1] << 1) | self.knob_presses[2]
         with open(KNOB_PRESSES_IN, "wb") as f:
-            f.write(bytes([val]))
+            if is_big_endian():
+                val = (self.knob_presses[0] << 2) | (self.knob_presses[1] << 1) | self.knob_presses[2]
+            else:
+                val = (self.knob_presses[2] << 2) | (self.knob_presses[1] << 1) | self.knob_presses[0]
+            f.write(write_u32(val))
 
     def save_knobs(self):
         with open(KNOBS_IN, "wb") as f:
