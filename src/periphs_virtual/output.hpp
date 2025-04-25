@@ -9,7 +9,6 @@
 
 class OutputPeripherals {
 private:
-	bool previous_delta_initialized = false;
 	std::string fname_leds = "src/periphs_virtual/memory/leds.out";
 	std::string fname_screen = "src/periphs_virtual/memory/screen.out";
 
