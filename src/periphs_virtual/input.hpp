@@ -25,9 +25,9 @@ struct InputPresses {
 
 class InputPeripherals {
 	private:
+		const std::string fname_knobs = "src/periphs_virtual/memory/knobs.in";
+		const std::string fname_knob_presses = "src/periphs_virtual/memory/knob_presses.in";
 		bool previous_delta_initialized = false;
-		std::string fname_knobs = "src/periphs_virtual/memory/knobs.in";
-		std::string fname_knob_presses = "src/periphs_virtual/memory/knob_presses.in";
 		InputNow previous_delta;
 
 	public:
@@ -35,7 +35,5 @@ class InputPeripherals {
 		InputDelta get_delta();
 		InputPresses input_presses();
 };
-
-
 
 #endif // INPUT_HPP

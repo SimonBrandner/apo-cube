@@ -9,13 +9,13 @@
 
 class OutputPeripherals {
 private:
-	std::string fname_leds = "src/periphs_virtual/memory/leds.out";
-	std::string fname_screen = "src/periphs_virtual/memory/screen.out";
+	const std::string fname_leds = "src/periphs_virtual/memory/leds.out";
+	const std::string fname_screen = "src/periphs_virtual/memory/screen.out";
 
 public:
 	OutputPeripherals();
-	void set_leds(bool leds[32]);
-	void set_screen(uint16_t screen[screen_width][screen_height]);
+	bool set_leds(bool leds[32]);
+	bool set_screen(uint16_t screen[screen_width][screen_height]);
 };
 
 char connect_bools_into_byte(bool bits[8]);

@@ -9,8 +9,8 @@
 class OutputPeripherals {
 public:
 	OutputPeripherals();
-	void set_leds(bool leds[32]); // may return bool in the future?
-	void set_screen(uint16_t screen[screen_width][screen_height]);
+	bool set_leds(bool leds[32]);
+	bool set_screen(uint16_t screen[screen_width][screen_height]);
 };
 
 #endif //OUTPUT_HPP

@@ -8,10 +8,12 @@
 
 OutputPeripherals::OutputPeripherals() {}
 
-void OutputPeripherals::set_leds(bool leds[fsizeLEDs*BYTE]) {
+// Sets the 32 LEDs file to 32 * 0/1
+bool OutputPeripherals::set_leds(bool leds[fsizeLEDs*BYTE]) {
 	std::ofstream file(fname_leds, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file " << fname_leds << std::endl;
+		return false;
 	}
 
 	char bytes[fsizeLEDs] = {0};
@@ -21,12 +23,15 @@ void OutputPeripherals::set_leds(bool leds[fsizeLEDs*BYTE]) {
 
 	file.write(bytes, fsizeLEDs);
 	file.close();
+	return true;
 }
 
-void OutputPeripherals::set_screen(uint16_t screen[screen_width][screen_height]) {
+// Sets the screen file to the 2D array of RGB565 values
+bool OutputPeripherals::set_screen(uint16_t screen[screen_width][screen_height]) {
 	std::ofstream file(fname_screen, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file " << fname_screen << std::endl;
+		return false;
 	}
 
 	for (int y = 0; y < screen_height; ++y) {
@@ -34,6 +39,7 @@ void OutputPeripherals::set_screen(uint16_t screen[screen_width][screen_height])
 	}
 
 	file.close();
+	return true;
 }
 
 char connect_bools_into_byte(bool bits[BYTE]) {
