@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../render/utils.hpp"
+#include "../geometry/cube.hpp"
 
 #define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 320
