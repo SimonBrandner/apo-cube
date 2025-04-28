@@ -2,6 +2,8 @@ main
 .envrc
 .direnv
 *.o
+*.in
+*.out
 depend
 change_me
 connect.gdb

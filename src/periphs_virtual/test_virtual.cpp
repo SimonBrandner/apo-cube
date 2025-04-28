@@ -18,7 +18,7 @@ int main(void) {
 		std::cout << "B delta: " << (int)delta.blue << std::endl;
 
 
-		InputPresses presses = peripherals.input_presses();
+		KnobPressState presses = peripherals.get_knob_press_state();
 		std::cout << "R pressed: " << presses.red << std::endl;
 		std::cout << "G pressed: " << presses.green << std::endl;
 		std::cout << "B pressed: " << presses.blue << "\n" <<  std::endl;
@@ -27,15 +27,14 @@ int main(void) {
 	}*/
 
 	OutputPeripherals outputs = OutputPeripherals();
-	uint16_t screen[screen_width][screen_height];
-	for (int y = 0; y < screen_height; ++y) {
-		for (int x = 0; x < screen_width; ++x) {
-			screen[x][y] = rgb888_to_rgb565(rand() % 256,rand() % 256,rand() % 256);
+	Color screen[SCREEN_WIDTH][SCREEN_HEIGHT];
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			screen[x][y] = Color(rand() % 256, rand() % 256, rand() % 256);
 		}
 	}
 	outputs.set_screen(screen);
 	std::cout << "Screen set" << std::endl;
-
 
 	bool leds[32] = {false};
 	for (int i = 0; i < 32; ++i) {

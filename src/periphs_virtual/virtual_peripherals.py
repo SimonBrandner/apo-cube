@@ -133,7 +133,10 @@ class VirtualPeripherals:
 
     def save_knobs(self):
         with open(KNOBS_IN, "wb") as f:
-            f.write(write_rgb888(*self.knobs))
+            if is_big_endian():
+                f.write(write_rgb888(*self.knobs))
+            else:
+                f.write(bytes(reversed(write_rgb888(*self.knobs))))
 
     def handle_click(self, event):
         if event.button != 1:  # only left mouse button

@@ -2,15 +2,16 @@
 #define OUTPUT_HPP
 
 #include <cstdint>
+#include "../render/utils.hpp"
 
-#define screen_width 480
-#define screen_height 320
+#define SCREEN_WIDTH 480
+#define SCREEN_HEIGHT 320
 
 class OutputPeripherals {
 public:
 	OutputPeripherals();
 	bool set_leds(bool leds[32]);
-	bool set_screen(uint16_t screen[screen_width][screen_height]);
+	bool set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]);
 };
 
 #endif //OUTPUT_HPP

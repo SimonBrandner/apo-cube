@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <optional>
 
 struct InputDelta {
 	int8_t red;
@@ -16,24 +17,22 @@ struct InputNow {
 	uint8_t blue;
 };
 
-struct InputPresses {
+struct KnobPressState {
 	bool red;
 	bool green;
 	bool blue;
-	bool any;
 };
 
 class InputPeripherals {
 	private:
 		const std::string fname_knobs = "src/periphs_virtual/memory/knobs.in";
 		const std::string fname_knob_presses = "src/periphs_virtual/memory/knob_presses.in";
-		bool previous_delta_initialized = false;
-		InputNow previous_delta;
+		std::optional<InputNow> previous_delta;
 
 	public:
 		InputPeripherals();
 		InputDelta get_delta();
-		InputPresses input_presses();
+		KnobPressState get_knob_press_state();
 };
 
 #endif // INPUT_HPP
