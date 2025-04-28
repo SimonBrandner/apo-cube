@@ -13,6 +13,7 @@ class Camera {
 	public:
 		Camera();
 		void update(InputDelta input_delta);
+		Vector get_position();
 };
 
 #endif // CAMERA_HPP
