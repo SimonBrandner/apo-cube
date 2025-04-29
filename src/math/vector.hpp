@@ -5,17 +5,21 @@
 #include <ostream>
 
 class Vector {
-  private:
-	float data[3];
+	private:
+		float data[3];
 
-  public:
-	Vector(float x, float y, float z);
-	Vector(float data[3]);
+	public:
+		Vector(float x, float y, float z);
+		Vector(float data[3]);
 
-	const float at(size_t index) const;
-	const float get_x() const;
-	const float get_y() const;
-	const float get_z() const;
+		const Vector operator+(const Vector &rhs) const;
+		const Vector operator-(const Vector &rhs) const;
+		const Vector operator*(const Vector &rhs) const;
+
+		const float at(size_t index) const;
+		const float get_x() const;
+		const float get_y() const;
+		const float get_z() const;
 };
 
 std::ostream &operator<<(std::ostream &stream, const Vector &vector);

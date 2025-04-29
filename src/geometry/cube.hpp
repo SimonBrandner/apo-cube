@@ -2,18 +2,8 @@
 #define CUBE_HPP
 
 #include <cstdint>
-
-class Color {
-  private:
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
-
-  public:
-	Color();
-	Color(uint8_t red, uint8_t green, uint8_t blue);
-	uint16_t to_rgb565() const;
-};
+#include "side.hpp"
+#include "../render/color.hpp"
 
 struct CubeColorConfig {
 	CubeColorConfig();
@@ -24,6 +14,18 @@ struct CubeColorConfig {
 	Color bottom;
 	Color left;
 	Color right;
+};
+
+class Cube {
+	private:
+		CubeColorConfig color_config;
+		float side_length;
+		float middle[3];
+
+	public:
+		Cube();
+		Cube(float side_middle[3], float side_length);
+		void set_color_config(CubeColorConfig);
 };
 
 #endif // CUBE_HPP

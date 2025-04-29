@@ -5,14 +5,15 @@
 #include "../peripherals/input.hpp"
 
 class Camera {
-  private:
-	Vector position;
-	float yaw;
-	float pitch;
+	private:
+		Vector position;
+		float yaw;
+		float pitch;
 
-  public:
-	Camera();
-	void update(InputDelta input_delta);
+	public:
+		Camera();
+		void update(InputDelta input_delta);
+		Vector get_position();
 };
 
 #endif // CAMERA_HPP
