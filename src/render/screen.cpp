@@ -19,14 +19,22 @@ size_t get_character_width(font_descriptor_t *font_descriptor, int character) {
 	return font_descriptor->maxwidth;
 }
 
+const font_bits_t *get_character_bits(char character,
+									  font_descriptor_t *font_descriptor) {
+	return font_descriptor->bits +
+		   font_descriptor->height * (character - font_descriptor->firstchar);
+}
+
 size_t Screen::draw_character(char character, size_t origin_x, size_t origin_y,
 							  Color color, font_descriptor_t *font_descriptor) {
 	size_t character_width = get_character_width(font_descriptor, character);
+	const font_bits_t *character_bits =
+		get_character_bits(character, font_descriptor);
+
 	for (size_t y = 0; y < font_descriptor->height; ++y) {
 		for (size_t x = 0; x < character_width; ++x) {
-			for (size_t row_index = 0; row_index < font_descriptor->height;
-				 ++row_index) {
-				// TODO: Render text
+			if ((character_bits[y] >> (16 - x)) & 0x01) {
+				this->at(origin_x + x, origin_y + y) = color;
 			}
 		}
 	}
