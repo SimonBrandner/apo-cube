@@ -22,19 +22,15 @@ int main(int argc, char *argv[]) {
 	cube.set_color_config(cube_color_config);
 	Camera camera = Camera();
 
-	const std::optional<Side>* sides = cube.get_sides();
+	std::array<std::optional<std::array<Vector, 4>>, 6> projected_corners = render_cube_points(cube, camera);
+
 	for (int i = 0; i < 6; ++i) {
-		if (sides[i].has_value()) {
-			Vector center = sides[i]->get_center_point();
-			std::cout << "Side " << i << " center: " << center << std::endl;
-			std::array<Vector, 4> corners = sides[i]->get_corners();
-			std::cout << "Corners: ";
-			for (int j = 0; j < 4; ++j) {
-				std::cout << corners[j] << " ";
-				corners[j] = transform_vector(camera, corners[j]);
-				std::cout << corners[j] << " \n";
+		if (projected_corners[i].has_value()) {
+			std::cout << "Projected Corners for Side " << i << ":\n";
+			for (const auto& corner : projected_corners[i].value()) {
+				std::cout << corner << "\n";
 			}
-			std::cout << std::endl;
+			std::cout << "\n";
 		}
 	}
 
