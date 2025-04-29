@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 	cube_color_config.left = Color(255, 0, 255);
 	cube_color_config.right = Color(0, 255, 255);
 
-	float side_array[3] = {0, 0, 10};
+	float side_array[3] = {0, 0, 15};
 	Cube cube = Cube(side_array, 10);
 	cube.set_color_config(cube_color_config);
 	Camera camera = Camera();
@@ -36,24 +36,18 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH] = {-MAXFLOAT};
-
-	for (int i = 0; i < 6; ++i) {
-		if (projected_vertices[i].has_value()) {
-			for (int j = 0; j < 4; ++j) {
-				int x = (int)projected_vertices[i].value()[j].get_x();
-				int y = (int)projected_vertices[i].value()[j].get_y();
-				std::cout << "Pixel set at (" << x << ", " << y << ") \n";
-				pixels[y][x] = cube.get_sides()[i].value().get_color();
-			}
+	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			z_buffer[y][x] = -MAXFLOAT;
 		}
 	}
 
 	for (int i = 0; i < 6; ++i) {
 		if (projected_vertices[i].has_value()) {
 			Side side = cube.get_sides()[i].value();
-			std::cout << "Sorted Projected Corners for Side " << i << ":\n";
-			std::cout << "Distance: " << side.get_center_point().distance(camera.get_position()) << "\n";
+			std::cout << "Sorted Projected Corners for Side " << i << " ";
+			std::cout << "Position: " << side.get_center_point().distance(camera.get_position()) << "\n";
 			calculate_pixels_bresenham(
 				projected_vertices[i].value(), // projected corners
 				side.get_color(), // color

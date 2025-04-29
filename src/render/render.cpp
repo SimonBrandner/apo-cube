@@ -61,10 +61,20 @@ Vector rescale_2d_to_screen(Vector point2d) {
 	int width = SCREEN_WIDTH;
 	int height = SCREEN_HEIGHT;
 
-	float x_screen = (point2d.get_x() + 1.0f) * 0.5f * width;
-	float y_screen = (1.0f - point2d.get_y()) * 0.5f * height;
+	float x_screen;
+	float y_screen;
 
-	return Vector(x_screen, y_screen, 0);
+	if (width >= height) {
+		x_screen = (point2d.get_x() + 1.0f) * 0.5f * height + (width - height) * 0.5f;
+		y_screen = (1.0f - point2d.get_y()) * 0.5f * height;
+	} else {
+		x_screen = (point2d.get_x() + 1.0f) * 0.5f * width;
+		y_screen = (1.0f - point2d.get_y()) * 0.5f * width + (height - width) * 0.5f;
+	}
+	//x_screen = (point2d.get_x() + 1.0f) * 0.5f * width;
+	//y_screen = (1.0f - point2d.get_y()) * 0.5f * height;
+
+	return Vector(x_screen, y_screen, point2d.get_z());
 }
 
 Vector convert_to_2d(Vector point) {
@@ -72,24 +82,38 @@ Vector convert_to_2d(Vector point) {
 	float y = point.get_y();
 	float z = point.get_z();
 
+	if (z == 0) {
+		z = 0.0001f; // avoid division by zero
+	}
+
 	// prerspective projection
 	const float FOV = 90.0f; // fov deg, now const, in the future parameter maybe
-	float near_plane = 0.1f;
 
-	float scale = tan_deg(FOV * 0.5f) * near_plane;
+	float scale = tan_deg(FOV * 0.5f);
 	float x_ndc = (x / z) * scale;
 	float y_ndc = (y / z) * scale;
 
-	Vector rescaled = Vector(x_ndc, y_ndc, z); // z will be used for z-index
+	Vector rescaled = Vector(x_ndc, y_ndc, z); // z will be used for z-buffer
 	rescaled = rescale_2d_to_screen(rescaled);
 
 	return rescaled;
 }
 
+// TODO: prettify this function, format it and separate it into multiple functions
 void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
+	color = Color(rand() % 256, rand() % 256, rand() % 256);
+
+	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH];
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			is_pixel[y][x] = false;
+		}
+	}
+
+	// my implementation of Bresenham's line algorithm (used in vba excel)
 	for (size_t i = 0; i < corners.size(); ++i) {
 		Vector start = corners[i];
 		Vector end = corners[(i + 1) % corners.size()];
@@ -119,7 +143,7 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 				if (z > z_buffer[y0][x0]) {
 					z_buffer[y0][x0] = z;
 					pixels[y0][x0] = color;
-					std::cout << "Pixel set at (" << x0 << ", " << y0 << ") with color: ";
+					is_pixel[y0][x0] = true;
 				}
 			}
 
@@ -137,8 +161,73 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 			++step_count;
 		}
 	}
-}
 
+	// now get the top left corner of the corners and the bottom right corner
+	int min_x = SCREEN_WIDTH;
+	int min_y = SCREEN_HEIGHT;
+	int max_x = 0;
+	int max_y = 0;
+
+	for (size_t i = 0; i < corners.size(); ++i) {
+		if (corners[i].get_x() < min_x) {
+			min_x = static_cast<int>(corners[i].get_x());
+		}
+		if (corners[i].get_y() < min_y) {
+			min_y = static_cast<int>(corners[i].get_y());
+		}
+		if (corners[i].get_x() > max_x) {
+			max_x = static_cast<int>(corners[i].get_x());
+		}
+		if (corners[i].get_y() > max_y) {
+			max_y = static_cast<int>(corners[i].get_y());
+		}
+	}
+
+	min_x = std::max(min_x-1, 0);
+	min_y = std::max(min_y-1, 0);
+	max_x = std::min(max_x+1, SCREEN_WIDTH-1);
+	max_y = std::min(max_y+1, SCREEN_HEIGHT-1);
+
+	for (int y = min_y; y <= max_y; ++y) {
+		bool is_inside = false;
+		float z_index_first = 0;
+		float z_index_last = 0;
+		long diff_first_last = 0;
+		long cur_index = 0;
+
+		for (int x = min_x; x <= max_x; ++x) {
+			if (is_pixel[y][x]) {
+				if (not is_inside) {
+					z_index_first = z_buffer[y][x];
+				}
+				is_inside = not is_inside;
+				if (is_inside) {
+					++diff_first_last;
+					z_index_last = z_buffer[y][x];
+				}
+			}
+		}
+
+		is_inside = false;
+
+		for (int x = min_x; x <= max_x; ++x) {
+			if (is_pixel[y][x]) {
+				is_inside = not is_inside;
+			}
+			if (is_inside) {
+				if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT) {
+					float z = z_index_first + (z_index_last-z_index_first) * ((float)cur_index / (float)diff_first_last);
+					++cur_index;
+					if (z > z_buffer[y][x]) {
+						z_buffer[y][x] = z;
+						pixels[y][x] = color;
+					}
+				}
+			}
+		}
+	}
+
+}
 
 // UNUSED RN, MAYBE USEFUL IN THE FUTURE
 void sort_projected_corners(std::array<std::optional<std::array<Vector, 4>>, 6> *projected_corners, Camera camera) {
