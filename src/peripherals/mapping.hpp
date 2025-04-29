@@ -1,5 +1,5 @@
-#ifndef MAPPING_H
-#define MAPPING_H
+#ifndef MAPPING_HPP
+#define MAPPING_HPP
 
 #include <cstdint>
 
@@ -15,4 +15,4 @@ class PeripheralMemoryMapping {
 		const uint8_t *const get_spi_address() const;
 };
 
-#endif // MAPPING_H
+#endif // MAPPING_HPP
