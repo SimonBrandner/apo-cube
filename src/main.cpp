@@ -6,6 +6,7 @@
 #include "./math/matrix.hpp"
 #include "./math/vector.hpp"
 #include "./peripherals/input.hpp"
+#include "./peripherals/utils.hpp"
 
 void math_do_smt() {
 	float matrix_a_data[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -28,17 +29,18 @@ void math_do_smt() {
 			  << matrix_a * matrix_b << std::endl;
 }
 
-CubeColorConfig main_menu() {
+CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 	CubeColorConfig cube_color_config = CubeColorConfig();
-	InputPeripherals input_peripherals = InputPeripherals();
+	InputPeripherals input_peripherals =
+		InputPeripherals(peripherals_memory_mapping);
 
 	while (true) {
 		InputDelta input_delta = input_peripherals.get_delta();
+		KnobPressState input_pressed = input_peripherals.get_knob_press_state();
 		cube_color_config.front =
-			Color(input_delta.red_knob_delta, input_delta.green_knob_delta,
-				  input_delta.blue_knob_delta);
+			Color(input_delta.red, input_delta.green, input_delta.blue);
 
-		if (input_delta.knob_pressed) {
+		if (input_pressed.red || input_pressed.blue || input_pressed.green) {
 			break;
 		}
 	}
@@ -46,8 +48,10 @@ CubeColorConfig main_menu() {
 	return cube_color_config;
 }
 
-void run(CubeColorConfig cube_color_config) {
-	InputPeripherals input_peripherals = InputPeripherals();
+void run(PeripheralMemoryMapping peripherals_memory_mapping,
+		 CubeColorConfig cube_color_config) {
+	InputPeripherals input_peripherals =
+		InputPeripherals(peripherals_memory_mapping);
 	Camera camera = Camera();
 
 	while (true) {
@@ -57,8 +61,10 @@ void run(CubeColorConfig cube_color_config) {
 }
 
 int main(int argc, char *argv[]) {
-	CubeColorConfig cube_color_config = main_menu();
-	run(cube_color_config);
+	PeripheralMemoryMapping peripherals_memory_mapping = setup();
+	CubeColorConfig cube_color_config = main_menu(peripherals_memory_mapping);
+	run(peripherals_memory_mapping, cube_color_config);
 
+	cleanup();
 	return 0;
 }
