@@ -1,7 +1,8 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
-#include <cstdint>
+#include <optional>
+#include <iostream>
 #include "side.hpp"
 #include "../render/color.hpp"
 
@@ -21,11 +22,13 @@ class Cube {
 		CubeColorConfig color_config;
 		float side_length;
 		float middle[3];
+		std::optional<Side> sides[6];
 
 	public:
-		Cube();
 		Cube(float side_middle[3], float side_length);
+		Vector offset_center(float x, float y, float z) const;
 		void set_color_config(CubeColorConfig);
+		const std::optional<Side>* get_sides() const;
 };
 
 #endif // CUBE_HPP
