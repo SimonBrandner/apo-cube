@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <ostream>
 #include <iostream>
+#include <cmath>
 
 #include "vector.hpp"
 
@@ -18,6 +19,16 @@ Vector::Vector(float data[3]) {
 	for (size_t i = 0; i < 3; ++i) {
 		this->data[i] = data[i];
 	}
+}
+
+const float Vector::distance(const Vector &rhs) const {
+	float sum = 0.0f;
+
+	for (size_t i = 0; i < 3; ++i) {
+		sum += (this->data[i] - rhs.at(i)) * (this->data[i] - rhs.at(i));
+	}
+
+	return sqrt(sum);
 }
 
 const float Vector::at(size_t index) const { return this->data[index]; }

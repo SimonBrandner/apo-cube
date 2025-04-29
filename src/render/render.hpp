@@ -5,11 +5,15 @@
 #include "../geometry/cube.hpp"
 #include "../math/vector.hpp"
 #include "../periphs_virtual/input.hpp"
+#include "screen.hpp"
 #include <array>
 #include <optional>
 
 Vector transform_vector(Camera camera, Vector point);
 Vector convert_to_2d(Vector point);
 std::array<std::optional<std::array<Vector, 4>>, 6> render_cube_points(Cube cube, Camera camera);
-
+void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
+								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void sort_projected_corners(std::array<std::optional<std::array<Vector, 4>>, 6> *projected_corners, Camera camera);
 #endif //RENDER_HPP

@@ -6,7 +6,11 @@
 #include "../geometry/cube.hpp"
 
 #include "../math/vector.hpp"
+#include "../periphs_virtual/output.hpp"
 #include "render.hpp"
+#include "screen.hpp"
+
+#include <math.h>
 
 int main(int argc, char *argv[]) {
 	CubeColorConfig cube_color_config = CubeColorConfig();
@@ -17,22 +21,52 @@ int main(int argc, char *argv[]) {
 	cube_color_config.left = Color(255, 0, 255);
 	cube_color_config.right = Color(0, 255, 255);
 
-	float side[3] = {0, 0, 0};
-	Cube cube = Cube(side, 10);
+	float side_array[3] = {0, 0, 10};
+	Cube cube = Cube(side_array, 10);
 	cube.set_color_config(cube_color_config);
 	Camera camera = Camera();
 
-	std::array<std::optional<std::array<Vector, 4>>, 6> projected_corners = render_cube_points(cube, camera);
+	std::array<std::optional<std::array<Vector, 4>>, 6> projected_vertices = render_cube_points(cube, camera);
 
-	for (int i = 0; i < 6; ++i) {
-		if (projected_corners[i].has_value()) {
-			std::cout << "Projected Corners for Side " << i << ":\n";
-			for (const auto& corner : projected_corners[i].value()) {
-				std::cout << corner << "\n";
-			}
-			std::cout << "\n";
+	Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH];
+	// initialize pixels to black
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			pixels[y][x] = Color(255, 255, 255);
 		}
 	}
+
+	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH] = {-MAXFLOAT};
+
+	for (int i = 0; i < 6; ++i) {
+		if (projected_vertices[i].has_value()) {
+			for (int j = 0; j < 4; ++j) {
+				int x = (int)projected_vertices[i].value()[j].get_x();
+				int y = (int)projected_vertices[i].value()[j].get_y();
+				std::cout << "Pixel set at (" << x << ", " << y << ") \n";
+				pixels[y][x] = cube.get_sides()[i].value().get_color();
+			}
+		}
+	}
+
+	for (int i = 0; i < 6; ++i) {
+		if (projected_vertices[i].has_value()) {
+			Side side = cube.get_sides()[i].value();
+			std::cout << "Sorted Projected Corners for Side " << i << ":\n";
+			std::cout << "Distance: " << side.get_center_point().distance(camera.get_position()) << "\n";
+			calculate_pixels_bresenham(
+				projected_vertices[i].value(), // projected corners
+				side.get_color(), // color
+				pixels, // pixels
+				z_buffer // z_buffer
+			);
+		}
+	}
+
+
+
+	OutputPeripherals outputs = OutputPeripherals();
+	outputs.set_screen(pixels);
 
 	return 0;
 }

@@ -17,13 +17,9 @@ std::array<std::optional<std::array<Vector, 4>>, 6> render_cube_points(Cube cube
 			std::array<Vector, 4> corners = sides[i]->get_corners();
 			std::array<Vector, 4> projected_corners;
 
-			std::cout << "Side " << i << ":\n";
 			for (int j = 0; j < 4; ++j) {
-				std::cout << "  Original: " << corners[j] << "\n";
 				Vector transformed = transform_vector(camera, corners[j]);
-				std::cout << "  Camera Space: " << transformed << "\n";
 				Vector projected = convert_to_2d(transformed);
-				std::cout << "  2D Screen: " << projected << "\n\n";
 				projected_corners[j] = projected;
 			}
 
@@ -33,6 +29,7 @@ std::array<std::optional<std::array<Vector, 4>>, 6> render_cube_points(Cube cube
 
 	return projected_sides;
 }
+
 
 Vector transform_vector(Camera camera, Vector point) {
 	Vector camera_position = camera.get_position();
@@ -77,14 +74,85 @@ Vector convert_to_2d(Vector point) {
 
 	// prerspective projection
 	const float FOV = 90.0f; // fov deg, now const, in the future parameter maybe
-	float near_plane = 0.1f; // Near clipping plane
+	float near_plane = 0.1f;
 
 	float scale = tan_deg(FOV * 0.5f) * near_plane;
 	float x_ndc = (x / z) * scale;
 	float y_ndc = (y / z) * scale;
 
-	Vector rescaled = Vector(x_ndc, y_ndc, 0);
+	Vector rescaled = Vector(x_ndc, y_ndc, z); // z will be used for z-index
 	rescaled = rescale_2d_to_screen(rescaled);
 
 	return rescaled;
 }
+
+void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
+								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+
+	for (size_t i = 0; i < corners.size(); ++i) {
+		Vector start = corners[i];
+		Vector end = corners[(i + 1) % corners.size()];
+
+		int x0 = static_cast<int>(start.get_x());
+		int y0 = static_cast<int>(start.get_y());
+		float z0 = start.get_z();
+
+		int x1 = static_cast<int>(end.get_x());
+		int y1 = static_cast<int>(end.get_y());
+		float z1 = end.get_z();
+
+		int dx = abs(x1 - x0);
+		int dy = abs(y1 - y0);
+		int sx = (x0 < x1) ? 1 : -1;
+		int sy = (y0 < y1) ? 1 : -1;
+		int err = dx - dy;
+
+		int total_steps = std::max(dx, dy);
+		int step_count = 0;
+
+		while (true) {
+			if (x0 >= 0 && x0 < SCREEN_WIDTH && y0 >= 0 && y0 < SCREEN_HEIGHT) {
+				float t = (total_steps == 0) ? 0.0f : (float)step_count / total_steps;
+				float z = z0 + t * (z1 - z0);
+
+				if (z > z_buffer[y0][x0]) {
+					z_buffer[y0][x0] = z;
+					pixels[y0][x0] = color;
+					std::cout << "Pixel set at (" << x0 << ", " << y0 << ") with color: ";
+				}
+			}
+
+			if (x0 == x1 && y0 == y1) break;
+
+			int e2 = 2 * err;
+			if (e2 > -dy) {
+				err -= dy;
+				x0 += sx;
+			}
+			if (e2 < dx) {
+				err += dx;
+				y0 += sy;
+			}
+			++step_count;
+		}
+	}
+}
+
+
+// UNUSED RN, MAYBE USEFUL IN THE FUTURE
+void sort_projected_corners(std::array<std::optional<std::array<Vector, 4>>, 6> *projected_corners, Camera camera) {
+	for (int i = 0; i < 6 - 1; ++i) {
+		for (int j = 0; j < 6 - i - 1; ++j) {
+			if ((*projected_corners)[j].has_value() && (*projected_corners)[j + 1].has_value()) {
+				float dist1 = Side((*projected_corners)[j].value()[0], 0, Color(), 'f').get_center_point().distance(camera.get_position());
+				float dist2 = Side((*projected_corners)[j + 1].value()[0], 0, Color(), 'f').get_center_point().distance(camera.get_position());
+
+				if (dist1 < dist2) {
+					std::swap((*projected_corners)[j], (*projected_corners)[j + 1]);
+				}
+			}
+		}
+	}
+}
+
