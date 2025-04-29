@@ -12,8 +12,8 @@ class Side {
 		Color color;
 
 	public:
-		Side(Vector middle, float side_length);
-		Vector get_middle_vector() const;
+		Side(Vector center, float side_length);
+		Vector get_center_point() const;
 		std::array<Vector, 4> get_corners() const;
 };
 
