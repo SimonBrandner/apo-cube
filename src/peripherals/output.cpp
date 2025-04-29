@@ -108,8 +108,9 @@ OutputPeripherals::OutputPeripherals(
 	parlcd_hx8357_init(
 		(unsigned char *)this->peripheral_memory_mapping.get_lcd_address());
 }
+
 void OutputPeripherals::set_leds(bool leds[32]) {
-	uint32_t new_register_value;
+	uint32_t new_register_value = 0;
 	for (size_t i = 0; i < 32; ++i) {
 		new_register_value |= leds[i];
 		new_register_value <<= 1;
@@ -123,7 +124,6 @@ void OutputPeripherals::set_screen(Screen screen) {
 	uint8_t *base =
 		(unsigned char *)this->peripheral_memory_mapping.get_lcd_address();
 
-	uint32_t data;
 	parlcd_write_cmd(base, 0x2c);
 	for (size_t y = 0; y < SCREEN_HEIGHT; y++) {
 		for (size_t x = 0; x < SCREEN_WIDTH; x++) {
