@@ -1,6 +1,6 @@
 #include "input.hpp"
 #include "output.hpp"
-#include "../geometry/cube.hpp"
+#include "../render/color.hpp"
 
 #include <iostream>
 #include <chrono>

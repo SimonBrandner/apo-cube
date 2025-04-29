@@ -1,7 +1,7 @@
 #ifndef OUTPUT_HPP
 #define OUTPUT_HPP
 
-#include "../geometry/cube.hpp"
+#include "../render/color.hpp"
 #include "./mapping.hpp"
 
 #define SCREEN_WIDTH 480
