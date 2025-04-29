@@ -17,6 +17,7 @@ class Screen {
 		Color data[SCREEN_WIDTH * SCREEN_HEIGHT];
 
 	public:
+		Screen();
 		Color &at(size_t x, size_t y);
 		void draw_rectangle(size_t x, size_t y, size_t width, size_t height,
 							Color color);
