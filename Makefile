@@ -91,7 +91,7 @@ debug: copy-executable $(TARGET_EXE)
 	ddd --debugger gdb-multiarch -x connect.gdb $(TARGET_EXE)
 
 # ===================== Virtual Build (runv) =====================
-runv_SRC = src/render/test_render.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/geometry/cube.cpp src/geometry/side.cpp src/geometry/camera.cpp src/math/vector.cpp src/math/matrix.cpp src/math/utils.cpp src/render/color.cpp src/render/render.cpp
+runv_SRC = src/render/test_render.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/geometry/cube.cpp src/geometry/side.cpp src/geometry/camera.cpp src/math/vector.cpp src/math/matrix.cpp src/math/angles.cpp src/render/color.cpp src/render/render.cpp
 runv_TARGET = apo_cube_virtual
 runv_CXX = g++
 runv_CXXFLAGS = -Wall

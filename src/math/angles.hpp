@@ -3,5 +3,6 @@
 
 float sin_deg(float x);
 float cos_deg(float x);
+float tan_deg(float x);
 
 #endif //UTILS_HPP
