@@ -228,20 +228,3 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 	}
 
 }
-
-// UNUSED RN, MAYBE USEFUL IN THE FUTURE
-void sort_projected_corners(std::array<std::optional<std::array<Vector, 4>>, 6> *projected_corners, Camera camera) {
-	for (int i = 0; i < 6 - 1; ++i) {
-		for (int j = 0; j < 6 - i - 1; ++j) {
-			if ((*projected_corners)[j].has_value() && (*projected_corners)[j + 1].has_value()) {
-				float dist1 = Side((*projected_corners)[j].value()[0], 0, Color(), 'f').get_center_point().distance(camera.get_position());
-				float dist2 = Side((*projected_corners)[j + 1].value()[0], 0, Color(), 'f').get_center_point().distance(camera.get_position());
-
-				if (dist1 < dist2) {
-					std::swap((*projected_corners)[j], (*projected_corners)[j + 1]);
-				}
-			}
-		}
-	}
-}
-

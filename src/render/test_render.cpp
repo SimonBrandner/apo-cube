@@ -57,8 +57,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-
-
 	OutputPeripherals outputs = OutputPeripherals();
 	outputs.set_screen(pixels);
 
