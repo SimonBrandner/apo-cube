@@ -1,28 +1,43 @@
 #include <cstddef>
+#include <iostream>
 #include <string>
 
 #include "../mz_apo/font_types.h"
 #include "./color.hpp"
 #include "./screen.hpp"
 
+size_t get_character_width(font_descriptor_t *font_descriptor, int character) {
+	if ((character < font_descriptor->firstchar) ||
+		(character - font_descriptor->firstchar >= font_descriptor->size)) {
+		std::cerr << "Character not in font!" << std::endl;
+		exit(-1);
+	}
 
-void Screen::draw_character(char character, size_t origin_x, size_t origin_y,
-							Color color, font_descriptor_t *font_descriptor) {
-	for (size_t y = 0; y < font_descriptor->maxwidth; ++y) {
-		for (size_t x = 0; x < font_descriptor->height; ++x) {
+	if (font_descriptor->width) {
+		return font_descriptor->width[character - font_descriptor->firstchar];
+	}
+	return font_descriptor->maxwidth;
+}
+
+size_t Screen::draw_character(char character, size_t origin_x, size_t origin_y,
+							  Color color, font_descriptor_t *font_descriptor) {
+	size_t character_width = get_character_width(font_descriptor, character);
+	for (size_t y = 0; y < font_descriptor->height; ++y) {
+		for (size_t x = 0; x < character_width; ++x) {
 			for (size_t row_index = 0; row_index < font_descriptor->height;
 				 ++row_index) {
 				// TODO: Render text
 			}
 		}
 	}
+	return character_width;
 }
 
 void Screen::draw_text(std::string text, size_t x, size_t y, Color color,
 					   font_descriptor_t *font_descriptor) {
 	for (auto &character : text) {
-		this->draw_character(character, x, y, color, font_descriptor);
-		x += font_descriptor->maxwidth + 4;
+		x += this->draw_character(character, x, y, color, font_descriptor) +
+			 CHARACTER_SPACING;
 	}
 }
 
