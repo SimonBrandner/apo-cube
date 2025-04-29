@@ -7,7 +7,7 @@
 
 class Side {
 	private:
-		Vector middle_vector;
+		Vector center;
 		Vector corners[4];
 		Color color;
 

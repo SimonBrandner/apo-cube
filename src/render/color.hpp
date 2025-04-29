@@ -15,15 +15,4 @@ class Color {
 		uint16_t to_rgb565() const;
 };
 
-struct CubeColorConfig {
-	CubeColorConfig();
-
-	Color front;
-	Color back;
-	Color top;
-	Color bottom;
-	Color left;
-	Color right;
-};
-
 #endif //COLOR_HPP

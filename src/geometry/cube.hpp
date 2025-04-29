@@ -5,6 +5,17 @@
 #include "side.hpp"
 #include "../render/color.hpp"
 
+struct CubeColorConfig {
+	CubeColorConfig();
+
+	Color front;
+	Color back;
+	Color top;
+	Color bottom;
+	Color left;
+	Color right;
+};
+
 class Cube {
 	private:
 		CubeColorConfig color_config;
