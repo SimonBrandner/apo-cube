@@ -19,9 +19,9 @@ class Screen {
 		void draw_rectangle(size_t x, size_t y, size_t width, size_t height,
 							Color color);
 		void draw_character(char character, size_t x, size_t y, Color color,
-							font_descriptor_t font_descriptor);
+							font_descriptor_t *font_descriptor);
 		void draw_text(std::string text, size_t x, size_t y, Color color,
-					   font_descriptor_t font_descriptor);
+					   font_descriptor_t *font_descriptor);
 };
 
 #endif // SCREEN_HPP
