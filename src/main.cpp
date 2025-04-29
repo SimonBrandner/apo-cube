@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <unistd.h>
 
@@ -6,7 +7,10 @@
 #include "./math/matrix.hpp"
 #include "./math/vector.hpp"
 #include "./peripherals/input.hpp"
+#include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
+#include "./render/menu.hpp"
+#include "./render/screen.hpp"
 
 void math_do_smt() {
 	float matrix_a_data[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -33,16 +37,31 @@ CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 	CubeColorConfig cube_color_config = CubeColorConfig();
 	InputPeripherals input_peripherals =
 		InputPeripherals(peripherals_memory_mapping);
+	OutputPeripherals output_peripherals =
+		OutputPeripherals(peripherals_memory_mapping);
 
+	int8_t selected_face = 0;
 	while (true) {
+		// Handle inputs
 		InputDelta input_delta = input_peripherals.get_delta();
 		KnobPressState input_pressed = input_peripherals.get_knob_press_state();
-		cube_color_config.front =
+		cube_color_config.at(selected_face) =
 			Color(input_delta.red, input_delta.green, input_delta.blue);
 
-		if (input_pressed.red || input_pressed.blue || input_pressed.green) {
+		if (input_pressed.blue) {
 			break;
 		}
+		if (input_pressed.red) {
+			selected_face -= 1;
+		}
+		if (input_pressed.green) {
+			selected_face += 1;
+		}
+		selected_face %= 6;
+
+		// Draw menu and update LCD
+		Screen screen = draw_menu(cube_color_config, selected_face);
+		output_peripherals.set_screen(screen);
 	}
 
 	return cube_color_config;
