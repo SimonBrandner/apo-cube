@@ -1,9 +1,12 @@
+#include <cstdint>
 #include <iostream>
 #include <unistd.h>
 
 #include "../mz_apo/mzapo_parlcd.h"
 #include "../mz_apo/mzapo_phys.h"
 #include "../mz_apo/mzapo_regs.h"
+#include "./output.hpp"
+#include "mapping.hpp"
 
 void lcd_do_smt() {
 	std::cout << "LCD test:" << std::endl;
@@ -95,3 +98,19 @@ void led_do_smt() {
 		sleep(1);
 	}
 }
+
+OutputPeripherals::OutputPeripherals(
+	PeripheralMemoryMapping peripheral_memory_mapping) {
+	this->peripheral_memory_mapping = peripheral_memory_mapping;
+}
+void OutputPeripherals::set_leds(bool leds[32]) {
+	uint32_t new_register_value;
+	for (size_t i = 0; i < 32; ++i) {
+		new_register_value |= leds[i];
+		new_register_value <<= 1;
+	}
+
+	*(volatile uint32_t *)(this->peripheral_memory_mapping.get_spi_address() +
+						   SPILED_REG_LED_LINE_o) = new_register_value;
+}
+void OutputPeripherals::set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]) {}
