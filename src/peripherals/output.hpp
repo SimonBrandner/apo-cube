@@ -1,17 +1,20 @@
 #ifndef OUTPUT_HPP
 #define OUTPUT_HPP
 
-#include <cstdint>
-#include "../render/utils.hpp"
+#include "../geometry/cube.hpp"
+#include "./mapping.hpp"
 
 #define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 320
 
 class OutputPeripherals {
-public:
-	OutputPeripherals();
-	bool set_leds(bool leds[32]);
-	bool set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]);
+	private:
+		PeripheralMemoryMapping peripheral_memory_mapping;
+
+	public:
+		OutputPeripherals(PeripheralMemoryMapping peripheral_memory_mapping);
+		void set_leds(bool leds[32]);
+		void set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]);
 };
 
-#endif //OUTPUT_HPP
+#endif // OUTPUT_HPP

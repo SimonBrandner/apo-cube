@@ -1,8 +1,9 @@
 #include <iostream>
 
 #include "../mz_apo/serialize_lock.h"
+#include "./utils.hpp"
 
-void setup() {
+PeripheralMemoryMapping setup() {
 	/* Serialize execution of applications */
 
 	/* Try to acquire lock the first */
@@ -15,6 +16,8 @@ void setup() {
 			serialize_lock(0);
 		}
 	}
+
+	return PeripheralMemoryMapping();
 }
 
 void cleanup() { serialize_unlock(); }
