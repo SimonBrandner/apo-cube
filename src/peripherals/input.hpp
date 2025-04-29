@@ -11,9 +11,9 @@ struct InputDelta {
 };
 
 class InputPeripherals {
-  public:
-	InputPeripherals();
-	InputDelta get_delta();
+	public:
+		InputPeripherals();
+		InputDelta get_delta();
 };
 
 #endif // INPUT_HPP
