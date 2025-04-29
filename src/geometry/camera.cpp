@@ -9,3 +9,11 @@ void Camera::update(InputDelta input_delta) {
 Vector Camera::get_position() {
 	return this->position;
 }
+
+float Camera::get_yaw() {
+	return this->yaw;
+}
+
+float Camera::get_pitch() {
+	return this->pitch;
+}

@@ -14,6 +14,8 @@ class Camera {
 		Camera();
 		void update(InputDelta input_delta);
 		Vector get_position();
+		float get_yaw();
+		float get_pitch();
 };
 
 #endif // CAMERA_HPP

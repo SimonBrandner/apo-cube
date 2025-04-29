@@ -4,6 +4,10 @@
 
 #include "vector.hpp"
 
+Vector::Vector() {
+	data[0] = data[1] = data[2] = 0.0f;
+}
+
 Vector::Vector(float x, float y, float z) {
 	this->data[0] = x;
 	this->data[1] = y;
