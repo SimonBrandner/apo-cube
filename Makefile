@@ -6,8 +6,7 @@ LDFLAGS += -static
 LDLIBS += -lrt -lpthread
 #LDLIBS += -lm
 
-SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp src/peripherals/mapping.cpp
-#SOURCES += src/font_prop14x16.c src/font_rom8x16.c
+SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp src/peripherals/mapping.cpp src/math/utils.cpp src/render/color.cpp src/peripherals/output.cpp src/render/screen.cpp src/peripherals/utils.cpp src/render/menu.cpp src/mz_apo/font_types.h src/mz_apo/font_prop14x16.c
 TARGET_EXE = apo_cube
 
 # ===================== Main Build =====================
