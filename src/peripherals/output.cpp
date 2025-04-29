@@ -1,13 +1,15 @@
 #include <cstdint>
 #include <iostream>
+#include <stdint.h>
 #include <unistd.h>
 
 #include "../mz_apo/mzapo_parlcd.h"
 #include "../mz_apo/mzapo_phys.h"
 #include "../mz_apo/mzapo_regs.h"
+#include "./mapping.hpp"
 #include "./output.hpp"
-#include "mapping.hpp"
 
+// FIXME: Rremove this testing code
 void lcd_do_smt() {
 	std::cout << "LCD test:" << std::endl;
 
@@ -102,6 +104,8 @@ void led_do_smt() {
 OutputPeripherals::OutputPeripherals(
 	PeripheralMemoryMapping peripheral_memory_mapping) {
 	this->peripheral_memory_mapping = peripheral_memory_mapping;
+	parlcd_hx8357_init(
+		(unsigned char *)this->peripheral_memory_mapping.get_lcd_address());
 }
 void OutputPeripherals::set_leds(bool leds[32]) {
 	uint32_t new_register_value;
@@ -113,4 +117,16 @@ void OutputPeripherals::set_leds(bool leds[32]) {
 	*(volatile uint32_t *)(this->peripheral_memory_mapping.get_spi_address() +
 						   SPILED_REG_LED_LINE_o) = new_register_value;
 }
-void OutputPeripherals::set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]) {}
+
+void OutputPeripherals::set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]) {
+	uint8_t *base =
+		(unsigned char *)this->peripheral_memory_mapping.get_lcd_address();
+
+	uint32_t data;
+	parlcd_write_cmd(base, 0x2c);
+	for (size_t y = 0; y < SCREEN_HEIGHT; y++) {
+		for (size_t x = 0; x < SCREEN_WIDTH; x++) {
+			parlcd_write_data(base, screen[y][x].to_rgb565());
+		}
+	}
+}
