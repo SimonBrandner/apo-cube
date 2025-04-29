@@ -1,5 +1,3 @@
-#include "output.hpp"
-
 #include <iostream>
 #include <unistd.h>
 
