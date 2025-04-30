@@ -104,8 +104,6 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
-	color = Color(rand() % 256, rand() % 256, rand() % 256);
-
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH];
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {

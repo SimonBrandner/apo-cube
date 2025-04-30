@@ -22,8 +22,7 @@ int main(int argc, char *argv[]) {
 	cube_color_config.right = Color(0, 255, 255);
 
 	float side_array[3] = {0, 0, -15};
-	Cube cube = Cube(side_array, 10);
-	cube.set_color_config(cube_color_config);
+	Cube cube = Cube(side_array, 10, cube_color_config);
 	Camera camera = Camera();
 
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
