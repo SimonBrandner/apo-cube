@@ -1,19 +1,21 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
-#include <cstdint>
-#include "side.hpp"
+#include <cstddef>
+
 #include "../render/color.hpp"
 
 struct CubeColorConfig {
-	CubeColorConfig();
+	public:
+		CubeColorConfig();
+		Color &at(size_t index);
 
-	Color front;
-	Color back;
-	Color top;
-	Color bottom;
-	Color left;
-	Color right;
+		Color front;
+		Color back;
+		Color top;
+		Color bottom;
+		Color left;
+		Color right;
 };
 
 class Cube {

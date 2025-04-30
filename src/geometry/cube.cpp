@@ -1,5 +1,28 @@
-#include "cube.hpp"
+#include <cstdlib>
+#include <iostream>
 
-CubeColorConfig::CubeColorConfig() {}
+#include "./cube.hpp"
 
- Cube::Cube() : side_length(0), middle{} {}
+CubeColorConfig::CubeColorConfig()
+	: front(Color::Red()), back(Color::Red()), top(Color::Red()),
+	  bottom(Color::Red()), left(Color::Red()), right(Color::Red()) {}
+
+Color &CubeColorConfig::at(size_t index) {
+	switch (index) {
+	case 0:
+		return this->front;
+	case 1:
+		return this->back;
+	case 2:
+		return this->left;
+	case 3:
+		return this->right;
+	case 4:
+		return this->top;
+	case 5:
+		return this->bottom;
+	}
+
+	std::cerr << "Unknown face: " << index << std::endl;
+	exit(-1);
+}
