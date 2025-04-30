@@ -14,7 +14,8 @@ InputDelta InputPeripherals::get_delta() {
 	std::ifstream file(fname_knobs, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file: " << fname_knobs << std::endl;
-		exit(-1); // panic
+		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		return {0, 0, 0}; // just return delta 0
 	}
 
 	// stores the raw bytes of the RGB knobs
@@ -22,7 +23,8 @@ InputDelta InputPeripherals::get_delta() {
 	file.read(buffer, FSIZERGB);
 	if (!file) {
 		std::cerr << "Error reading file: " << fname_knobs << std::endl;
-		exit(-1); // panic, but with more sadness
+		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		return {0, 0, 0}; // just return delta 0
 	}
 
 	// converts the raw bytes to a 32-bit integer
