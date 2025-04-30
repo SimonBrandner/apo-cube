@@ -20,18 +20,18 @@ CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 	int8_t selected_face = 0;
 	while (true) {
 		// Handle inputs
-		InputDelta input_delta = input_peripherals.get_delta();
-		KnobPressState input_pressed = input_peripherals.get_knob_press_state();
-		cube_color_config.at(selected_face) =
-			Color(input_delta.red, input_delta.green, input_delta.blue);
+		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
+		KnobPress press_delta = input_peripherals.get_press_delta();
+		cube_color_config.at(selected_face) = Color(
+			rotation_delta.red, rotation_delta.green, rotation_delta.blue);
 
-		if (input_pressed.green) {
+		if (press_delta.green) {
 			break;
 		}
-		if (input_pressed.red) {
+		if (press_delta.red) {
 			selected_face -= 1;
 		}
-		if (input_pressed.blue) {
+		if (press_delta.blue) {
 			selected_face += 1;
 		}
 		selected_face = mod(selected_face, 6);
@@ -51,14 +51,14 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 	Camera camera = Camera();
 
 	while (true) {
-		KnobPressState input_pressed = input_peripherals.get_knob_press_state();
-		InputDelta input_delta = input_peripherals.get_delta();
+		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
+		KnobPress press_delta = input_peripherals.get_press_delta();
 
-		if (input_pressed.green) {
+		if (press_delta.green) {
 			break;
 		}
 
-		camera.update(input_delta);
+		camera.update(rotation_delta);
 	}
 }
 

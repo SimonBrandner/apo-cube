@@ -12,7 +12,7 @@ class Camera {
 
 	public:
 		Camera();
-		void update(InputDelta input_delta);
+		void update(KnobRotation input_delta);
 		Vector get_position();
 };
 
