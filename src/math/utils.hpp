@@ -1,7 +1,9 @@
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef MATH_UTILS_HPP
+#define MATH_UTILS_HPP
 
 float sin_deg(float x);
 float cos_deg(float x);
 
-#endif //UTILS_HPP
+int mod(int a, int b);
+
+#endif // MATH_UTILS_HPP

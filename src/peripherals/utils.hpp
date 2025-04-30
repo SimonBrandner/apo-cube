@@ -1,9 +1,9 @@
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef PERIPHERAL_UTILS_HPP
+#define PERIPHERAL_UTILS_HPP
 
 #include "../peripherals/mapping.hpp"
 
 PeripheralMemoryMapping setup();
 void cleanup();
 
-#endif // UTILS_HPP
+#endif // PERIPHERAL_UTILS_HPP
