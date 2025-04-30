@@ -5,7 +5,6 @@
 //#include "../peripherals/input.hpp" TODO: SOLVE PERIPHERIALS REAL/VITRUAL ISSUE.
 #include "../periphs_virtual/input.hpp"
 
-
 class Camera {
 	private:
 		Vector position;

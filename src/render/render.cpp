@@ -161,6 +161,13 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 	}
 
 	// now get the top left corner of the corners and the bottom right corner
+	fill_side(corners, color, pixels, z_buffer, is_pixel);
+}
+
+void fill_side(std::array<Vector, 4> corners, Color color,
+								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
+								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	int min_x = SCREEN_WIDTH;
 	int min_y = SCREEN_HEIGHT;
 	int max_x = 0;
@@ -228,5 +235,4 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 			}
 		}
 	}
-
 }

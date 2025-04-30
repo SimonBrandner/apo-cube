@@ -15,4 +15,8 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void fill_side(std::array<Vector, 4> corners, Color color,
+								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
+								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
 #endif //RENDER_HPP

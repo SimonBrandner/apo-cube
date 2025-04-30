@@ -13,17 +13,20 @@
 
 #include <math.h>
 
+// this will keep rendering frames based of the input delta.
+/* TODO: R: GO IN DIRECTION OF CAM, G: PITCH, B: YAW
+ * currently R: L/R, G: U/D, B: F/B */
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();
-	float side_array[3] = {0, 0, -15};
+	float cube_middle_point[3] = {0, 0, -15};
 
 	while (true) {
 		CubeColorConfig cube_color_config = CubeColorConfig();
 		KnobRotation delta = inputs.get_delta();
-		side_array[0] += delta.red;
-		side_array[1] += delta.green;
-		side_array[2] += delta.blue;
+		cube_middle_point[0] += delta.red;
+		cube_middle_point[1] += delta.green;
+		cube_middle_point[2] += delta.blue;
 
 		cube_color_config.back = Color(0, 0, 255);
 		cube_color_config.front = Color(255, 0, 0);
@@ -33,7 +36,7 @@ int main(int argc, char *argv[]) {
 		cube_color_config.right = Color(0, 255, 255);
 
 
-		Cube cube = Cube(side_array, 10, cube_color_config);
+		Cube cube = Cube(cube_middle_point, 10, cube_color_config);
 		Camera camera = Camera();
 
 		std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
