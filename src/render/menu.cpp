@@ -8,7 +8,7 @@
 
 Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_face) {
 	Screen screen = Screen();
-	Color text_color = Color();
+	Color text_color = Color::White();
 
 	screen.draw_text("Welcome to apo-cube!", 10, 10, text_color,
 					 &font_winFreeSystem14x16);

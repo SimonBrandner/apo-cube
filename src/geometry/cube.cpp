@@ -3,7 +3,10 @@
 
 #include "./cube.hpp"
 
-CubeColorConfig::CubeColorConfig() {}
+CubeColorConfig::CubeColorConfig()
+	: front(Color::Red()), back(Color::Red()), top(Color::Red()),
+	  bottom(Color::Red()), left(Color::Red()), right(Color::Red()) {}
+
 Color &CubeColorConfig::at(size_t index) {
 	switch (index) {
 	case 0:

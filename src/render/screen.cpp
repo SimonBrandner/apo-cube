@@ -25,11 +25,7 @@ const font_bits_t *get_character_bits(char character,
 		   font_descriptor->height * (character - font_descriptor->firstchar);
 }
 
-Screen::Screen() {
-	for (size_t i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i) {
-		this->data[i] = Color();
-	}
-}
+Screen::Screen() {}
 
 size_t Screen::draw_character(char character, size_t origin_x, size_t origin_y,
 							  Color color, font_descriptor_t *font_descriptor) {
