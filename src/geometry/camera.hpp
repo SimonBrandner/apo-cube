@@ -2,6 +2,7 @@
 #define CAMERA_HPP
 
 #include "../math/vector.hpp"
+#include "../peripherals/input.hpp"
 
 class Camera {
 	private:
@@ -11,7 +12,7 @@ class Camera {
 
 	public:
 		Camera();
-		//void update(InputDelta input_delta);
+		void update(KnobRotation input_delta);
 		Vector get_position();
 		float get_yaw();
 		float get_pitch();

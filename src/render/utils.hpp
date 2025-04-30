@@ -1,4 +1,4 @@
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef RENDER_UTILS_HPP
+#define RENDER_UTILS_HPP
 
-#endif //UTILS_HPP
+#endif // RENDER_UTILS_HPP

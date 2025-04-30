@@ -4,21 +4,26 @@
 #include <optional>
 #include <iostream>
 #include "side.hpp"
+#include <cstddef>
+
 #include "../render/color.hpp"
 
 struct CubeColorConfig {
-	CubeColorConfig();
+	public:
+		CubeColorConfig();
+		Color &at(size_t index);
 
-	Color front;
-	Color back;
-	Color top;
-	Color bottom;
-	Color left;
-	Color right;
+		Color front;
+		Color back;
+		Color top;
+		Color bottom;
+		Color left;
+		Color right;
 };
 
 class Cube {
 	private:
+		CubeColorConfig color_config;
 		float side_length;
 		float middle[3];
 		std::optional<Side> sides[6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION];

@@ -25,11 +25,7 @@ const font_bits_t *get_character_bits(char character,
 		   font_descriptor->height * (character - font_descriptor->firstchar);
 }
 
-Screen::Screen() {
-	for (size_t i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i) {
-		this->data[i] = Color();
-	}
-}
+Screen::Screen() {}
 
 size_t Screen::draw_character(char character, size_t origin_x, size_t origin_y,
 							  Color color, font_descriptor_t *font_descriptor) {
@@ -57,7 +53,7 @@ void Screen::draw_text(std::string text, size_t x, size_t y, Color color,
 
 void Screen::draw_rectangle(size_t x, size_t y, size_t width, size_t height,
 							Color color) {
-	for (size_t current_y = 0; current_y < width; ++current_y) {
+	for (size_t current_y = 0; current_y < height; ++current_y) {
 		for (size_t current_x = 0; current_x < width; ++current_x) {
 			this->at(current_x + x, current_y + y) = color;
 		}
