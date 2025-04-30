@@ -1,5 +1,5 @@
-#ifndef OUTPUT_HPP
-#define OUTPUT_HPP
+#ifndef OUTPUTV_HPP
+#define OUTPUTV_HPP
 
 #include <string>
 
@@ -20,4 +20,4 @@ class OutputPeripherals {
 
 char connect_bools_into_byte(bool bits[8]);
 
-#endif // OUTPUT_HPP
+#endif // OUTPUTV_HPP

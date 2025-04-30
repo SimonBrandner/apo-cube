@@ -8,7 +8,7 @@
 #include "./color.hpp"
 
 #define SCREEN_WIDTH 480
-#define SCREEN_HEIGHT 360
+#define SCREEN_HEIGHT 320
 
 #define CHARACTER_SPACING 4
 

@@ -5,7 +5,7 @@
 #include "../render/color.hpp"
 #include <array>
 
-#define SIDE_SUBDIVISION 16
+#define SIDE_SUBDIVISION 4
 
 class Side {
 	private:

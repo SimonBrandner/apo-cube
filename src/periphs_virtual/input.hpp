@@ -1,5 +1,5 @@
-#ifndef INPUT_HPP
-#define INPUT_HPP
+#ifndef INPUTV_HPP
+#define INPUTV_HPP
 
 #include <cstdint>
 #include <string>
@@ -35,4 +35,4 @@ class InputPeripherals {
 		KnobPressState get_knob_press_state();
 };
 
-#endif // INPUT_HPP
+#endif // INPUTV_HPP
