@@ -3,58 +3,55 @@
 
 #define FOV 90.0f
 
-Vector rescale_2d_to_screen(Vector point2d) {
-	float x_screen;
-	float y_screen;
+// rescale the 2D coordinates to match the screen size
+Vector rescale_2d_to_screen(const Vector point2d) {
+	float x_screen, y_screen;
 
+	// adjust the coordinates based on the screen aspect ratio
 	if (SCREEN_WIDTH >= SCREEN_HEIGHT) {
-		x_screen = (point2d.get_x() + 1.0f) * 0.5f * SCREEN_HEIGHT + (SCREEN_WIDTH - SCREEN_HEIGHT) * 0.5f;
-		y_screen = (1.0f - point2d.get_y()) * 0.5f * SCREEN_HEIGHT;
+		float scale = 0.5f * SCREEN_HEIGHT;
+		x_screen = (point2d.get_x() + 1.0f) * scale + (SCREEN_WIDTH - SCREEN_HEIGHT) * 0.5f;
+		y_screen = (1.0f - point2d.get_y()) * scale;
 	} else {
-		x_screen = (point2d.get_x() + 1.0f) * 0.5f * SCREEN_WIDTH;
-		y_screen = (1.0f - point2d.get_y()) * 0.5f * SCREEN_WIDTH + (SCREEN_HEIGHT - SCREEN_WIDTH) * 0.5f;
+		float scale = 0.5f * SCREEN_WIDTH;
+		x_screen = (point2d.get_x() + 1.0f) * scale;
+		y_screen = (1.0f - point2d.get_y()) * scale + (SCREEN_HEIGHT - SCREEN_WIDTH) * 0.5f;
 	}
 
 	return Vector(x_screen, y_screen, point2d.get_z());
 }
 
-Vector convert_to_2d(Vector point) {
+// convert 3D point to 2D point using perspective projection
+Vector convert_to_2d(const Vector point) {
 	float x = point.get_x();
 	float y = point.get_y();
 	float z = point.get_z();
 
-	if (z == 0) {
-		z = 0.0001f; // avoid division by zero
+	if (std::abs(z) < 1e-6f) {
+		z = (z >= 0.0f) ? 1e-6f : -1e-6f; // preserving sign, for future opt.
 	}
 
-	// prerspective projection
-
+	// perspective projection
 	float scale = tan_deg(FOV * 0.5f);
-	float x_ndc = (x / z) * scale; // normalized device coordinates
-	float y_ndc = (y / z) * scale;
+	float x_ndc = (x / z) / scale;
+	float y_ndc = (y / z) / scale;
 
-	Vector rescaled = Vector(x_ndc, y_ndc, z); // z will be used for z-buffer
-	rescaled = rescale_2d_to_screen(rescaled);
-
-	return rescaled;
+	// 3rd value could be 0, but is kept as z for z-buffering
+	return rescale_2d_to_screen(Vector(x_ndc, y_ndc, z));
 }
 
-// TODO: prettify this function, format it and separate it into multiple functions
-void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
+// calculates the line pixels of the side
+void calculate_pixels_bresenham(std::array<Vector, 4> vertecies, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
-	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH];
-	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			is_pixel[y][x] = false;
-		}
-	}
+	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
 	// my implementation of Bresenham's line algorithm (used in vba excel)
-	for (size_t i = 0; i < corners.size(); ++i) {
-		Vector start = corners[i];
-		Vector end = corners[(i + 1) % corners.size()];
+	// draw the lines between the corners
+	for (size_t i = 0; i < vertecies.size(); ++i) {
+		Vector start = vertecies[i];
+		Vector end = vertecies[(i + 1) % vertecies.size()];
 
 		int x0 = static_cast<int>(start.get_x());
 		int y0 = static_cast<int>(start.get_y());
@@ -73,6 +70,7 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 		int total_steps = std::max(dx, dy);
 		int step_count = 0;
 
+		// draw the line
 		while (true) {
 			if (x0 >= 0 && x0 < SCREEN_WIDTH && y0 >= 0 && y0 < SCREEN_HEIGHT) {
 				float t = (total_steps == 0) ? 0.0f : (float)step_count / total_steps;
@@ -87,6 +85,7 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 
 			if (x0 == x1 && y0 == y1) break;
 
+			// Bresenham's algorithm
 			int e2 = 2 * err;
 			if (e2 > -dy) {
 				err -= dy;
@@ -100,11 +99,11 @@ void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 		}
 	}
 
-	fill_side(corners, color, pixels, z_buffer, is_pixel);
+	fill_side(vertecies, color, pixels, z_buffer, is_pixel);
 }
 
 // fills the sides with the square by lines
-void fill_side(std::array<Vector, 4> corners, Color color,
+void fill_side(std::array<Vector, 4> vertecies, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
 								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
@@ -113,7 +112,7 @@ void fill_side(std::array<Vector, 4> corners, Color color,
 	int max_x = 0, max_y = 0;
 
 	// find the bounding box of the square, so all the vertices are inside the box
-	for (Vector& corner : corners) {
+	for (Vector& corner : vertecies) {
 		int x = static_cast<int>(corner.get_x());
 		int y = static_cast<int>(corner.get_y());
 		min_x = std::min(min_x, x);
