@@ -5,6 +5,7 @@
 #include "./geometry/camera.hpp"
 #include "./geometry/cube.hpp"
 #include "./math/matrix.hpp"
+#include "./math/utils.hpp"
 #include "./math/vector.hpp"
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
@@ -48,16 +49,16 @@ CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 		cube_color_config.at(selected_face) =
 			Color(input_delta.red, input_delta.green, input_delta.blue);
 
-		if (input_pressed.blue) {
+		if (input_pressed.green) {
 			break;
 		}
 		if (input_pressed.red) {
 			selected_face -= 1;
 		}
-		if (input_pressed.green) {
+		if (input_pressed.blue) {
 			selected_face += 1;
 		}
-		selected_face %= 6;
+		selected_face = mod(selected_face, 6);
 
 		// Draw menu and update LCD
 		Screen screen = draw_menu(cube_color_config, selected_face);
@@ -74,7 +75,13 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 	Camera camera = Camera();
 
 	while (true) {
+		KnobPressState input_pressed = input_peripherals.get_knob_press_state();
 		InputDelta input_delta = input_peripherals.get_delta();
+
+		if (input_pressed.green) {
+			break;
+		}
+
 		camera.update(input_delta);
 	}
 }
