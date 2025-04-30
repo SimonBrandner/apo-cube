@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
 	while (true) {
 		CubeColorConfig cube_color_config = CubeColorConfig();
-		InputDelta delta = inputs.get_delta();
+		KnobRotation delta = inputs.get_delta();
 		side_array[0] += delta.red;
 		side_array[1] += delta.green;
 		side_array[2] += delta.blue;

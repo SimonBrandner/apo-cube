@@ -5,7 +5,7 @@
 #include <string>
 #include <optional>
 
-struct InputDelta {
+struct KnobRotation  {
 	int8_t red;
 	int8_t green;
 	int8_t blue;
@@ -17,7 +17,7 @@ struct InputNow {
 	uint8_t blue;
 };
 
-struct KnobPressState {
+struct KnobPress {
 	bool red;
 	bool green;
 	bool blue;
@@ -31,8 +31,8 @@ class InputPeripherals {
 
 	public:
 		InputPeripherals();
-		InputDelta get_delta();
-		KnobPressState get_knob_press_state();
+		KnobRotation  get_delta();
+		KnobPress get_knob_press_state();
 };
 
 #endif // INPUTV_HPP
