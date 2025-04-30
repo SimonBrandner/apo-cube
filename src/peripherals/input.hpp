@@ -21,6 +21,8 @@ struct KnobPress {
 class InputPeripherals {
 	private:
 		PeripheralMemoryMapping peripheral_memory_mapping;
+		KnobPress press_state;
+		KnobRotation rotation_state;
 
 	public:
 		InputPeripherals(PeripheralMemoryMapping peripheral_memory_mapping);
