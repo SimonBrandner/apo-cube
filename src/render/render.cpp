@@ -8,11 +8,11 @@
 #include "../periphs_virtual/output.hpp"
 #include <iostream>
 
-std::array<std::optional<std::array<Vector, 4>>, 6> render_cube_points(Cube cube, Camera camera) {
+std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera) {
 	const std::optional<Side>* sides = cube.get_sides();
-	std::array<std::optional<std::array<Vector, 4>>, 6> projected_sides;
+	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_sides;
 
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
 		if (sides[i].has_value()) {
 			std::array<Vector, 4> corners = sides[i]->get_corners();
 			std::array<Vector, 4> projected_corners;

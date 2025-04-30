@@ -21,12 +21,12 @@ int main(int argc, char *argv[]) {
 	cube_color_config.left = Color(255, 0, 255);
 	cube_color_config.right = Color(0, 255, 255);
 
-	float side_array[3] = {0, 0, 15};
+	float side_array[3] = {0, 0, -15};
 	Cube cube = Cube(side_array, 10);
 	cube.set_color_config(cube_color_config);
 	Camera camera = Camera();
 
-	std::array<std::optional<std::array<Vector, 4>>, 6> projected_vertices = render_cube_points(cube, camera);
+	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
 
 	Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH];
 	// initialize pixels to black
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
 		if (projected_vertices[i].has_value()) {
 			Side side = cube.get_sides()[i].value();
 			std::cout << "Sorted Projected Corners for Side " << i << " ";

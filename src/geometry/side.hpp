@@ -5,6 +5,8 @@
 #include "../render/color.hpp"
 #include <array>
 
+#define SIDE_SUBDIVISION 16
+
 class Side {
 	private:
 		Vector center;

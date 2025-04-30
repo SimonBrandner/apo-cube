@@ -11,7 +11,7 @@
 
 Vector transform_vector(Camera camera, Vector point);
 Vector convert_to_2d(Vector point);
-std::array<std::optional<std::array<Vector, 4>>, 6> render_cube_points(Cube cube, Camera camera);
+std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera);
 void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
 								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
