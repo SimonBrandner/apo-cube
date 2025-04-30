@@ -15,4 +15,4 @@ class Color {
 		uint16_t to_rgb565() const;
 };
 
-#endif //COLOR_HPP
+#endif // COLOR_HPP
