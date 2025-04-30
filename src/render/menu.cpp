@@ -20,7 +20,6 @@ Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_face) {
 						 &font_winFreeSystem14x16);
 	}
 
-	Color colors[6];
 	for (size_t i = 0; i < 6; ++i) {
 		screen.draw_rectangle(100, 50 + i * 20, 30,
 							  font_winFreeSystem14x16.height, text_color);
