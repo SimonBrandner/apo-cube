@@ -22,9 +22,15 @@ CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 		// Handle inputs
 		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
 		KnobPress press_delta = input_peripherals.get_press_delta();
-		cube_color_config.at(selected_face) = Color(
-			rotation_delta.red, rotation_delta.green, rotation_delta.blue);
 
+		// Update color
+		Color old_color = cube_color_config.at(selected_face);
+		Color new_color = Color(old_color.get_red() + rotation_delta.red,
+								old_color.get_green() + rotation_delta.green,
+								old_color.get_blue() + rotation_delta.blue);
+		cube_color_config.at(selected_face) = new_color;
+
+		// Handle presses
 		if (press_delta.green) {
 			break;
 		}

@@ -16,3 +16,7 @@ uint16_t Color::to_rgb565() const {
 	const uint16_t b = (blue & 0xF8) >> 3;	// 5 bits
 	return r | g | b;
 }
+
+uint8_t Color::get_red() { return this->red; }
+uint8_t Color::get_green() { return this->green; }
+uint8_t Color::get_blue() { return this->blue; }
