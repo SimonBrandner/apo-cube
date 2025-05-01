@@ -34,36 +34,34 @@ Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
 		this->middle[i] = side_middle.at(i);
 	}
 
-	long side_index = 0;
+	struct FaceConfig {
+		float dx, dy, dz;
+		Color color;
+		char id;
+	};
 
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(0, 0, 1),  side_length, color_config.front,  'f', i, j);
-		}
-	}
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(0, 0, -1), side_length, color_config.back,   'b', i, j);
-		}
-	}
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(0, 1, 0),  side_length, color_config.top,    't', i, j);
-		}
-	}
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(0, -1, 0), side_length, color_config.bottom, 'd', i, j);
-		}
-	}
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(1, 0, 0),  side_length, color_config.right,  'r', i, j);
-		}
-	}
-	for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-		for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-			this->sides[++side_index].emplace(offset_center(-1, 0, 0), side_length, color_config.left,   'l', i, j);
+	std::array<FaceConfig, 6> faces = {{
+		{ 0,  0,  1, color_config.front,  'f'},
+		{ 0,  0, -1, color_config.back,   'b'},
+		{ 0,  1,  0, color_config.top,    't'},
+		{ 0, -1,  0, color_config.bottom, 'd'},
+		{ 1,  0,  0, color_config.right,  'r'},
+		{-1,  0,  0, color_config.left,   'l'}
+	}};
+
+	// create the sides of the cube and subdivides them, for clipping purposes
+	long side_index = 0;
+	for (const auto& face : faces) {
+		for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
+			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
+				this->sides[++side_index].emplace(
+					offset_center(face.dx, face.dy, face.dz),
+					side_length,
+					face.color,
+					face.id,
+					i, j
+				);
+			}
 		}
 	}
 }

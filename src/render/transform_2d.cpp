@@ -3,6 +3,17 @@
 
 #define FOV 90.0f
 
+/* LIST OD TODO:
+ * - z-buffering based of the side distance, not the pixel distance
+ * - ignore if any of the vertices are behind the camera
+ * - render only if at least 1 vertex is in the camera view
+ * - fix the rounding issue that is causing the lines to glitch
+ * - fix the filling of the rows edge case when the side is across the whole screen
+ *
+ * - separate the virtual and real peripherals in camera
+ * - sort the render folder into more organized structure
+ */
+
 // rescale the 2D coordinates to match the screen size
 Vector rescale_2d_to_screen(const Vector point2d) {
 	float x_screen, y_screen;
@@ -48,7 +59,7 @@ void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
 	// my implementation of Bresenham's line algorithm (used in vba excel)
-	// draw the lines between the corners
+	// draw the lines between the vertices
 	for (size_t i = 0; i < vertices.size(); ++i) {
 		Vector start = vertices[i];
 		Vector end = vertices[(i + 1) % vertices.size()];
@@ -167,7 +178,6 @@ void fill_side(std::array<Vector, 4> vertices, Color color,
 			if (is_inside && x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT) {
 				// linear interpolation of z
 				float z = z_start + (z_end - z_start) * (float)((fill_index) / std::max(1, span_length));
-
 				++fill_index;
 
 				// check if the pixel is visible

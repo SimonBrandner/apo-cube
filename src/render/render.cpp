@@ -44,26 +44,11 @@ Screen Render::render_cube() {
 		if (projected_vertices[i].has_value()) {
 			Side side = cube.get_sides()[i].value();
 			calculate_pixels_bresenham(
-				projected_vertices[i].value(), // projected corners
+				projected_vertices[i].value(), // projected vertices
 				side.get_color(), // color of the side
 				screen, // Screen -> array of pixels
 				z_buffer // 2d array of pixels z buffer
 			);
-			/*long not_white_pixels = 0;
-			for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-				for (int x = 0; x < SCREEN_WIDTH; ++x) {
-					Color pixel_color = screen.at(x, y);
-					if (pixel_color.get_red() == 255 &&
-						pixel_color.get_green() == 255 &&
-						pixel_color.get_blue() == 255) {
-
-					} else {
-						not_white_pixels++;
-					}
-				}
-			}
-			std::cout << not_white_pixels;*/
-
 		}
 	}
 	return screen;
@@ -76,15 +61,15 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 
 	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
 		if (sides[i].has_value()) {
-			std::array<Vector, 4> corners = sides[i]->get_corners();
-			std::array<Vector, 4> projected_corners;
+			std::array<Vector, 4> vertices = sides[i]->get_vertices();
+			std::array<Vector, 4> projected_vertices;
 
 			for (int j = 0; j < 4; ++j) {
-				Vector transformed = transform_vector(camera, corners[j]);
-				projected_corners[j] = convert_to_2d(transformed);
+				Vector transformed = transform_vector(camera, vertices[j]);
+				projected_vertices[j] = convert_to_2d(transformed);
 			}
 
-			projected_sides[i] = projected_corners;
+			projected_sides[i] = projected_vertices;
 		}
 	}
 
