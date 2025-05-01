@@ -6,7 +6,7 @@
 #include "../math/utils.hpp"
 #include "screen.hpp"
 
-Vector convert_to_2d(Vector point);
+Vector convert_to_2d(Vector point, float fov);
 void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
 								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);

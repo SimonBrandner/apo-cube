@@ -1,8 +1,6 @@
 #include "transform_2d.hpp"
 #include <array>
 
-#define FOV 90.0f
-
 /* LIST OD TODO:
  * - z-buffering based of the side distance, not the pixel distance
  * - ignore if any of the vertices are behind the camera
@@ -33,7 +31,7 @@ Vector rescale_2d_to_screen(const Vector point2d) {
 }
 
 // convert 3D point to 2D point using perspective projection
-Vector convert_to_2d(const Vector point) {
+Vector convert_to_2d(const Vector point, float fov) {
 	float x = point.get_x();
 	float y = point.get_y();
 	float z = point.get_z();
@@ -43,7 +41,7 @@ Vector convert_to_2d(const Vector point) {
 	}
 
 	// perspective projection
-	float scale = tan_deg(FOV * 0.5f);
+	float scale = tan_deg(fov * 0.5f);
 	float x_ndc = (x / z) / scale;
 	float y_ndc = (y / z) / scale;
 

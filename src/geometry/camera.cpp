@@ -1,7 +1,7 @@
 #include "camera.hpp"
 #include "../math/utils.hpp"
 
-Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0) {}
+Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(90) {}
 
 void Camera::update(KnobRotation input_delta) {
 	/* assuming, may change later...
@@ -32,4 +32,8 @@ float Camera::get_yaw() {
 
 float Camera::get_pitch() {
 	return this->pitch;
+}
+
+float Camera::get_fov() {
+	return this->fov;
 }

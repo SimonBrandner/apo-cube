@@ -27,7 +27,7 @@ Screen Render::render_cube() {
 	// initialize pixels to white
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			screen.at(x,y) = Color(255, 255, 255);
+			screen.at(x,y) = cube_color_config.screen_background;
 		}
 	}
 
@@ -66,7 +66,7 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 
 			for (int j = 0; j < 4; ++j) {
 				Vector transformed = transform_vector(camera, vertices[j]);
-				projected_vertices[j] = convert_to_2d(transformed);
+				projected_vertices[j] = convert_to_2d(transformed, camera.get_fov());
 			}
 
 			projected_sides[i] = projected_vertices;

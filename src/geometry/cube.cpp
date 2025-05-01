@@ -21,6 +21,8 @@ Color &CubeColorConfig::at(size_t index) {
 		return this->top;
 	case 5:
 		return this->bottom;
+	case 6:
+		return this->screen_background;
 	}
 
 	std::cerr << "Unknown face: " << index << std::endl;

@@ -10,6 +10,7 @@ class Camera {
 		Vector position;
 		float yaw;
 		float pitch;
+		float fov;
 
 	public:
 		Camera();
@@ -17,6 +18,7 @@ class Camera {
 		Vector get_position();
 		float get_yaw();
 		float get_pitch();
+		float get_fov();
 };
 
 #endif // CAMERA_HPP

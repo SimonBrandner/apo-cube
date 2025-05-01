@@ -19,6 +19,7 @@ struct CubeColorConfig {
 		Color bottom;
 		Color left;
 		Color right;
+		Color screen_background;
 };
 
 class Cube {
