@@ -7,6 +7,7 @@
 #include "transform_2d.hpp"
 
 #include <iostream>
+#include <cmath>
 
 std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera) {
 	const std::optional<Side>* sides = cube.get_sides();
@@ -28,4 +29,37 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 	}
 
 	return projected_sides;
+}
+
+void render_cube(CubeColorConfig cube_color_config, Camera camera, Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+	float cube_middle_point[3] = {0, 0, -15};
+	Cube cube = Cube(cube_middle_point, 10, cube_color_config);
+
+	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
+
+	// initialize pixels to white
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			pixels[y][x] = Color(255, 255, 255);
+		}
+	}
+
+	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+		for (int x = 0; x < SCREEN_WIDTH; ++x) {
+			z_buffer[y][x] = -MAXFLOAT;
+		}
+	}
+
+	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
+		if (projected_vertices[i].has_value()) {
+			Side side = cube.get_sides()[i].value();
+			calculate_pixels_bresenham(
+				projected_vertices[i].value(), // projected corners
+				side.get_color(), // color
+				pixels, // pixels
+				z_buffer // z_buffer
+			);
+		}
+	}
 }
