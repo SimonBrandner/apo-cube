@@ -1,14 +1,14 @@
 #include "render.hpp"
 
+#include <array>
+#include <iostream>
+#include <cmath>
+
 #include "../geometry/camera.hpp"
 #include "../math/matrix.hpp"
 #include "../math/vector.hpp"
 #include "transform_3d.hpp"
 #include "transform_2d.hpp"
-
-#include <array>
-#include <iostream>
-#include <cmath>
 
 #define CUBE_MIDDLE Vector(0, 0, -15)
 #define CUBE_SIDE_LENGTH 10
@@ -24,12 +24,8 @@ Screen Render::render_cube() {
 
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = transform_cube(cube, camera);
 
-	// initialize pixels to white
-	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			screen.at(x,y) = cube_color_config.screen_background;
-		}
-	}
+	// set the background color
+	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cube_color_config.screen_background);
 
 	// initialize z buffer to min, the higher the z value, the closer the pixel is to the camera
 	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
