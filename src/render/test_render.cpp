@@ -22,14 +22,14 @@ int main(int argc, char *argv[]) {
 	InputPeripherals inputs = InputPeripherals();
 	float cube_middle_point[3] = {0, 0, -15};
 	auto last_time = std::chrono::high_resolution_clock::now();
+	Camera camera = Camera();
 	int frame_count = 0;
 
 	while (true) {
 		CubeColorConfig cube_color_config = CubeColorConfig();
 		KnobRotation delta = inputs.get_delta();
-		cube_middle_point[0] += delta.red;
-		cube_middle_point[1] += delta.green;
-		cube_middle_point[2] += delta.blue;
+		camera.update(delta);
+		// print the delta
 
 		cube_color_config.back = Color(0, 0, 255);
 		cube_color_config.front = Color(255, 0, 0);
@@ -39,12 +39,12 @@ int main(int argc, char *argv[]) {
 		cube_color_config.right = Color(0, 255, 255);
 
 		Cube cube = Cube(cube_middle_point, 10, cube_color_config);
-		Camera camera = Camera();
+
 
 		std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
 
+		// initialize pixels to white
 		Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH];
-		// initialize pixels to black
 		for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 			for (int x = 0; x < SCREEN_WIDTH; ++x) {
 				pixels[y][x] = Color(255, 255, 255);
