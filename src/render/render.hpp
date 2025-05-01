@@ -15,7 +15,7 @@ class Render {
 
 	public:
 		Render(Camera& camera, CubeColorConfig cube_color_config);
-		void render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]);
+		Screen render_cube();
 };
 
 std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> transform_cube(Cube cube, Camera camera);

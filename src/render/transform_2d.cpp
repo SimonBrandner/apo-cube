@@ -41,17 +41,17 @@ Vector convert_to_2d(const Vector point) {
 }
 
 // calculates the line pixels of the side
-void calculate_pixels_bresenham(std::array<Vector, 4> vertecies, Color color,
-								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
+								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
 	// my implementation of Bresenham's line algorithm (used in vba excel)
 	// draw the lines between the corners
-	for (size_t i = 0; i < vertecies.size(); ++i) {
-		Vector start = vertecies[i];
-		Vector end = vertecies[(i + 1) % vertecies.size()];
+	for (size_t i = 0; i < vertices.size(); ++i) {
+		Vector start = vertices[i];
+		Vector end = vertices[(i + 1) % vertices.size()];
 
 		int x0 = static_cast<int>(start.get_x());
 		int y0 = static_cast<int>(start.get_y());
@@ -78,7 +78,7 @@ void calculate_pixels_bresenham(std::array<Vector, 4> vertecies, Color color,
 
 				if (z > z_buffer[y0][x0]) {
 					z_buffer[y0][x0] = z;
-					pixels[y0][x0] = color;
+					screen.at(x0,y0) = color;
 					is_pixel[y0][x0] = true;
 				}
 			}
@@ -99,12 +99,12 @@ void calculate_pixels_bresenham(std::array<Vector, 4> vertecies, Color color,
 		}
 	}
 
-	fill_side(vertecies, color, pixels, z_buffer, is_pixel);
+	fill_side(vertices, color, screen, z_buffer, is_pixel);
 }
 
 // fills the sides with the square by lines
-void fill_side(std::array<Vector, 4> vertecies, Color color,
-								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+void fill_side(std::array<Vector, 4> vertices, Color color,
+								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
 								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
@@ -112,7 +112,7 @@ void fill_side(std::array<Vector, 4> vertecies, Color color,
 	int max_x = 0, max_y = 0;
 
 	// find the bounding box of the square, so all the vertices are inside the box
-	for (Vector& corner : vertecies) {
+	for (Vector& corner : vertices) {
 		int x = static_cast<int>(corner.get_x());
 		int y = static_cast<int>(corner.get_y());
 		min_x = std::min(min_x, x);
@@ -173,7 +173,7 @@ void fill_side(std::array<Vector, 4> vertecies, Color color,
 				// check if the pixel is visible
 				if (z > z_buffer[y][x]) {
 					z_buffer[y][x] = z;
-					pixels[y][x] = color;
+					screen.at(x,y) = color;
 				}
 			}
 		}

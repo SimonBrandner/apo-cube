@@ -38,9 +38,8 @@ int main(int argc, char *argv[]) {
 		KnobRotation delta = inputs.get_delta();
 		camera.update(delta);
 
-		Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH];
-		render.render_cube(pixels);
-		outputs.set_screen(pixels);
+		Screen screen = render.render_cube();
+		outputs.set_screen(screen);
 
 		frame_count++;
 		auto current_time = std::chrono::high_resolution_clock::now();

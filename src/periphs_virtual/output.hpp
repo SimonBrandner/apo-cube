@@ -15,7 +15,7 @@ class OutputPeripherals {
 	public:
 		OutputPeripherals();
 		bool set_leds(bool leds[32]);
-		bool set_screen(Color screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
+		bool set_screen(Screen screen);
 };
 
 char connect_bools_into_byte(bool bits[8]);

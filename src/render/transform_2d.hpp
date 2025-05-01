@@ -8,10 +8,9 @@
 
 Vector convert_to_2d(Vector point);
 void calculate_pixels_bresenham(std::array<Vector, 4> corners, Color color,
-								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
-void fill_side(std::array<Vector, 4> corners, Color color,
-								Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH],
+void fill_side(std::array<Vector, 4> corners, Color color, Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
 								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
 

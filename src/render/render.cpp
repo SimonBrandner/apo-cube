@@ -17,7 +17,9 @@ Render::Render(Camera& camera, CubeColorConfig cube_color_config)
 	: camera(camera), cube_color_config(cube_color_config) {}
 
 // renders the entire cube onto the screen
-void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+Screen Render::render_cube() {
+	Screen screen = Screen();
+
 	Cube cube(CUBE_MIDDLE, CUBE_SIDE_LENGTH, cube_color_config);
 
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = transform_cube(cube, camera);
@@ -25,7 +27,7 @@ void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	// initialize pixels to white
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			pixels[y][x] = Color(255, 255, 255);
+			screen.at(x,y) = Color(255, 255, 255);
 		}
 	}
 
@@ -44,11 +46,27 @@ void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 			calculate_pixels_bresenham(
 				projected_vertices[i].value(), // projected corners
 				side.get_color(), // color of the side
-				pixels, // 2d array of pixels
+				screen, // Screen -> array of pixels
 				z_buffer // 2d array of pixels z buffer
 			);
+			/*long not_white_pixels = 0;
+			for (int y = 0; y < SCREEN_HEIGHT; ++y) {
+				for (int x = 0; x < SCREEN_WIDTH; ++x) {
+					Color pixel_color = screen.at(x, y);
+					if (pixel_color.get_red() == 255 &&
+						pixel_color.get_green() == 255 &&
+						pixel_color.get_blue() == 255) {
+
+					} else {
+						not_white_pixels++;
+					}
+				}
+			}
+			std::cout << not_white_pixels;*/
+
 		}
 	}
+	return screen;
 }
 
 // transforms the entire cube into 2D space
