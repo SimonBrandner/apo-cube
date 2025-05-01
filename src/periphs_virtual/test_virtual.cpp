@@ -27,10 +27,10 @@ int main(void) {
 	}*/
 
 	OutputPeripherals outputs = OutputPeripherals();
-	Color screen[SCREEN_WIDTH][SCREEN_HEIGHT];
+	Screen screen = Screen();
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			screen[x][y] = Color(rand() % 256, rand() % 256, rand() % 256);
+			screen.at(x,y) = Color(rand() % 256, rand() % 256, rand() % 256);
 		}
 	}
 	outputs.set_screen(screen);
