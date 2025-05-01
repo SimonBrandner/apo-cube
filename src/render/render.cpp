@@ -13,8 +13,8 @@ Render::Render(Camera& camera, CubeColorConfig cube_color_config)
 	: camera(camera), cube_color_config(cube_color_config) {}
 
 void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-	float cube_middle_point[3] = {0, 0, -15};
-	Cube cube = Cube(cube_middle_point, 10, cube_color_config);
+	Vector cube_middle = Vector(0, 0, -15);
+	Cube cube = Cube(cube_middle, 10, cube_color_config);
 
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
 

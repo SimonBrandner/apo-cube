@@ -27,11 +27,11 @@ Color &CubeColorConfig::at(size_t index) {
 	exit(-1);
 }
 
-Cube::Cube(float side_middle[3], float side_length, CubeColorConfig color_config)
+Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
 	: side_length(side_length)
 {
 	for (int i = 0; i < 3; ++i) {
-		this->middle[i] = side_middle[i];
+		this->middle[i] = side_middle.at(i);
 	}
 
 	long side_index = 0;
