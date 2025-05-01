@@ -25,20 +25,22 @@ int main(int argc, char *argv[]) {
 	Camera camera = Camera();
 	int frame_count = 0;
 
+	CubeColorConfig cube_color_config = CubeColorConfig();
+
+	cube_color_config.back = Color(0, 0, 255);
+	cube_color_config.front = Color(255, 0, 0);
+	cube_color_config.top = Color(0, 255, 0);
+	cube_color_config.bottom = Color(255, 255, 0);
+	cube_color_config.left = Color(255, 0, 255);
+	cube_color_config.right = Color(0, 255, 255);
+	Render render = Render(camera, cube_color_config);
+
 	while (true) {
-		CubeColorConfig cube_color_config = CubeColorConfig();
 		KnobRotation delta = inputs.get_delta();
 		camera.update(delta);
 
-		cube_color_config.back = Color(0, 0, 255);
-		cube_color_config.front = Color(255, 0, 0);
-		cube_color_config.top = Color(0, 255, 0);
-		cube_color_config.bottom = Color(255, 255, 0);
-		cube_color_config.left = Color(255, 0, 255);
-		cube_color_config.right = Color(0, 255, 255);
-
 		Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH];
-		render_cube(cube_color_config, camera, pixels);
+		render.render_cube(pixels);
 		outputs.set_screen(pixels);
 
 		frame_count++;

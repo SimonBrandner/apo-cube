@@ -9,29 +9,10 @@
 #include <iostream>
 #include <cmath>
 
-std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera) {
-	const std::optional<Side>* sides = cube.get_sides();
-	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_sides;
+Render::Render(Camera& camera, CubeColorConfig cube_color_config)
+	: camera(camera), cube_color_config(cube_color_config) {}
 
-	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
-		if (sides[i].has_value()) {
-			std::array<Vector, 4> corners = sides[i]->get_corners();
-			std::array<Vector, 4> projected_corners;
-
-			for (int j = 0; j < 4; ++j) {
-				Vector transformed = transform_vector(camera, corners[j]);
-				Vector projected = convert_to_2d(transformed);
-				projected_corners[j] = projected;
-			}
-
-			projected_sides[i] = projected_corners;
-		}
-	}
-
-	return projected_sides;
-}
-
-void render_cube(CubeColorConfig cube_color_config, Camera camera, Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	float cube_middle_point[3] = {0, 0, -15};
 	Cube cube = Cube(cube_middle_point, 10, cube_color_config);
 
@@ -56,10 +37,32 @@ void render_cube(CubeColorConfig cube_color_config, Camera camera, Color pixels[
 			Side side = cube.get_sides()[i].value();
 			calculate_pixels_bresenham(
 				projected_vertices[i].value(), // projected corners
-				side.get_color(), // color
-				pixels, // pixels
-				z_buffer // z_buffer
+				side.get_color(), // color of the side
+				pixels, // 2d array of pixels
+				z_buffer // 2d array of pixels z buffer
 			);
 		}
 	}
+}
+
+std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera) {
+	const std::optional<Side>* sides = cube.get_sides();
+	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_sides;
+
+	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
+		if (sides[i].has_value()) {
+			std::array<Vector, 4> corners = sides[i]->get_corners();
+			std::array<Vector, 4> projected_corners;
+
+			for (int j = 0; j < 4; ++j) {
+				Vector transformed = transform_vector(camera, corners[j]);
+				Vector projected = convert_to_2d(transformed);
+				projected_corners[j] = projected;
+			}
+
+			projected_sides[i] = projected_corners;
+		}
+	}
+
+	return projected_sides;
 }

@@ -8,7 +8,16 @@
 #include <array>
 #include <optional>
 
+class Render {
+	private:
+		Camera& camera;
+		CubeColorConfig cube_color_config;
+
+	public:
+		Render(Camera& camera, CubeColorConfig cube_color_config);
+		void render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]);
+};
+
 std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera);
-void render_cube(CubeColorConfig cube_color_config, Camera camera, Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 #endif //RENDER_HPP
