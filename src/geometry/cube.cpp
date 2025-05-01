@@ -59,7 +59,7 @@ Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
 
 	// create the sides of the cube and subdivides them, for clipping purposes
 	long side_index = 0;
-	for (const auto& face : faces) {
+	for (const auto &face : faces) {
 		for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
 			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
 				this->sides[++side_index].emplace(
@@ -82,6 +82,4 @@ Vector Cube::offset_center(float x, float y, float z) const {
 	);
 }
 
-const std::optional<Side>* Cube::get_sides() const {
-	return this->sides;
-}
+const std::optional<Side>* Cube::get_sides() const { return sides; }

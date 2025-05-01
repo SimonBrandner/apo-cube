@@ -11,19 +11,25 @@
 
 
 /* LIST OD TODO:
+ * RENDER [MANDATORY]:
  * - z-buffering based of the side distance, not the pixel distance
  * - ignore if any of the vertices are behind the camera
  * - render only if at least 1 vertex is in the camera view
  * - fix the rounding issue that is causing the lines to glitch
  * - fix the filling of the rows edge case when the side is across the whole screen
+ * - calculate one matrix and then apply it to all the vertices, instead of calculating it for each
  *
- * - remove optional from the cube and sides
+ * STRUCTURE:
+ * - fix cpp const issues with classes
+ * - rather use void as return type and pass the pointer as parameter during render [OPTIMIZE]
+ * - use & for const& for input vectors/arrays, to avoid expensive coping of the data [OPTIMIZE]
+ * - remove optional from the cube and sides [OPTIMIZE]
  * - separate the virtual and real peripherals in camera
  * - sort the render folder into more organized structure
  */
 
 // rescale the 2D coordinates to match the screen size
-Vector rescale_2d_to_screen(const Vector point2d) {
+Vector rescale_2d_to_screen(const Vector &point2d) {
 	float x_screen, y_screen;
 
 	// adjust the coordinates based on the screen aspect ratio
@@ -41,7 +47,7 @@ Vector rescale_2d_to_screen(const Vector point2d) {
 }
 
 // convert 3D point to 2D point using perspective projection
-Vector convert_to_2d(const Vector point, float fov) {
+Vector convert_to_2d(const Vector &point, float fov) {
 	float x = point.get_x();
 	float y = point.get_y();
 	float z = point.get_z();
@@ -60,7 +66,7 @@ Vector convert_to_2d(const Vector point, float fov) {
 }
 
 // calculates the line pixels of the side
-void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
+void calculate_pixels_bresenham(const std::array<Vector, 4> &vertices, Color color,
 								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
@@ -92,12 +98,12 @@ void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
 		// draw the line
 		while (true) {
 			if (x0 >= 0 && x0 < SCREEN_WIDTH && y0 >= 0 && y0 < SCREEN_HEIGHT) {
-				float t = (total_steps == 0) ? 0.0f : (float)step_count / total_steps;
+				float t = (total_steps == 0) ? 0.0f : (float)(step_count) / total_steps;
 				float z = z0 + t * (z1 - z0);
 
 				if (z > z_buffer[y0][x0]) {
 					z_buffer[y0][x0] = z;
-					screen.at(x0,y0) = color;
+					screen.at(x0, y0) = color;
 					is_pixel[y0][x0] = true;
 				}
 			}
@@ -122,16 +128,16 @@ void calculate_pixels_bresenham(std::array<Vector, 4> vertices, Color color,
 }
 
 // fills the sides with the square by lines
-void fill_side(std::array<Vector, 4> vertices, Color color,
+void fill_side(const std::array<Vector, 4> &vertices, Color color,
 								Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
-								bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+								const bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
 	int min_x = SCREEN_WIDTH, min_y = SCREEN_HEIGHT;
 	int max_x = 0, max_y = 0;
 
 	// find the bounding box of the square, so all the vertices are inside the box
-	for (Vector& corner : vertices) {
+	for (const Vector& corner : vertices) {
 		int x = static_cast<int>(corner.get_x());
 		int y = static_cast<int>(corner.get_y());
 		min_x = std::min(min_x, x);
@@ -184,14 +190,13 @@ void fill_side(std::array<Vector, 4> vertices, Color color,
 			}
 
 			if (is_inside && x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT) {
-				// linear interpolation of z
+				// linear interpolation of the z value
 				float z = z_start + (z_end - z_start) * (float)((fill_index) / std::max(1, span_length));
 				++fill_index;
 
-				// check if the pixel is visible
 				if (z > z_buffer[y][x]) {
 					z_buffer[y][x] = z;
-					screen.at(x,y) = color;
+					screen.at(x, y) = color;
 				}
 			}
 		}

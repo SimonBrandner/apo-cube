@@ -13,7 +13,7 @@
 #define CUBE_MIDDLE Vector(0, 0, -15)
 #define CUBE_SIDE_LENGTH 10
 
-Render::Render(Camera& camera, CubeColorConfig cube_color_config)
+Render::Render(Camera &camera, CubeColorConfig cube_color_config)
 	: camera(camera), cube_color_config(cube_color_config) {}
 
 // renders the entire cube onto the screen
@@ -21,10 +21,9 @@ Screen Render::render_cube() {
 	Screen screen = Screen();
 
 	Cube cube(CUBE_MIDDLE, CUBE_SIDE_LENGTH, cube_color_config);
-
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = transform_cube(cube, camera);
 
-	// set the background color
+	// set background color
 	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cube_color_config.screen_background);
 
 	// initialize z buffer to min, the higher the z value, the closer the pixel is to the camera
@@ -47,6 +46,7 @@ Screen Render::render_cube() {
 			);
 		}
 	}
+
 	return screen;
 }
 
@@ -57,6 +57,7 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 
 	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
 		if (sides[i].has_value()) {
+			// pass by reference to avoid copying issue
 			std::array<Vector, 4> vertices = sides[i]->get_vertices();
 			std::array<Vector, 4> projected_vertices;
 
@@ -65,6 +66,7 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 				projected_vertices[j] = convert_to_2d(transformed, camera.get_fov());
 			}
 
+			// pass by reference to avoid copying issue
 			projected_sides[i] = projected_vertices;
 		}
 	}

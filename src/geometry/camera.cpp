@@ -26,16 +26,7 @@ void Camera::update(KnobRotation input_delta) {
 	this->position = this->position + forward_vector;
 }
 
-Vector Camera::get_position() { return this->position; }
-
-float Camera::get_yaw() {
-	return this->yaw;
-}
-
-float Camera::get_pitch() {
-	return this->pitch;
-}
-
-float Camera::get_fov() {
-	return this->fov;
-}
+Vector Camera::get_position() { return position; }
+float Camera::get_yaw() { return yaw; }
+float Camera::get_pitch() { return pitch; }
+float Camera::get_fov() { return fov; }

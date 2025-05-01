@@ -45,7 +45,7 @@ KnobRotation InputPeripherals::get_delta() {
 
 	// numbers can overflow, which is good, and we will use it to store the
 	// result in the closest difference of the circle knobs.
-	const InputNow& prev = previous_delta.value();
+	const InputNow &prev = previous_delta.value();
 	int8_t red_delta = (red - prev.red);
 	int8_t green_delta = (green - prev.green);
 	int8_t blue_delta = (blue - prev.blue);
