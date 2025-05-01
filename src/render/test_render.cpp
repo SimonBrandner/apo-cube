@@ -15,24 +15,23 @@
 #include "transform_2d.hpp"
 
 // this will keep rendering frames based of the input delta.
-/* TODO: R: GO IN DIRECTION OF CAM, G: PITCH, B: YAW
- * currently R: L/R, G: U/D, B: F/B */
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();
 
 	auto last_time = std::chrono::high_resolution_clock::now();
-	Camera camera = Camera();
 	int frame_count = 0;
 
-	CubeColorConfig cube_color_config = CubeColorConfig();
+	Camera camera = Camera();
 
+	CubeColorConfig cube_color_config = CubeColorConfig();
 	cube_color_config.back = Color(0, 0, 255);
 	cube_color_config.front = Color(255, 0, 0);
 	cube_color_config.top = Color(0, 255, 0);
 	cube_color_config.bottom = Color(255, 255, 0);
 	cube_color_config.left = Color(255, 0, 255);
 	cube_color_config.right = Color(0, 255, 255);
+
 	Render render = Render(camera, cube_color_config);
 
 	while (true) {

@@ -18,6 +18,6 @@ class Render {
 		void render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]);
 };
 
-std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera);
+std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> transform_cube(Cube cube, Camera camera);
 
 #endif //RENDER_HPP

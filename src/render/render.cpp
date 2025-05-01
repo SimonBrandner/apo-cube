@@ -6,17 +6,21 @@
 #include "transform_3d.hpp"
 #include "transform_2d.hpp"
 
+#include <array>
 #include <iostream>
 #include <cmath>
+
+#define CUBE_MIDDLE Vector(0, 0, -15)
+#define CUBE_SIDE_LENGTH 10
 
 Render::Render(Camera& camera, CubeColorConfig cube_color_config)
 	: camera(camera), cube_color_config(cube_color_config) {}
 
+// renders the entire cube onto the screen
 void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-	Vector cube_middle = Vector(0, 0, -15);
-	Cube cube = Cube(cube_middle, 10, cube_color_config);
+	Cube cube(CUBE_MIDDLE, CUBE_SIDE_LENGTH, cube_color_config);
 
-	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = render_cube_points(cube, camera);
+	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = transform_cube(cube, camera);
 
 	// initialize pixels to white
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
@@ -25,6 +29,7 @@ void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 		}
 	}
 
+	// initialize z buffer to min, the higher the z value, the closer the pixel is to the camera
 	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {
@@ -32,6 +37,7 @@ void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 		}
 	}
 
+	// draws all the sides of the cube to the screen
 	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
 		if (projected_vertices[i].has_value()) {
 			Side side = cube.get_sides()[i].value();
@@ -45,7 +51,8 @@ void Render::render_cube(Color pixels[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	}
 }
 
-std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> render_cube_points(Cube cube, Camera camera) {
+// transforms the entire cube into 2D space
+std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> transform_cube(Cube cube, Camera camera) {
 	const std::optional<Side>* sides = cube.get_sides();
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_sides;
 
@@ -56,8 +63,7 @@ std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUB
 
 			for (int j = 0; j < 4; ++j) {
 				Vector transformed = transform_vector(camera, corners[j]);
-				Vector projected = convert_to_2d(transformed);
-				projected_corners[j] = projected;
+				projected_corners[j] = convert_to_2d(transformed);
 			}
 
 			projected_sides[i] = projected_corners;

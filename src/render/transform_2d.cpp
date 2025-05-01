@@ -28,7 +28,7 @@ Vector convert_to_2d(const Vector point) {
 	float z = point.get_z();
 
 	if (std::abs(z) < 1e-6f) {
-		z = (z >= 0.0f) ? 1e-6f : -1e-6f; // preserving sign, for future opt.
+		z = (z >= 0.0f) ? 1e-6f : -1e-6f; // preserving sign, for future optimization
 	}
 
 	// perspective projection
