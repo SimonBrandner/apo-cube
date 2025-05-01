@@ -1,5 +1,13 @@
 #include "side.hpp"
 
+#include <iostream>
+#include <cmath>
+#include <optional>
+#include <array>
+
+#include "../math/vector.hpp"
+#include "../render/color.hpp"
+
 Side::Side(Vector center, float side_length, Color color, char orientation, int i, int j)
 	: center(center), color(color) {
 	float half = side_length / 2.0f;

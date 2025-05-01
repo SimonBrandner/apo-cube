@@ -1,9 +1,9 @@
+#include "vector.hpp"
+
 #include <cstddef>
 #include <ostream>
 #include <iostream>
 #include <cmath>
-
-#include "vector.hpp"
 
 Vector::Vector() {
 	data[0] = data[1] = data[2] = 0.0f;

@@ -1,5 +1,10 @@
 #include "transform_3d.hpp"
 
+#include "../math/vector.hpp"
+#include "../math/matrix.hpp"
+#include "../math/utils.hpp"
+#include "../geometry/camera.hpp"
+
 Vector transform_vector(Camera camera, Vector point) {
 	Vector camera_position = camera.get_position();
 	Vector point_trans_to_camera = point - camera_position;

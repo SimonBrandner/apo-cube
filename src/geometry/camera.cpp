@@ -1,4 +1,6 @@
 #include "camera.hpp"
+
+#include "../math/vector.hpp"
 #include "../math/utils.hpp"
 
 Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(90) {}
@@ -10,7 +12,7 @@ void Camera::update(KnobRotation input_delta) {
 	 * B: Yaw increase/decrease
 	 */
 
-	// In degrees
+	// in degrees
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
 

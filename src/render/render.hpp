@@ -4,6 +4,7 @@
 #include "../geometry/camera.hpp"
 #include "../geometry/cube.hpp"
 #include "../math/vector.hpp"
+
 #include "screen.hpp"
 #include <array>
 #include <optional>

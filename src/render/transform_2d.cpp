@@ -1,5 +1,14 @@
 #include "transform_2d.hpp"
+
 #include <array>
+#include <cmath>
+
+#include "color.hpp"
+#include "screen.hpp"
+#include "../geometry/cube.hpp"
+#include "../math/vector.hpp"
+#include "../math/utils.hpp"
+
 
 /* LIST OD TODO:
  * - z-buffering based of the side distance, not the pixel distance
@@ -8,6 +17,7 @@
  * - fix the rounding issue that is causing the lines to glitch
  * - fix the filling of the rows edge case when the side is across the whole screen
  *
+ * - remove optional from the cube and sides
  * - separate the virtual and real peripherals in camera
  * - sort the render folder into more organized structure
  */

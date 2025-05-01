@@ -1,9 +1,15 @@
 #include "cube.hpp"
+
 #include <iostream>
 #include <cmath>
+#include <array>
 #include <optional>
 #include <cstdlib>
 #include <iostream>
+
+#include "../render/color.hpp"
+#include "../math/vector.hpp"
+#include "side.hpp"
 
 CubeColorConfig::CubeColorConfig() {}
 
@@ -79,4 +85,3 @@ Vector Cube::offset_center(float x, float y, float z) const {
 const std::optional<Side>* Cube::get_sides() const {
 	return this->sides;
 }
-

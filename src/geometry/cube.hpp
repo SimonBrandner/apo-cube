@@ -1,9 +1,9 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
+#include "side.hpp"
 #include <optional>
 #include <iostream>
-#include "side.hpp"
 #include <cstddef>
 
 #include "../render/color.hpp"

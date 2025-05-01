@@ -1,18 +1,13 @@
 #include <iostream>
-#include <unistd.h>
-#include <cmath>
 #include <chrono>
 
 #include "../geometry/camera.hpp"
-#include "../geometry/side.hpp"
 #include "../geometry/cube.hpp"
 
-#include "../math/vector.hpp"
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"
 #include "render.hpp"
 #include "screen.hpp"
-#include "transform_2d.hpp"
 
 // this will keep rendering frames based of the input delta.
 int main(int argc, char *argv[]) {
