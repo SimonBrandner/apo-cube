@@ -1,4 +1,4 @@
-#include "render.hpp"
+#include "renderer.hpp"
 
 #include <array>
 #include <iostream>
@@ -13,18 +13,18 @@
 #define CUBE_MIDDLE Vector(0, 0, -15)
 #define CUBE_SIDE_LENGTH 10
 
-Render::Render(Camera &camera, CubeColorConfig cube_color_config)
-	: camera(camera), cube_color_config(cube_color_config) {}
+Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config, Color background_color)
+	: camera(camera), cube_color_config(cube_color_config), background_color(background_color) {}
 
-// renders the entire cube onto the screen
-Screen Render::render_cube() {
+// renderers the entire cube onto the screen
+Screen Renderer::renderer_cube() {
 	Screen screen = Screen();
 
 	Cube cube(CUBE_MIDDLE, CUBE_SIDE_LENGTH, cube_color_config);
 	std::array<std::optional<std::array<Vector, 4>>, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> projected_vertices = transform_cube(cube, camera);
 
 	// set background color
-	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cube_color_config.screen_background);
+	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_color);
 
 	// initialize z buffer to min, the higher the z value, the closer the pixel is to the camera
 	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];

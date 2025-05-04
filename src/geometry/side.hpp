@@ -14,8 +14,7 @@ class Side {
 		Color color;
 
 	public:
-		Side(Vector center, float side_length, Color color, char orientation,
-		 int i, int j);
+		Side(Vector center, float edge_length, Color color, char orientation, int i, int j);
 		Vector get_center_point() const;
 		std::array<Vector, 4> get_vertices() const;
 		Color get_color() const { return color; }

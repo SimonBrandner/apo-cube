@@ -27,19 +27,17 @@ Color &CubeColorConfig::at(size_t index) {
 		return this->top;
 	case 5:
 		return this->bottom;
-	case 6:
-		return this->screen_background;
 	}
 
 	std::cerr << "Unknown face: " << index << std::endl;
 	exit(-1);
 }
 
-Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
-	: side_length(side_length)
+Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
+	: edge_length(edge_length)
 {
 	for (int i = 0; i < 3; ++i) {
-		this->middle[i] = side_middle.at(i);
+		this->middle[i] = center_point.at(i);
 	}
 
 	struct FaceConfig {
@@ -64,7 +62,7 @@ Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
 			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
 				this->sides[++side_index].emplace(
 					offset_center(face.dx, face.dy, face.dz),
-					side_length,
+					edge_length,
 					face.color,
 					face.id,
 					i, j
@@ -76,9 +74,9 @@ Cube::Cube(Vector side_middle, float side_length, CubeColorConfig color_config)
 
 Vector Cube::offset_center(float x, float y, float z) const {
 	return Vector(
-		middle[0] + x * side_length / 2,
-		middle[1] + y * side_length / 2,
-		middle[2] + z * side_length / 2
+		middle[0] + x * edge_length / 2,
+		middle[1] + y * edge_length / 2,
+		middle[2] + z * edge_length / 2
 	);
 }
 

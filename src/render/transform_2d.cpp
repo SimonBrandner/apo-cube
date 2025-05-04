@@ -10,22 +10,22 @@
 #include "../math/utils.hpp"
 
 
-/* LIST OD TODO:
+/* LIST OD TODOs:
  * RENDER [MANDATORY]:
- * - z-buffering based of the side distance, not the pixel distance
- * - ignore if any of the vertices are behind the camera
- * - render only if at least 1 vertex is in the camera view
- * - fix the rounding issue that is causing the lines to glitch
- * - fix the filling of the rows edge case when the side is across the whole screen
- * - calculate one matrix and then apply it to all the vertices, instead of calculating it for each
+ * - TODO z-buffering based of the side distance, not the pixel distance
+ * - TODO ignore if any of the vertices are behind the camera
+ * - TODO renderer only if at least 1 vertex is in the camera view
+ * - FIXME fix the rounding issue that is causing the lines to glitch
+ * - FIXME fix the filling of the rows edge case when the side is across the whole screen
+ * - TODO calculate one matrix and then apply it to all the vertices, instead of calculating it for each
  *
  * STRUCTURE:
- * - fix cpp const issues with classes
- * - rather use void as return type and pass the pointer as parameter during render [OPTIMIZE]
- * - use & for const& for input vectors/arrays, to avoid expensive coping of the data [OPTIMIZE]
- * - remove optional from the cube and sides [OPTIMIZE]
- * - separate the virtual and real peripherals in camera
- * - sort the render folder into more organized structure
+ * - FIXME fix cpp const issues with classes
+ * - TODO rather use void as return type and pass the pointer as parameter during renderer [OPTIMIZE]
+ * - FIXME use & for const& for input vectors/arrays, to avoid expensive coping of the data [OPTIMIZE]
+ * - FIXME remove optional from the cube and sides [OPTIMIZE]
+ * - TODO separate the virtual and real peripherals in camera
+ * - TODO sort the renderer folder into more organized structure
  */
 
 // rescale the 2D coordinates to match the screen size

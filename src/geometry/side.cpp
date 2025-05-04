@@ -8,10 +8,10 @@
 #include "../math/vector.hpp"
 #include "../render/color.hpp"
 
-Side::Side(Vector center, float side_length, Color color, char orientation, int i, int j)
+Side::Side(Vector center, float edge_length, Color color, char orientation, int i, int j)
 	: center(center), color(color) {
-	float half = side_length / 2.0f;
-	float subside_len = side_length / SIDE_SUBDIVISION;
+	float half = edge_length / 2.0f;
+	float subside_len = edge_length / SIDE_SUBDIVISION;
 
 	Vector base, offset1, offset2;
 	Vector ij00(i, j, 0), ij01(i, j + 1, 0);

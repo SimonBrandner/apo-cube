@@ -6,10 +6,10 @@
 
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"
-#include "render.hpp"
+#include "renderer.hpp"
 #include "screen.hpp"
 
-// this will keep rendering frames based of the input delta.
+// this will keep renderering frames based of the input delta.
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();
@@ -27,13 +27,15 @@ int main(int argc, char *argv[]) {
 	cube_color_config.left = Color(255, 0, 255);
 	cube_color_config.right = Color(0, 255, 255);
 
-	Render render = Render(camera, cube_color_config);
+	Color background_color = Color(0, 0, 0);
+
+	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
 	while (true) {
 		KnobRotation delta = inputs.get_delta();
 		camera.update(delta);
 
-		Screen screen = render.render_cube();
+		Screen screen = renderer.renderer_cube();
 		outputs.set_screen(screen);
 
 		frame_count++;

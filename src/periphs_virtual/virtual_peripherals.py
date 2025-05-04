@@ -12,7 +12,7 @@ WIDTH, HEIGHT = 480, 320
 KNOB_CHANGE = 5
 FPS = 60
 
-MEM_DIR = "memory"
+MEM_DIR = r"C:\Users\profipoint\CLionProjects\apo-cube\src\periphs_virtual\memory"
 SCREEN_OUT = os.path.join(MEM_DIR, "screen.out")
 LEDS_OUT = os.path.join(MEM_DIR, "leds.out")
 KNOBS_IN = os.path.join(MEM_DIR, "knobs.in")
@@ -119,7 +119,7 @@ class VirtualPeripherals:
             pygame.draw.rect(self.screen, (0, 0, 0), (label_x, label_y, 140, 20))
 
             # draw current text
-            text = self.font.render(f"{['R','G','B'][i]}: {val:3d} (0x{val:02X})", True, (255, 255, 255))
+            text = self.font.renderer(f"{['R','G','B'][i]}: {val:3d} (0x{val:02X})", True, (255, 255, 255))
             self.screen.blit(text, (label_x, label_y))
 
 

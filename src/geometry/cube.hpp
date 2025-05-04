@@ -21,20 +21,19 @@ struct CubeColorConfig {
 		Color bottom;
 		Color left;
 		Color right;
-		Color screen_background;
 };
 
 class Cube {
 	private:
 		CubeColorConfig color_config;
-		float side_length;
+		float edge_length;
 		float middle[3];
 		std::optional<Side> sides[6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION];
 
 	public:
-		Cube(Vector side_middle, float side_length, CubeColorConfig color_config);
+		Cube(Vector center_point, float edge_length, CubeColorConfig color_config);
 		Vector offset_center(float x, float y, float z) const;
-		const std::optional<Side>* get_sides() const;
+		const std::optional<Side>* get_sides() const; // FIXME: Remove optional
 };
 
 #endif // CUBE_HPP

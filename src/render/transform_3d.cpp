@@ -6,7 +6,7 @@
 #include "../geometry/camera.hpp"
 
 Vector transform_vector(Camera camera, Vector point) {
-	Vector local_point = point - camera.get_position();;
+	Vector local_point = point - camera.get_position();
 
 	float yaw = camera.get_yaw();
 	float pitch = camera.get_pitch();
