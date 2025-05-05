@@ -9,3 +9,4 @@ change_me
 connect.gdb
 apo_cube
 compilation.txt
+/src/periphs_virtual/virtual_peripherals.py
