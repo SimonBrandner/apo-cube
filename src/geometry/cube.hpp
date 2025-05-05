@@ -1,9 +1,14 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
+#include <iostream>
 #include <cstddef>
 
+#include "face.hpp"
+
 #include "../render/color.hpp"
+
+#define NUMBER_OF_FACES (6 * FACE_SUBDIVISION * FACE_SUBDIVISION)
 
 struct CubeColorConfig {
 	public:
@@ -21,13 +26,14 @@ struct CubeColorConfig {
 class Cube {
 	private:
 		CubeColorConfig color_config;
-		float side_length;
+		float edge_length;
 		float middle[3];
+		std::array<Face, NUMBER_OF_FACES> faces;
 
 	public:
-		Cube();
-		Cube(float side_middle[3], float side_length);
-		void set_color_config(CubeColorConfig);
+		Cube(Vector center_point, float edge_length, CubeColorConfig color_config);
+		Vector offset_center(float x, float y, float z) const;
+		std::array<Face, NUMBER_OF_FACES>& get_faces();
 };
 
 #endif // CUBE_HPP

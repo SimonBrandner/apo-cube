@@ -1,11 +1,17 @@
+#include "cube.hpp"
+
+#include <iostream>
+#include <cmath>
+#include <array>
+#include <optional>
 #include <cstdlib>
 #include <iostream>
 
-#include "./cube.hpp"
+#include "../render/color.hpp"
+#include "../math/vector.hpp"
+#include "face.hpp"
 
-CubeColorConfig::CubeColorConfig()
-	: front(Color::Red()), back(Color::Red()), top(Color::Red()),
-	  bottom(Color::Red()), left(Color::Red()), right(Color::Red()) {}
+CubeColorConfig::CubeColorConfig() {}
 
 Color &CubeColorConfig::at(size_t index) {
 	switch (index) {
@@ -25,4 +31,54 @@ Color &CubeColorConfig::at(size_t index) {
 
 	std::cerr << "Unknown face: " << index << std::endl;
 	exit(-1);
+}
+
+Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
+	: edge_length(edge_length) {
+	for (int i = 0; i < 3; ++i) {
+		this->middle[i] = center_point.at(i);
+	}
+
+	struct FaceConfig {
+		float dx, dy, dz;
+		Color color;
+		char id;
+	};
+
+	std::array<FaceConfig, 6> faces = {{
+		{ 0,  0,  1, color_config.front,  'f'},
+		{ 0,  0, -1, color_config.back,   'b'},
+		{ 0,  1,  0, color_config.top,    't'},
+		{ 0, -1,  0, color_config.bottom, 'd'},
+		{ 1,  0,  0, color_config.right,  'r'},
+		{-1,  0,  0, color_config.left,   'l'}
+	}};
+
+	// create the faces of the cube and subdivides them, for clipping purposes
+	long face_index = 0;
+	for (const auto &face : faces) {
+		for (int i = 0; i < FACE_SUBDIVISION; ++i) {
+			for (int j = 0; j < FACE_SUBDIVISION; ++j) {
+				this->faces[face_index++] = Face(
+					offset_center(face.dx, face.dy, face.dz),
+					edge_length,
+					face.color,
+					face.id,
+					i, j
+				);
+			}
+		}
+	}
+}
+
+Vector Cube::offset_center(float x, float y, float z) const {
+	return Vector(
+		middle[0] + x * edge_length / 2,
+		middle[1] + y * edge_length / 2,
+		middle[2] + z * edge_length / 2
+	);
+}
+
+std::array<Face, NUMBER_OF_FACES>& Cube::get_faces() {
+	return this->faces;
 }

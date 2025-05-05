@@ -9,12 +9,15 @@ class Vector {
 		float data[3];
 
 	public:
+		Vector();
 		Vector(float x, float y, float z);
 		Vector(float data[3]);
 
 		const Vector operator+(const Vector &rhs) const;
 		const Vector operator-(const Vector &rhs) const;
 		const Vector operator*(const Vector &rhs) const;
+
+		const float distance(const Vector &rhs) const;
 
 		const float at(size_t index) const;
 		const float get_x() const;

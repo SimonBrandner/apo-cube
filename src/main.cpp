@@ -7,8 +7,8 @@
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
-#include "./render/menu.hpp"
-#include "./render/screen.hpp"
+#include "./renderer/menu.hpp"
+#include "./renderer/screen.hpp"
 
 CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 	CubeColorConfig cube_color_config = CubeColorConfig();

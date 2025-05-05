@@ -27,7 +27,7 @@ bool OutputPeripherals::set_leds(bool leds[FSIZELEDS*BYTE]) {
 }
 
 // Sets the screen file to the 2D array of RGB565 values
-bool OutputPeripherals::set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]) {
+bool OutputPeripherals::set_screen(Screen screen) {
 	std::ofstream file(fname_screen, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file " << fname_screen << std::endl;
@@ -36,7 +36,7 @@ bool OutputPeripherals::set_screen(Color screen[SCREEN_WIDTH][SCREEN_HEIGHT]) {
 
 	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
 		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			uint16_t rgb565 = screen[x][y].to_rgb565(); // convert from RGB888 to RGB565
+			uint16_t rgb565 = screen.at(x,y).to_rgb565(); // convert from RGB888 to RGB565
 			file.write((const char*)&rgb565, sizeof(uint16_t)); // write 2 bytes (RGB565)
 		}
 	}

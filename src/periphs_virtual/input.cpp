@@ -10,11 +10,12 @@
 InputPeripherals::InputPeripherals() {}
 
 // Returns the difference between the current and previous state of the RGB knobs
-InputDelta InputPeripherals::get_delta() {
+KnobRotation InputPeripherals::get_delta() {
 	std::ifstream file(fname_knobs, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file: " << fname_knobs << std::endl;
-		exit(-1); // panic
+		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		return {0, 0, 0}; // just return delta 0
 	}
 
 	// stores the raw bytes of the RGB knobs
@@ -22,7 +23,8 @@ InputDelta InputPeripherals::get_delta() {
 	file.read(buffer, FSIZERGB);
 	if (!file) {
 		std::cerr << "Error reading file: " << fname_knobs << std::endl;
-		exit(-1); // panic, but with more sadness
+		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		return {0, 0, 0}; // just return delta 0
 	}
 
 	// converts the raw bytes to a 32-bit integer
@@ -43,7 +45,7 @@ InputDelta InputPeripherals::get_delta() {
 
 	// numbers can overflow, which is good, and we will use it to store the
 	// result in the closest difference of the circle knobs.
-	const InputNow& prev = previous_delta.value();
+	const InputNow &prev = previous_delta.value();
 	int8_t red_delta = (red - prev.red);
 	int8_t green_delta = (green - prev.green);
 	int8_t blue_delta = (blue - prev.blue);
@@ -53,7 +55,7 @@ InputDelta InputPeripherals::get_delta() {
 }
 
 // Returns the current state of the RGB knobs
-KnobPressState InputPeripherals::get_knob_press_state() {
+KnobPress InputPeripherals::get_knob_press_state() {
 	std::ifstream file(fname_knob_presses, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file: " << fname_knob_presses << std::endl;
