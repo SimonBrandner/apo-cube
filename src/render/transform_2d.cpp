@@ -10,14 +10,9 @@
 
 /* LIST OD TODOs:
  * RENDER [MANDATORY]:
- * - TODO z-buffering based of the face distance, not the pixel distance
- * - TODO ignore if any of the vertices are behind the camera
  * - TODO renderer only if at least 1 vertex is in the camera view
  * - FIXME fix the rounding issue that is causing the lines to glitch
- * - FIXME fix the filling of the rows edge case when the face is across the
- * whole screen
- * - TODO only show 3 faces at once if outside, then backtrace the given
- * subfaces
+ * - TODO only show 3 faces at once if outside and backtrace the given subfaces
  *
  * STRUCTURE:
  * - TODO separate the virtual and real peripherals in camera
