@@ -79,3 +79,17 @@ const Vector Vector::operator*(const Vector &rhs) const {
 
 	return Vector(data);
 }
+
+const Vector Vector::operator/(float scalar) const {
+	if (scalar == 0.0f) {
+		std::cerr << "Division by zero!" << std::endl;
+		exit(-1);
+	}
+
+	float data[3] = {0};
+	for (size_t i = 0; i < 3; ++i) {
+		data[i] = this->data[i] / scalar;
+	}
+
+	return Vector(data);
+}

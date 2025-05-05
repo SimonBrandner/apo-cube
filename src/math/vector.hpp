@@ -16,6 +16,7 @@ class Vector {
 		const Vector operator+(const Vector &rhs) const;
 		const Vector operator-(const Vector &rhs) const;
 		const Vector operator*(const Vector &rhs) const;
+		const Vector operator/(float scalar) const;
 
 		const float distance(const Vector &rhs) const;
 

@@ -18,7 +18,7 @@ class Face {
 		Face();
 		Face(Vector center, float edge_length, Color color, char orientation,
 			 int i, int j);
-		Vector get_center_point() const;
+		Vector &get_center_point();
 		std::array<Vector, 4> &get_vertices();
 		Color get_color() const { return color; }
 		void set_distance_from_camera(float distance);

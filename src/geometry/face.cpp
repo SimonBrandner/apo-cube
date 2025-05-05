@@ -61,6 +61,9 @@ Face::Face(Vector center, float edge_length, Color color, char orientation,
 	vertices[1] = base + offset1 * ij01 + offset2 * ij01;
 	vertices[2] = base + offset1 * ij11 + offset2 * ij11;
 	vertices[3] = base + offset1 * ij10 + offset2 * ij10;
+
+	Vector new_center = (vertices[0] + vertices[3]) / 2.0f;
+	this->center = new_center;
 }
 
 void Face::set_distance_from_camera(float distance) {
@@ -71,7 +74,7 @@ float Face::get_distance_from_camera() const {
 	return this->distance_from_camera;
 }
 
-Vector Face::get_center_point() const {
+Vector &Face::get_center_point() {
 	return this->center;
 }
 
