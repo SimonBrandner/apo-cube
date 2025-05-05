@@ -9,7 +9,7 @@
 #include "./transform_3d.hpp"
 
 #define CUBE_MIDDLE Vector(0, 0, -15)
-#define CUBE_FACE_LENGTH 10
+#define CUBE_EDGE_LENGTH 10
 
 Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 				   Color background_color)
@@ -20,7 +20,7 @@ Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 Screen Renderer::renderer_cube() {
 	Screen screen = Screen();
 
-	Cube cube(CUBE_MIDDLE, CUBE_FACE_LENGTH, cube_color_config);
+	Cube cube(CUBE_MIDDLE, CUBE_EDGE_LENGTH, cube_color_config);
 	transform_cube(cube, camera);
 
 	// set background color
