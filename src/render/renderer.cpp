@@ -49,10 +49,16 @@ Screen Renderer::renderer_cube() {
 
 // transforms the entire cube into 2D space
 void transform_cube(Cube &cube, Camera camera) {
+	std::array<Face, (6 * 4 * 4)>& faces = cube.get_faces();
+
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
-		// pass by reference to avoid copying issue
-		std::array<Vector, 4> &vertices = cube.get_faces()[i].get_vertices();
+		Face &face = faces[i];
+
+		std::array<Vector, 4> &vertices = face.get_vertices();
 		Matrix rotation_matrix = get_transformation_matrix(camera);
+
+		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
+		face.set_distance_from_camera(camera.get_position().distance(face.get_center_point()));
 
 		for (int j = 0; j < 4; ++j) {
 			transform_vector_3d(rotation_matrix, camera, vertices[j]);
