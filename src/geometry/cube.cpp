@@ -34,8 +34,7 @@ Color &CubeColorConfig::at(size_t index) {
 }
 
 Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
-	: edge_length(edge_length)
-{
+	: edge_length(edge_length) {
 	for (int i = 0; i < 3; ++i) {
 		this->middle[i] = center_point.at(i);
 	}
@@ -60,7 +59,7 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	for (const auto &face : faces) {
 		for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
 			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-				this->sides[++side_index].emplace(
+				this->sides[++side_index] = Side(
 					offset_center(face.dx, face.dy, face.dz),
 					edge_length,
 					face.color,
@@ -80,4 +79,6 @@ Vector Cube::offset_center(float x, float y, float z) const {
 	);
 }
 
-const std::optional<Side>* Cube::get_sides() const { return sides; }
+std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION>& Cube::get_sides() {
+	return this->sides;
+}

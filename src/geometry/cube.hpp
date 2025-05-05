@@ -28,12 +28,12 @@ class Cube {
 		CubeColorConfig color_config;
 		float edge_length;
 		float middle[3];
-		std::optional<Side> sides[6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION];
+		std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> sides;
 
 	public:
 		Cube(Vector center_point, float edge_length, CubeColorConfig color_config);
 		Vector offset_center(float x, float y, float z) const;
-		const std::optional<Side>* get_sides() const; // FIXME: Remove optional
+		std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION>& get_sides();
 };
 
 #endif // CUBE_HPP

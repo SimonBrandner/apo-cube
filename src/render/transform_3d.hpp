@@ -4,6 +4,6 @@
 #include "../geometry/camera.hpp"
 #include "../math/vector.hpp"
 
-Vector transform_vector(Camera camera, Vector point);
+void transform_vector(Camera camera, Vector &point);
 
-#endif //TRANSFORM_3D_HPP
+#endif // TRANSFORM_3D_HPP
