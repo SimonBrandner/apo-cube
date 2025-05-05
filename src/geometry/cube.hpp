@@ -1,14 +1,14 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
-#include <optional>
 #include <iostream>
 #include <cstddef>
 
 #include "side.hpp"
 
-
 #include "../render/color.hpp"
+
+#define NUMBER_OF_SIDES (6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION)
 
 struct CubeColorConfig {
 	public:
@@ -28,12 +28,12 @@ class Cube {
 		CubeColorConfig color_config;
 		float edge_length;
 		float middle[3];
-		std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION> sides;
+		std::array<Side, NUMBER_OF_SIDES> sides;
 
 	public:
 		Cube(Vector center_point, float edge_length, CubeColorConfig color_config);
 		Vector offset_center(float x, float y, float z) const;
-		std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION>& get_sides();
+		std::array<Side, NUMBER_OF_SIDES>& get_sides();
 };
 
 #endif // CUBE_HPP

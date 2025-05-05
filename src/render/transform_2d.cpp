@@ -31,7 +31,7 @@
  */
 
 // rescale the 2D coordinates to match the screen size
-Vector rescale_2d_to_screen(const Vector &point2d) {
+void rescale_2d_to_screen(Vector &point2d) {
 	float x_screen, y_screen;
 
 	// adjust the coordinates based on the screen aspect ratio
@@ -46,8 +46,7 @@ Vector rescale_2d_to_screen(const Vector &point2d) {
 		y_screen = (1.0f - point2d.get_y()) * scale +
 				   (SCREEN_HEIGHT - SCREEN_WIDTH) * 0.5f;
 	}
-
-	return Vector(x_screen, y_screen, point2d.get_z());
+	point2d = Vector(x_screen, y_screen, point2d.get_z());
 }
 
 // convert 3D point to 2D point using perspective projection
@@ -67,7 +66,9 @@ void convert_to_2d(Vector &point, float fov) {
 	float y_ndc = (y / z) / scale;
 
 	// 3rd value could be 0, but is kept as z for z-buffering
-	point = rescale_2d_to_screen(Vector(x_ndc, y_ndc, z));
+	Vector projected(x_ndc, y_ndc, z);
+	rescale_2d_to_screen(projected);
+	point = projected;
 }
 
 // calculates the line pixels of the side

@@ -36,7 +36,7 @@ Screen Renderer::renderer_cube() {
 	}
 
 	// draws all the sides of the cube to the screen
-	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
+	for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
 		Side &side = cube.get_sides()[i];
 		calculate_pixels_bresenham(side,
 								   screen,	// Screen -> array of pixels
@@ -49,10 +49,9 @@ Screen Renderer::renderer_cube() {
 
 // transforms the entire cube into 2D space
 void transform_cube(Cube &cube, Camera camera) {
-	for (int i = 0; i < 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION; ++i) {
+	for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
 		// pass by reference to avoid copying issue
-		std::array<Vector, 4> vertices = cube.get_sides()[i].get_vertices();
-		std::array<Vector, 4> projected_vertices;
+		std::array<Vector, 4> &vertices = cube.get_sides()[i].get_vertices();
 
 		for (int j = 0; j < 4; ++j) {
 			transform_vector(camera, vertices[j]);

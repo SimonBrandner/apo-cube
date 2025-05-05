@@ -59,7 +59,7 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	for (const auto &face : faces) {
 		for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
 			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-				this->sides[++side_index] = Side(
+				this->sides[side_index++] = Side(
 					offset_center(face.dx, face.dy, face.dz),
 					edge_length,
 					face.color,
@@ -79,6 +79,6 @@ Vector Cube::offset_center(float x, float y, float z) const {
 	);
 }
 
-std::array<Side, 6 * SIDE_SUBDIVISION * SIDE_SUBDIVISION>& Cube::get_sides() {
+std::array<Side, NUMBER_OF_SIDES>& Cube::get_sides() {
 	return this->sides;
 }
