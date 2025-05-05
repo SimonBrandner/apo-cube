@@ -14,20 +14,13 @@
  * - TODO ignore if any of the vertices are behind the camera
  * - TODO renderer only if at least 1 vertex is in the camera view
  * - FIXME fix the rounding issue that is causing the lines to glitch
- * - FIXME fix the filling of the rows edge case when the face is across the
- * whole screen
- * - TODO calculate one matrix and then apply it to all the vertices, instead of
- * calculating it for each
+ * - FIXME fix the filling of the rows edge case when the face is across the whole screen
+ * - TODO calculate one matrix and then apply it to all the vertices, instead of calculating it for each
  *
  * STRUCTURE:
- * - FIXME fix cpp const issues with classes
- * - TODO rather use void as return type and pass the pointer as parameter
- * during renderer [OPTIMIZE]
- * - FIXME use & for const& for input vectors/arrays, to avoid expensive coping
- * of the data [OPTIMIZE]
- * - FIXME remove optional from the cube and faces [OPTIMIZE]
  * - TODO separate the virtual and real peripherals in camera
  * - TODO sort the renderer folder into more organized structure
+ * - FIXME revisit + add consts in functionswhere needed
  */
 
 // rescale the 2D coordinates to match the screen size

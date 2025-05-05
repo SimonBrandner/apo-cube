@@ -52,9 +52,10 @@ void transform_cube(Cube &cube, Camera camera) {
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		// pass by reference to avoid copying issue
 		std::array<Vector, 4> &vertices = cube.get_faces()[i].get_vertices();
+		Matrix rotation_matrix = get_transformation_matrix(camera);
 
 		for (int j = 0; j < 4; ++j) {
-			transform_vector(camera, vertices[j]);
+			transform_vector_3d(rotation_matrix, camera, vertices[j]);
 			convert_to_2d(vertices[j], camera.get_fov());
 		}
 	}
