@@ -15,7 +15,6 @@
  * - TODO renderer only if at least 1 vertex is in the camera view
  * - FIXME fix the rounding issue that is causing the lines to glitch
  * - FIXME fix the filling of the rows edge case when the face is across the whole screen
- * - TODO calculate one matrix and then apply it to all the vertices, instead of calculating it for each
  *
  * STRUCTURE:
  * - TODO separate the virtual and real peripherals in camera
