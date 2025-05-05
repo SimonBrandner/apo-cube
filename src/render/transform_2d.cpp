@@ -10,11 +10,11 @@
 
 /* LIST OD TODOs:
  * RENDER [MANDATORY]:
- * - TODO z-buffering based of the side distance, not the pixel distance
+ * - TODO z-buffering based of the face distance, not the pixel distance
  * - TODO ignore if any of the vertices are behind the camera
  * - TODO renderer only if at least 1 vertex is in the camera view
  * - FIXME fix the rounding issue that is causing the lines to glitch
- * - FIXME fix the filling of the rows edge case when the side is across the
+ * - FIXME fix the filling of the rows edge case when the face is across the
  * whole screen
  * - TODO calculate one matrix and then apply it to all the vertices, instead of
  * calculating it for each
@@ -25,7 +25,7 @@
  * during renderer [OPTIMIZE]
  * - FIXME use & for const& for input vectors/arrays, to avoid expensive coping
  * of the data [OPTIMIZE]
- * - FIXME remove optional from the cube and sides [OPTIMIZE]
+ * - FIXME remove optional from the cube and faces [OPTIMIZE]
  * - TODO separate the virtual and real peripherals in camera
  * - TODO sort the renderer folder into more organized structure
  */
@@ -71,17 +71,17 @@ void convert_to_2d(Vector &point, float fov) {
 	point = projected;
 }
 
-// calculates the line pixels of the side
-void calculate_pixels_bresenham(Side &side, Screen &screen,
+// calculates the line pixels of the face
+void calculate_pixels_bresenham(Face &face, Screen &screen,
 								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
 	// my implementation of Bresenham's line algorithm (used in vba excel)
 	// draw the lines between the vertices
-	for (size_t i = 0; i < side.get_vertices().size(); ++i) {
-		Vector start = side.get_vertices()[i];
-		Vector end = side.get_vertices()[(i + 1) % side.get_vertices().size()];
+	for (size_t i = 0; i < face.get_vertices().size(); ++i) {
+		Vector start = face.get_vertices()[i];
+		Vector end = face.get_vertices()[(i + 1) % face.get_vertices().size()];
 
 		int x0 = static_cast<int>(start.get_x());
 		int y0 = static_cast<int>(start.get_y());
@@ -110,7 +110,7 @@ void calculate_pixels_bresenham(Side &side, Screen &screen,
 
 				if (z > z_buffer[y0][x0]) {
 					z_buffer[y0][x0] = z;
-					screen.at(x0, y0) = side.get_color();
+					screen.at(x0, y0) = face.get_color();
 					is_pixel[y0][x0] = true;
 				}
 			}
@@ -132,20 +132,20 @@ void calculate_pixels_bresenham(Side &side, Screen &screen,
 		}
 	}
 
-	fill_side(side, screen, z_buffer, is_pixel);
+	fill_face(face, screen, z_buffer, is_pixel);
 }
 
-// fills the sides with the square by lines
-void fill_side(Side &side, Screen &screen,
+// fills the faces with the square by lines
+void fill_face(Face &face, Screen &screen,
 			   float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
 			   const bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
 	int min_x = SCREEN_WIDTH, min_y = SCREEN_HEIGHT;
 	int max_x = 0, max_y = 0;
 
-	// find the bounding box of the square, so all the vertices are inside the
+	// find the bounding box of the square, so all the vertices are inface the
 	// box
-	for (const Vector &corner : side.get_vertices()) {
+	for (const Vector &corner : face.get_vertices()) {
 		int x = static_cast<int>(corner.get_x());
 		int y = static_cast<int>(corner.get_y());
 		min_x = std::min(min_x, x);
@@ -154,15 +154,15 @@ void fill_side(Side &side, Screen &screen,
 		max_y = std::max(max_y, y);
 	}
 
-	// making sure the box is inside the screen
+	// making sure the box is inface the screen
 	min_x = std::max(min_x - 1, 0);
 	min_y = std::max(min_y - 1, 0);
 	max_x = std::min(max_x + 1, SCREEN_WIDTH - 1);
 	max_y = std::min(max_y + 1, SCREEN_HEIGHT - 1);
 
-	// fill the pixels inside the bounding box
+	// fill the pixels inface the bounding box
 	for (int y = min_y; y <= max_y; ++y) {
-		bool is_inside = false;
+		bool is_inface = false;
 		float z_start = 0.0f;
 		float z_end = 0.0f;
 		int span_length = 0;
@@ -170,34 +170,34 @@ void fill_side(Side &side, Screen &screen,
 		// get the z values of the pixels and length in the given line
 		for (int x = min_x; x <= max_x; ++x) {
 			if (is_pixel[y][x]) {
-				if (!is_inside) {
+				if (!is_inface) {
 					z_start = z_buffer[y][x];
 				}
-				is_inside = !is_inside;
+				is_inface = !is_inface;
 
-				if (is_inside) {
+				if (is_inface) {
 					++span_length;
 					z_end = z_buffer[y][x];
 				}
 			}
 		}
 
-		// if in the current row left and right square side pixels are the same
-		if (is_inside == true) {
+		// if in the current row left and right square face pixels are the same
+		if (is_inface == true) {
 			span_length = 1;
 			z_end = z_start;
 		}
 
-		is_inside = false;
+		is_inface = false;
 		int fill_index = 0;
 
-		// fill the pixels in the given line in-between the square side pixels
+		// fill the pixels in the given line in-between the square face pixels
 		for (int x = min_x; x <= max_x; ++x) {
 			if (is_pixel[y][x]) {
-				is_inside = !is_inside;
+				is_inface = !is_inface;
 			}
 
-			if (is_inside && x >= 0 && x < SCREEN_WIDTH && y >= 0 &&
+			if (is_inface && x >= 0 && x < SCREEN_WIDTH && y >= 0 &&
 				y < SCREEN_HEIGHT) {
 				// linear interpolation of the z value
 				float z = z_start +
@@ -207,7 +207,7 @@ void fill_side(Side &side, Screen &screen,
 
 				if (z > z_buffer[y][x]) {
 					z_buffer[y][x] = z;
-					screen.at(x, y) = side.get_color();
+					screen.at(x, y) = face.get_color();
 				}
 			}
 		}

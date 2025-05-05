@@ -9,7 +9,7 @@
 
 #include "../render/color.hpp"
 #include "../math/vector.hpp"
-#include "side.hpp"
+#include "face.hpp"
 
 CubeColorConfig::CubeColorConfig() {}
 
@@ -54,12 +54,12 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 		{-1,  0,  0, color_config.left,   'l'}
 	}};
 
-	// create the sides of the cube and subdivides them, for clipping purposes
-	long side_index = 0;
+	// create the faces of the cube and subdivides them, for clipping purposes
+	long face_index = 0;
 	for (const auto &face : faces) {
-		for (int i = 0; i < SIDE_SUBDIVISION; ++i) {
-			for (int j = 0; j < SIDE_SUBDIVISION; ++j) {
-				this->sides[side_index++] = Side(
+		for (int i = 0; i < FACE_SUBDIVISION; ++i) {
+			for (int j = 0; j < FACE_SUBDIVISION; ++j) {
+				this->faces[face_index++] = Face(
 					offset_center(face.dx, face.dy, face.dz),
 					edge_length,
 					face.color,
@@ -79,6 +79,6 @@ Vector Cube::offset_center(float x, float y, float z) const {
 	);
 }
 
-std::array<Side, NUMBER_OF_SIDES>& Cube::get_sides() {
-	return this->sides;
+std::array<Face, NUMBER_OF_FACES>& Cube::get_faces() {
+	return this->faces;
 }

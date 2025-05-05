@@ -9,7 +9,7 @@
 #include "./transform_3d.hpp"
 
 #define CUBE_MIDDLE Vector(0, 0, -15)
-#define CUBE_SIDE_LENGTH 10
+#define CUBE_FACE_LENGTH 10
 
 Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 				   Color background_color)
@@ -20,7 +20,7 @@ Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 Screen Renderer::renderer_cube() {
 	Screen screen = Screen();
 
-	Cube cube(CUBE_MIDDLE, CUBE_SIDE_LENGTH, cube_color_config);
+	Cube cube(CUBE_MIDDLE, CUBE_FACE_LENGTH, cube_color_config);
 	transform_cube(cube, camera);
 
 	// set background color
@@ -35,10 +35,10 @@ Screen Renderer::renderer_cube() {
 		}
 	}
 
-	// draws all the sides of the cube to the screen
-	for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
-		Side &side = cube.get_sides()[i];
-		calculate_pixels_bresenham(side,
+	// draws all the faces of the cube to the screen
+	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
+		Face &face = cube.get_faces()[i];
+		calculate_pixels_bresenham(face,
 								   screen,	// Screen -> array of pixels
 								   z_buffer // 2d array of pixels z buffer
 		);
@@ -49,9 +49,9 @@ Screen Renderer::renderer_cube() {
 
 // transforms the entire cube into 2D space
 void transform_cube(Cube &cube, Camera camera) {
-	for (int i = 0; i < NUMBER_OF_SIDES; ++i) {
+	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		// pass by reference to avoid copying issue
-		std::array<Vector, 4> &vertices = cube.get_sides()[i].get_vertices();
+		std::array<Vector, 4> &vertices = cube.get_faces()[i].get_vertices();
 
 		for (int j = 0; j < 4; ++j) {
 			transform_vector(camera, vertices[j]);
