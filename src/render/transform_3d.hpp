@@ -11,5 +11,6 @@
 
 Matrix get_transformation_matrix(Camera &camera);
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point);
+bool is_face_inside_fov(Face &face);
 
 #endif // TRANSFORM_3D_HPP

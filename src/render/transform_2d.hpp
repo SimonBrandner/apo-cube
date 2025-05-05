@@ -7,10 +7,7 @@
 
 void rescale_2d_to_screen(Vector &point2d);
 void convert_to_2d(Vector &point, float fov);
-void calculate_pixels_bresenham(Face &face, Screen &screen,
-								float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]);
-void fill_face(Face &face, Screen &screen,
-			   float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH],
-			   const bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void calculate_pixels_bresenham(Face &face, Screen &screen);
+void fill_face(Face &face, Screen &screen, bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 #endif // TRANSFORM_2D_HPP

@@ -28,15 +28,6 @@ Screen Renderer::renderer_cube() {
 	// set background color
 	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_color);
 
-	// initialize z buffer to min, the higher the z value, the closer the pixel is to the camera
-	float z_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
-	for (int y = 0; y < SCREEN_HEIGHT; ++y) {
-		for (int x = 0; x < SCREEN_WIDTH; ++x) {
-			z_buffer[y][x] = -MAXFLOAT;
-		}
-	}
-
-
 	// sort the faces based on their distance from the camera
 	std::sort(cube.get_faces().begin(), cube.get_faces().end(),
 			  [](const Face &a, const Face &b) {
@@ -47,7 +38,9 @@ Screen Renderer::renderer_cube() {
 	// draws all the faces of the cube to the screen
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		Face &face = cube.get_faces()[i];
-		calculate_pixels_bresenham(face, screen, z_buffer);
+		if (is_face_inside_fov(face)) {
+			calculate_pixels_bresenham(face, screen);
+		}
 	}
 
 	return screen;

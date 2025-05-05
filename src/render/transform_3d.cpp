@@ -1,7 +1,9 @@
 #include "../geometry/camera.hpp"
+#include "../geometry/face.hpp"
 #include "../math/matrix.hpp"
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
+
 
 Matrix get_transformation_matrix(Camera &camera) {
 	float yaw = camera.get_yaw();
@@ -33,4 +35,17 @@ Matrix get_transformation_matrix(Camera &camera) {
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point) {
 	point = point - camera.get_position();
 	point = rotation_matrix * point;
+}
+
+// TODO, implement also the FOV frustum
+bool is_face_inside_fov(Face &face) {
+	auto vertices = face.get_vertices();
+	for (int i = 0; i < 4; ++i) {
+		Vector point = vertices[i];
+		if (point.get_z() >= 0) {
+			return false;
+		}
+	}
+
+	return true;
 }
