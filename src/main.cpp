@@ -60,7 +60,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		OutputPeripherals(peripherals_memory_mapping);
 
 	Camera camera = Camera();
-	Color background_color = Color(0, 255, 255);
+	Color background_color = Color::Black();
 	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
 	size_t frame_count = 0;
