@@ -1,9 +1,10 @@
 #ifndef FACE_HPP
 #define FACE_HPP
 
+#include <array>
+
 #include "../math/vector.hpp"
 #include "../render/color.hpp"
-#include <array>
 
 #define FACE_SUBDIVISION 4
 
