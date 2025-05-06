@@ -78,6 +78,13 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		Screen screen = renderer.renderer_cube();
 		output_peripherals.set_screen(screen);
 
+		bool leds[32] = {true};
+		float distance_from_cube = abs(camera.get_position());
+		for (size_t i = 0; i < distance_from_cube; ++i) {
+			leds[i] = false;
+		}
+		output_peripherals.set_leds(leds);
+
 		++frame_count;
 		auto current_time = std::chrono::high_resolution_clock::now();
 		auto elapsed = std::chrono::duration_cast<std::chrono::duration<float>>(

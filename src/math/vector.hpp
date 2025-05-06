@@ -27,5 +27,6 @@ class Vector {
 };
 
 std::ostream &operator<<(std::ostream &stream, const Vector &vector);
+const double abs(const Vector &vector);
 
 #endif // VECTOR_HPP
