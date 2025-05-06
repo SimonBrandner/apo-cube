@@ -1,15 +1,13 @@
 #include "cube.hpp"
 
-#include <iostream>
-#include <cmath>
 #include <array>
-#include <optional>
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 
-#include "../render/color.hpp"
 #include "../math/vector.hpp"
-#include "face.hpp"
+#include "../render/color.hpp"
+#include "./face.hpp"
 
 CubeColorConfig::CubeColorConfig() {}
 
