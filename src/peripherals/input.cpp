@@ -7,6 +7,10 @@
 InputPeripherals::InputPeripherals(
 	PeripheralMemoryMapping peripheral_memory_mapping) {
 	this->peripheral_memory_mapping = peripheral_memory_mapping;
+
+	// A bit of a hack -- initialize state
+	this->get_press_delta();
+	this->get_rotation_delta();
 }
 
 KnobRotation InputPeripherals::get_rotation_delta() {
