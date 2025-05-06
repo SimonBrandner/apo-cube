@@ -48,7 +48,7 @@ Screen Renderer::renderer_cube() {
 
 // transforms the entire cube into 2D space
 void transform_cube(Cube &cube, Camera camera) {
-	std::array<Face, (6 * 4 * 4)>& faces = cube.get_faces();
+	std::array<Face, (NUMBER_OF_FACES)>& faces = cube.get_faces();
 
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		Face &face = faces[i];
