@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cstdint>
 #include <unistd.h>
 
@@ -7,8 +8,9 @@
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
-#include "./renderer/menu.hpp"
-#include "./renderer/screen.hpp"
+#include "./render/menu.hpp"
+#include "./render/renderer.hpp"
+#include "./render/screen.hpp"
 
 CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
 	CubeColorConfig cube_color_config = CubeColorConfig();
@@ -54,17 +56,35 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		 CubeColorConfig cube_color_config) {
 	InputPeripherals input_peripherals =
 		InputPeripherals(peripherals_memory_mapping);
+	OutputPeripherals output_peripherals =
+		OutputPeripherals(peripherals_memory_mapping);
+
 	Camera camera = Camera();
+	Color background_color = Color(0, 255, 255);
+	Renderer renderer = Renderer(camera, cube_color_config, background_color);
+
+	size_t frame_count = 0;
+	auto last_log_time = std::chrono::high_resolution_clock::now();
 
 	while (true) {
-		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
 		KnobPress press_delta = input_peripherals.get_press_delta();
-
 		if (press_delta.green) {
 			break;
 		}
 
+		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
 		camera.update(rotation_delta);
+
+		Screen screen = renderer.renderer_cube();
+		output_peripherals.set_screen(screen);
+
+		++frame_count;
+		auto current_time = std::chrono::high_resolution_clock::now();
+		if ((current_time - last_log_time).count() >= 1.0f) {
+			std::cout << "FPS: " << frame_count << "\n";
+			frame_count = 0;
+			last_log_time = current_time;
+		}
 	}
 }
 
