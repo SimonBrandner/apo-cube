@@ -93,3 +93,19 @@ const Vector Vector::operator/(float scalar) const {
 
 	return Vector(data);
 }
+
+Vector Vector::normalized() const {
+	float len = abs(*this);
+	if (len > 0.0f) {
+		return *this / len;
+	}
+	return *this; // return zero vector if length is zero
+}
+
+Vector Vector::cross(const Vector &rhs) const {
+	float x = this->data[1] * rhs.at(2) - this->data[2] * rhs.at(1);
+	float y = this->data[2] * rhs.at(0) - this->data[0] * rhs.at(2);
+	float z = this->data[0] * rhs.at(1) - this->data[1] * rhs.at(0);
+
+	return Vector(x, y, z);
+}

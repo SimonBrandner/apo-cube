@@ -4,15 +4,28 @@
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 
+#include <iostream>
 
-Matrix get_transformation_matrix(Camera &camera) {
+Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float yaw = camera.get_yaw();
 	float pitch = camera.get_pitch();
+	float roll = camera.get_roll();
 
 	float sin_yaw = sin_deg(yaw);
 	float cos_yaw = cos_deg(yaw);
 	float sin_pitch = sin_deg(pitch);
 	float cos_pitch = cos_deg(pitch);
+	float sin_roll = sin_deg(roll);
+	float cos_roll = cos_deg(roll);
+
+	float distance = camera.get_position().distance(middle_cube);
+
+	float rel_x = distance * cos_pitch * sin_yaw;
+	float rel_y = distance * sin_pitch;
+	float rel_z = distance * cos_pitch * cos_yaw;
+
+	Vector new_position = middle_cube + Vector(rel_x, rel_y, rel_z);
+	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
 
 	float yaw_data[9] = {
 		cos_yaw, 0, -sin_yaw,
@@ -26,10 +39,18 @@ Matrix get_transformation_matrix(Camera &camera) {
 		0, sin_pitch,  cos_pitch
 	};
 
+	float roll_data[9] = {
+		cos_roll, -sin_roll, 0,
+		sin_roll,  cos_roll, 0,
+		0,         0,        1
+	};
+
 	Matrix yaw_matrix(yaw_data);
 	Matrix pitch_matrix(pitch_data);
+	Matrix roll_matrix(roll_data);
 
-	return yaw_matrix * pitch_matrix;
+	Matrix rotation_matrix = roll_matrix * pitch_matrix * yaw_matrix;
+	return rotation_matrix;
 }
 
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point) {

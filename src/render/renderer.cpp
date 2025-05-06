@@ -28,6 +28,17 @@ Screen Renderer::renderer_cube() {
 	// set background color
 	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_color);
 
+	// print the faces to the screen with the distance from the camera
+	std::cout << "Faces: ";
+	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
+		Face &face = cube.get_faces()[i];
+		std::cout << i << ": " << face.get_distance_from_camera() << ", ";
+	}
+	std::cout << std::endl;
+
+	// print position of the camera
+	std::cout << "Camera position: " << camera.get_position() << std::endl;
+
 	// sort the faces based on their distance from the camera
 	std::sort(cube.get_faces().begin(), cube.get_faces().end(),
 			  [](const Face &a, const Face &b) {
@@ -54,10 +65,12 @@ void transform_cube(Cube &cube, Camera camera) {
 		Face &face = faces[i];
 
 		std::array<Vector, 4> &vertices = face.get_vertices();
-		Matrix rotation_matrix = get_transformation_matrix(camera);
+		Matrix rotation_matrix = get_transformation_matrix(camera, CUBE_MIDDLE);
 
 		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
 		face.set_distance_from_camera(camera.get_position().distance(face.get_center_point()));
+
+		std::cout << "Face center point: " << face.get_center_point() << std::endl;
 
 		for (int j = 0; j < 4; ++j) {
 			transform_vector_3d(rotation_matrix, camera, vertices[j]);

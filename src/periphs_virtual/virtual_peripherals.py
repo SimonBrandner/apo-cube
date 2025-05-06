@@ -12,7 +12,7 @@ WIDTH, HEIGHT = 480, 320
 KNOB_CHANGE = 5
 FPS = 60
 
-MEM_DIR = "memory"
+MEM_DIR = r"c:\Users\profipoint\CLionProjects\apo-cube\src\periphs_virtual\memory"
 SCREEN_OUT = os.path.join(MEM_DIR, "screen.out")
 LEDS_OUT = os.path.join(MEM_DIR, "leds.out")
 KNOBS_IN = os.path.join(MEM_DIR, "knobs.in")

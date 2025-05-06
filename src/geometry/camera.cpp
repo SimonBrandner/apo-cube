@@ -15,18 +15,15 @@ void Camera::update(KnobRotation input_delta) {
 	// in degrees
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
+	this->roll += (float)input_delta.red;
+}
 
-	// move front in the direction of  orientation of the cam, scales by the red knob
-	Vector forward_vector {
-		cos_deg(pitch) * sin_deg(yaw) * (float)input_delta.red,
-		sin_deg(pitch) * (float)input_delta.red,
-		cos_deg(pitch) * cos_deg(yaw) * (float)input_delta.red
-	};
-
-	this->position = this->position + forward_vector;
+void Camera::set_position(float x, float y, float z) {
+	this->position = Vector(x, y, z);
 }
 
 Vector Camera::get_position() { return this->position; }
 float Camera::get_yaw() { return this->yaw; }
 float Camera::get_pitch() { return this->pitch; }
+float Camera::get_roll() { return this->roll; }
 float Camera::get_fov() { return this->fov; }

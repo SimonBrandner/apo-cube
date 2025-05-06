@@ -20,6 +20,9 @@ class Vector {
 
 		const float distance(const Vector &rhs) const;
 
+		Vector normalized() const;
+		Vector cross(const Vector &rhs) const;
+
 		const float at(size_t index) const;
 		const float get_x() const;
 		const float get_y() const;

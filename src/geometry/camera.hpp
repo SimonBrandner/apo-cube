@@ -16,6 +16,7 @@ class Camera {
 		float yaw;
 		float pitch;
 		float fov;
+		float roll;
 
 	public:
 		Camera();
@@ -23,7 +24,9 @@ class Camera {
 		Vector get_position();
 		float get_yaw();
 		float get_pitch();
+		float get_roll();
 		float get_fov();
+		void set_position(float x, float y, float z);
 };
 
 #endif // CAMERA_HPP

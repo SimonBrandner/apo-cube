@@ -9,7 +9,7 @@
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 
-Matrix get_transformation_matrix(Camera &camera);
+Matrix get_transformation_matrix(Camera &camera, Vector middle_cube);
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point);
 bool is_face_inside_fov(Face &face, float fov);
 
