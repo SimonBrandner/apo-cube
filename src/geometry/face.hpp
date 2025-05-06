@@ -6,7 +6,7 @@
 #include "../math/vector.hpp"
 #include "../render/color.hpp"
 
-#define FACE_SUBDIVISION 64
+#define FACE_SUBDIVISION 1
 
 class Face {
 	private:
