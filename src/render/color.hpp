@@ -2,7 +2,6 @@
 #define COLOR_HPP
 
 #include <cstdint>
-#include <iostream>
 
 class Color {
 	private:
@@ -14,6 +13,11 @@ class Color {
 		static Color White();
 		static Color Black();
 		static Color Red();
+		static Color Blue();
+		static Color Magenta();
+		static Color Cyan();
+		static Color Green();
+		static Color Yellow();
 
 		Color();
 		Color(uint8_t red, uint8_t green, uint8_t blue);
