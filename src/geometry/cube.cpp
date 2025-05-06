@@ -9,7 +9,14 @@
 #include "../render/color.hpp"
 #include "./face.hpp"
 
-CubeColorConfig::CubeColorConfig() {}
+CubeColorConfig::CubeColorConfig() {
+	this->front = Color::Red();
+	this->back = Color::Blue();
+	this->left = Color::Magenta();
+	this->right = Color::Cyan();
+	this->top = Color::Green();
+	this->bottom = Color::Yellow();
+}
 
 Color &CubeColorConfig::at(size_t index) {
 	switch (index) {
