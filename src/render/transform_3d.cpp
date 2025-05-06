@@ -38,7 +38,7 @@ void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &
 }
 
 // TODO, implement also the FOV frustum
-bool is_face_inside_fov(Face &face) {
+bool is_face_inside_fov(Face &face, float fov) {
 	auto vertices = face.get_vertices();
 	for (int i = 0; i < 4; ++i) {
 		Vector point = vertices[i];

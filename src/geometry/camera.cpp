@@ -3,7 +3,7 @@
 #include "../math/vector.hpp"
 #include "../math/utils.hpp"
 
-Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(90) {}
+Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(60) {}
 
 void Camera::update(KnobRotation input_delta) {
 	/* assuming, may change later...
