@@ -1,5 +1,4 @@
 #include <cstdint>
-#include <iostream>
 
 #include "../mz_apo/mzapo_regs.h"
 #include "./input.hpp"
@@ -26,10 +25,6 @@ KnobRotation InputPeripherals::get_rotation_delta() {
 
 	this->rotation_state = new_state;
 
-	std::cout << "Knob rotation delta: red=" << (int)delta.red
-			  << " green=" << (int)delta.green << " blue=" << (int)delta.blue
-			  << std::endl;
-
 	return delta;
 }
 
@@ -49,10 +44,6 @@ KnobPress InputPeripherals::get_press_delta() {
 	delta.red = !new_state.red && this->press_state.red;
 
 	this->press_state = new_state;
-
-	std::cout << "Knob press delta: red=" << (bool)delta.red
-			  << " green=" << (bool)delta.green << " blue=" << (bool)delta.blue
-			  << std::endl;
 
 	return delta;
 }
