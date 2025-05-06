@@ -156,6 +156,10 @@ void fill_face(Face &face, Screen &screen,  bool is_pixel[SCREEN_HEIGHT][SCREEN_
 			}
 		}
 
+		if (start_x == end_x && start_x == 0) {
+			continue; // no line found
+		}
+
 		screen.draw_rectangle(start_x, y, end_x - start_x + 1, 1, face.get_color());
 	}
 }
