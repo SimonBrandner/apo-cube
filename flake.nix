@@ -13,4 +13,10 @@
   in {
     devShells.${system}.default = import ./nix/shell.nix {inherit pkgs;};
   };
+  nixConfig = {
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+  };
 }

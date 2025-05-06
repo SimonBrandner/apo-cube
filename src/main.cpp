@@ -60,7 +60,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		OutputPeripherals(peripherals_memory_mapping);
 
 	Camera camera = Camera();
-	Color background_color = Color(0, 255, 255);
+	Color background_color = Color::Black();
 	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
 	size_t frame_count = 0;
@@ -80,7 +80,9 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 
 		++frame_count;
 		auto current_time = std::chrono::high_resolution_clock::now();
-		if ((current_time - last_log_time).count() >= 1.0f) {
+		auto elapsed = std::chrono::duration_cast<std::chrono::duration<float>>(
+			current_time - last_log_time);
+		if (elapsed.count() >= 1.0f) {
 			std::cout << "FPS: " << frame_count << "\n";
 			frame_count = 0;
 			last_log_time = current_time;

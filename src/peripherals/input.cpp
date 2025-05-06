@@ -1,5 +1,4 @@
 #include <cstdint>
-#include <iostream>
 
 #include "../mz_apo/mzapo_regs.h"
 #include "./input.hpp"
@@ -8,6 +7,10 @@
 InputPeripherals::InputPeripherals(
 	PeripheralMemoryMapping peripheral_memory_mapping) {
 	this->peripheral_memory_mapping = peripheral_memory_mapping;
+
+	// A bit of a hack -- initialize state
+	this->get_press_delta();
+	this->get_rotation_delta();
 }
 
 KnobRotation InputPeripherals::get_rotation_delta() {
@@ -25,10 +28,6 @@ KnobRotation InputPeripherals::get_rotation_delta() {
 	delta.red = new_state.red - this->rotation_state.red;
 
 	this->rotation_state = new_state;
-
-	std::cout << "Knob rotation delta: red=" << (int)delta.red
-			  << " green=" << (int)delta.green << " blue=" << (int)delta.blue
-			  << std::endl;
 
 	return delta;
 }
@@ -49,10 +48,6 @@ KnobPress InputPeripherals::get_press_delta() {
 	delta.red = !new_state.red && this->press_state.red;
 
 	this->press_state = new_state;
-
-	std::cout << "Knob press delta: red=" << (bool)delta.red
-			  << " green=" << (bool)delta.green << " blue=" << (bool)delta.blue
-			  << std::endl;
 
 	return delta;
 }
