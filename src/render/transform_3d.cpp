@@ -42,7 +42,7 @@ bool is_face_inside_fov(Face &face, float fov) {
 	auto vertices = face.get_vertices();
 	for (int i = 0; i < 4; ++i) {
 		Vector point = vertices[i];
-		if (point.get_z() >= 0) {
+		if (point.get_z() >= -1e-5f) {
 			return false;
 		}
 	}
