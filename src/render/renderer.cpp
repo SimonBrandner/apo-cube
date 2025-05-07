@@ -63,7 +63,7 @@ void transform_cube(Cube &cube, Camera &camera) {
 		Matrix rotation_matrix = get_transformation_matrix(camera, CUBE_MIDDLE);
 
 		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
-		face.set_distance_from_camera(Vector(0,0,0).distance(face.get_center_point()));
+		face.set_distance_from_camera(abs(face.get_center_point()));
 
 		std::cout << "Face center point: " << face.get_orientation()  << face.get_center_point() << std::endl;
 
