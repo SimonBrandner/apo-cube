@@ -79,7 +79,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		output_peripherals.set_screen(screen);
 
 		bool leds[32] = {true};
-		float distance_from_cube = abs(camera.get_position());
+		float distance_from_cube = abs(camera.get_position() - CUBE_MIDDLE);
 		for (size_t i = 0; i < distance_from_cube; ++i) {
 			leds[i] = false;
 		}
