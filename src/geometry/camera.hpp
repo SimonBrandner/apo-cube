@@ -15,6 +15,7 @@ class Camera {
 		float pitch;
 		float fov;
 		float roll;
+		float distance_from_cube;
 
 	public:
 		Camera();
@@ -24,6 +25,7 @@ class Camera {
 		float get_pitch();
 		float get_roll();
 		float get_fov();
+		float get_distance_from_cube();
 		void set_position(float x, float y, float z);
 };
 
