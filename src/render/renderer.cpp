@@ -8,9 +8,6 @@
 #include "./transform_2d.hpp"
 #include "./transform_3d.hpp"
 
-#define CUBE_MIDDLE Vector(0, 0, -15)
-#define CUBE_EDGE_LENGTH 10
-
 Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 				   Color background_color)
 	: camera(camera), cube_color_config(cube_color_config),
