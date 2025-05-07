@@ -10,13 +10,7 @@
 #include "screen.hpp"
 
 /* LIST OD TODOs:
- * RENDER [MANDATORY]:
- * - TODO renderer only if at least 1 vertex is in the camera view
- * - FIXME fix the rounding issue that is causing the lines to glitch
- * - TODO only show 3 faces at once if outside and backtrace the given subfaces
- *
  * STRUCTURE:
- * - TODO separate the virtual and real peripherals in camera
  * - TODO sort the renderer folder into more organized structure
  * - FIXME revisit + add consts in functions where needed
  */
