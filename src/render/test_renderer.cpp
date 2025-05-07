@@ -38,6 +38,15 @@ int main(int argc, char *argv[]) {
 		Screen screen = renderer.renderer_cube();
 		outputs.set_screen(screen);
 
+		bool leds[32];
+		std::fill(std::begin(leds), std::end(leds), true);
+
+		float distance_from_cube = abs(camera.get_position() - CUBE_MIDDLE);
+		for (size_t i = 0; i < distance_from_cube; ++i) {
+			leds[i] = false;
+		}
+		outputs.set_leds(leds);
+
 		frame_count++;
 		auto current_time = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<float> elapsed = current_time - last_time;
