@@ -1,9 +1,11 @@
 #include <chrono>
 #include <cstdint>
+#include <cstdlib>
 #include <unistd.h>
 
 #include "./geometry/camera.hpp"
 #include "./geometry/cube.hpp"
+#include "./main.hpp"
 #include "./math/utils.hpp"
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
@@ -12,44 +14,48 @@
 #include "./render/renderer.hpp"
 #include "./render/screen.hpp"
 
-CubeColorConfig main_menu(PeripheralMemoryMapping peripherals_memory_mapping) {
-	CubeColorConfig cube_color_config = CubeColorConfig();
+bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
+		  CubeColorConfig &cube_color_config) {
 	InputPeripherals input_peripherals =
 		InputPeripherals(peripherals_memory_mapping);
 	OutputPeripherals output_peripherals =
 		OutputPeripherals(peripherals_memory_mapping);
 
-	int8_t selected_face = 0;
+	int8_t selected_button = 0;
 	while (true) {
 		// Handle inputs
 		KnobRotation rotation_delta = input_peripherals.get_rotation_delta();
 		KnobPress press_delta = input_peripherals.get_press_delta();
 
 		// Update color
-		Color old_color = cube_color_config.at(selected_face);
+		Color old_color = cube_color_config.at(selected_button);
 		Color new_color = Color(old_color.get_red() + rotation_delta.red,
 								old_color.get_green() + rotation_delta.green,
 								old_color.get_blue() + rotation_delta.blue);
-		cube_color_config.at(selected_face) = new_color;
+		cube_color_config.at(selected_button) = new_color;
 
 		// Handle presses
 		if (press_delta.green) {
-			break;
+			if (selected_button == START_BUTTON_INDEX) {
+				return false;
+			} else if (selected_button == EXIT_BUTTON_INDEX) {
+				return true;
+			}
 		}
 		if (press_delta.red) {
-			selected_face -= 1;
+			selected_button -= 1;
 		}
 		if (press_delta.blue) {
-			selected_face += 1;
+			selected_button += 1;
 		}
-		selected_face = mod(selected_face, 6);
+		selected_button = mod(selected_button, BUTTON_COUNT);
 
 		// Draw menu and update LCD
-		Screen screen = draw_menu(cube_color_config, selected_face);
+		Screen screen = draw_menu(cube_color_config, selected_button);
 		output_peripherals.set_screen(screen);
 	}
 
-	return cube_color_config;
+	return false;
 }
 
 void run(PeripheralMemoryMapping peripherals_memory_mapping,
@@ -99,8 +105,14 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 
 int main(int argc, char *argv[]) {
 	PeripheralMemoryMapping peripherals_memory_mapping = setup();
-	CubeColorConfig cube_color_config = main_menu(peripherals_memory_mapping);
-	run(peripherals_memory_mapping, cube_color_config);
+
+	CubeColorConfig cube_color_config;
+	while (true) {
+		if (menu(peripherals_memory_mapping, cube_color_config)) {
+			break;
+		}
+		run(peripherals_memory_mapping, cube_color_config);
+	}
 
 	cleanup();
 	return 0;
