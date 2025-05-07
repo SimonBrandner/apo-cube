@@ -5,9 +5,6 @@
 #include "../geometry/cube.hpp"
 #include "screen.hpp"
 
-#define CUBE_MIDDLE Vector(0, 0, -15)
-#define CUBE_EDGE_LENGTH 10
-
 class Renderer {
 	private:
 		Camera &camera;
