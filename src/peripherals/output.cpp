@@ -19,7 +19,9 @@ void OutputPeripherals::set_leds(bool leds[32]) {
 	uint32_t new_register_value = 0;
 	for (size_t i = 0; i < 32; ++i) {
 		new_register_value |= leds[i];
-		new_register_value <<= 1;
+		if (i != 31) {
+			new_register_value <<= 1;
+		}
 	}
 
 	*(volatile uint32_t *)(this->peripheral_memory_mapping.get_spi_address() +
