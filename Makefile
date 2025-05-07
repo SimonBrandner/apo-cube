@@ -93,7 +93,7 @@ debug: copy-executable $(TARGET_EXE)
 runv_SRC = src/render/test_renderer.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/geometry/cube.cpp src/geometry/face.cpp src/geometry/camera.cpp src/math/vector.cpp src/math/matrix.cpp src/math/utils.cpp src/render/color.cpp src/render/renderer.cpp src/render/transform_2d.cpp src/render/transform_3d.cpp src/render/screen.cpp
 runv_TARGET = apo_cube_virtual
 runv_CXX = g++
-runv_CXXFLAGS = -Wall -g
+runv_CXXFLAGS = -Wall -g -DVIRTUAL_PERIPHERALS
 
 runv:
 	$(runv_CXX) $(runv_CXXFLAGS) $(runv_SRC) -o $(runv_TARGET)
