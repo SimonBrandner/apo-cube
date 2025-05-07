@@ -14,6 +14,7 @@ class Face {
 		std::array<Vector, 4> vertices;
 		Color color;
 		float distance_from_camera = 0.0f;
+		char orientation;
 
 	public:
 		Face();
@@ -24,6 +25,7 @@ class Face {
 		Color get_color() const { return color; }
 		void set_distance_from_camera(float distance);
 		float get_distance_from_camera() const;
+		char get_orientation() const { return orientation; }
 };
 
 #endif // FACE_HPP

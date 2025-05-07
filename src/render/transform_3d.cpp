@@ -24,6 +24,7 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float rel_y = distance * sin_pitch;
 	float rel_z = distance * cos_pitch * cos_yaw;
 
+
 	Vector new_position = middle_cube + Vector(rel_x, rel_y, rel_z);
 	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
 
@@ -57,7 +58,6 @@ void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &
 	point = point - camera.get_position();
 	point = rotation_matrix * point;
 }
-
 
 // TODO, implement also the FOV frustum
 bool is_face_inside_fov(Face &face, float fov) {

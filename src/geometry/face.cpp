@@ -11,7 +11,7 @@ Face::Face() {}
 
 Face::Face(Vector center, float edge_length, Color color, char orientation,
 		   int i, int j)
-	: center(center), color(color) {
+	: center(center), color(color), orientation(orientation) {
 
 	float half = edge_length / 2.0f;
 	float subface_len = edge_length / FACE_SUBDIVISION;

@@ -17,6 +17,6 @@ class Renderer {
 		Screen renderer_cube();
 };
 
-void transform_cube(Cube &cube, Camera camera);
+void transform_cube(Cube &cube, Camera &camera);
 
 #endif // RENDERER_HPP
