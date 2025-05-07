@@ -18,7 +18,7 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float sin_roll = sin_deg(roll);
 	float cos_roll = cos_deg(roll);
 
-	float distance = camera.get_distance_from_cube();  //camera.get_position().distance(middle_cube);
+	float distance = camera.get_distance_from_cube();
 
 	float rel_x = distance * cos_pitch * sin_yaw;
 	float rel_y = distance * sin_pitch;
