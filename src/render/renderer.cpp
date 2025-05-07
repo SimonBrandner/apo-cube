@@ -25,15 +25,6 @@ Screen Renderer::renderer_cube() {
 	// set background color
 	screen.draw_rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_color);
 
-	std::cout << "Faces: ";
-	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
-		Face &face = cube.get_faces()[i];
-		std::cout << face.get_orientation() << ": " << face.get_distance_from_camera() << ", ";
-	}
-	std::cout << std::endl;
-
-	std::cout << "Camera position: " << camera.get_position() << std::endl;
-
 	// sort the faces based on their distance from the camera
 	std::sort(cube.get_faces().begin(), cube.get_faces().end(),
 			  [](const Face &a, const Face &b) {
@@ -44,7 +35,7 @@ Screen Renderer::renderer_cube() {
 	// draws all the faces of the cube to the screen
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		Face &face = cube.get_faces()[i];
-		if (is_face_inside_fov(face, camera.get_fov())) {
+		if (is_face_visible(face, camera.get_fov())) {
 			calculate_pixels_bresenham(face, screen);
 		}
 	}
@@ -64,8 +55,6 @@ void transform_cube(Cube &cube, Camera &camera) {
 
 		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
 		face.set_distance_from_camera(abs(face.get_center_point()));
-
-		std::cout << "Face center point: " << face.get_orientation()  << face.get_center_point() << std::endl;
 
 		for (int j = 0; j < 4; ++j) {
 			transform_vector_3d(rotation_matrix, camera, vertices[j]);

@@ -47,8 +47,7 @@ void convert_to_2d(Vector &point, float fov) {
 	float z = point.get_z();
 
 	if (std::abs(z) < 1e-6f) {
-		z = (z >= 0.0f) ? 1e-6f
-						: -1e-6f; // preserving sign, for future optimization
+		z = (z >= 0.0f) ? 1e-6f : -1e-6f; // preserve the sign
 	}
 
 	// perspective projection
@@ -84,8 +83,6 @@ void calculate_pixels_bresenham(Face &face, Screen &screen) {
 		int sy = (y0 < y1) ? 1 : -1;
 		int err = dx - dy;
 
-		int step_count = 0;
-
 		// draw the line
 		while (true) {
 			if (x0 >= 0 && x0 < SCREEN_WIDTH && y0 >= 0 && y0 < SCREEN_HEIGHT) {
@@ -94,11 +91,6 @@ void calculate_pixels_bresenham(Face &face, Screen &screen) {
 			}
 
 			if (x0 == x1 && y0 == y1) {
-				break;
-			}
-
-			if (step_count > 100000) {
-				std::cerr << "!!! STUCKED AT INF LOOP; FIX THIS" << std::endl;
 				break;
 			}
 
@@ -112,7 +104,6 @@ void calculate_pixels_bresenham(Face &face, Screen &screen) {
 				err += dx;
 				y0 += sy;
 			}
-			++step_count;
 		}
 	}
 
@@ -124,7 +115,7 @@ void fill_face(Face &face, Screen &screen,  bool is_pixel[SCREEN_HEIGHT][SCREEN_
 	int min_x = SCREEN_WIDTH, min_y = SCREEN_HEIGHT;
 	int max_x = 0, max_y = 0;
 
-	// find bounding box of the square, so all the vertices are inside the box
+	// find a bounding box of the square, so all the vertices are inside the box
 	for (const Vector &corner : face.get_vertices()) {
 		int x = static_cast<int>(corner.get_x());
 		int y = static_cast<int>(corner.get_y());
