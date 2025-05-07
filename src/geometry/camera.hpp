@@ -2,13 +2,11 @@
 #define CAMERA_HPP
 
 #include "../math/vector.hpp"
-//#include "../peripherals/input.hpp"
+#ifdef VIRTUAL_PERIPHERALS
 #include "../periphs_virtual/input.hpp"
-
-/*
- * WARNING: You have to CURRENTLY comment / uncomment the peripherals you will be using!
- * TODO: SOLVE PERIPHERALS REAL/VITRUAL ISSUE.
- */
+#else
+#include "../peripherals/input.hpp"
+#endif
 
 class Camera {
 	private:
