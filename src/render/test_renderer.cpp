@@ -20,14 +20,8 @@ int main(int argc, char *argv[]) {
 	Camera camera = Camera();
 
 	CubeColorConfig cube_color_config = CubeColorConfig();
-	cube_color_config.back = Color(0, 0, 255);
-	cube_color_config.front = Color(255, 0, 0);
-	cube_color_config.top = Color(0, 255, 0);
-	cube_color_config.bottom = Color(255, 255, 0);
-	cube_color_config.left = Color(255, 0, 255);
-	cube_color_config.right = Color(0, 255, 255);
 
-	Color background_color = Color(0, 0, 0);
+	Color background_color = Color::White();
 
 	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
