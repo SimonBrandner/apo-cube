@@ -34,9 +34,9 @@ void Camera::set_position(float x, float y, float z) {
 	this->position = Vector(x, y, z);
 }
 
-Vector Camera::get_position() { return this->position; }
-float Camera::get_yaw() { return this->yaw; }
-float Camera::get_pitch() { return this->pitch; }
-float Camera::get_roll() { return this->roll; }
-float Camera::get_fov() { return this->fov; }
-float Camera::get_distance_from_cube() { return this->distance_from_cube; }
+Vector Camera::get_position() const { return this->position; }
+float Camera::get_yaw() const { return this->yaw; }
+float Camera::get_pitch() const { return this->pitch; }
+float Camera::get_roll() const { return this->roll; }
+float Camera::get_fov() const { return this->fov; }
+float Camera::get_distance_from_cube() const { return this->distance_from_cube; }
