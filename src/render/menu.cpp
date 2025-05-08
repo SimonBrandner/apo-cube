@@ -2,7 +2,6 @@
 #include <cstdint>
 #include <string>
 
-#include "../main.hpp"
 #include "../mz_apo/font_types.h"
 #include "./menu.hpp"
 #include "./screen.hpp"

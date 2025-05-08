@@ -5,7 +5,6 @@
 
 #include "./geometry/camera.hpp"
 #include "./geometry/cube.hpp"
-#include "./main.hpp"
 #include "./math/utils.hpp"
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
