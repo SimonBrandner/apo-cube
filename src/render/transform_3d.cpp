@@ -22,31 +22,30 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float rel_y = distance * sin_pitch;
 	float rel_z = distance * cos_pitch * cos_yaw;
 
-
 	Vector new_position = middle_cube + Vector(rel_x, rel_y, rel_z);
 	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
 
-	float yaw_data[9] = {
+	float yaw_array[9] = {
 		cos_yaw, 0, -sin_yaw,
 		0,       1, 0,
 		sin_yaw, 0, cos_yaw
 	};
 
-	float pitch_data[9] = {
+	float pitch_array[9] = {
 		1, 0,          0,
 		0, cos_pitch, -sin_pitch,
 		0, sin_pitch,  cos_pitch
 	};
 
-	float roll_data[9] = {
+	float roll_array[9] = {
 		cos_roll, -sin_roll, 0,
 		sin_roll,  cos_roll, 0,
 		0,         0,        1
 	};
 
-	Matrix yaw_matrix(yaw_data);
-	Matrix pitch_matrix(pitch_data);
-	Matrix roll_matrix(roll_data);
+	Matrix yaw_matrix(yaw_array);
+	Matrix pitch_matrix(pitch_array);
+	Matrix roll_matrix(roll_array);
 
 	Matrix rotation_matrix = roll_matrix * pitch_matrix * yaw_matrix;
 	return rotation_matrix;

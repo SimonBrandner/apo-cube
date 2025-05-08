@@ -10,7 +10,7 @@
 #include "renderer.hpp"
 #include "screen.hpp"
 
-// this will keep renderering frames based of the input delta.
+// this will keep rendering frames based of the input delta.
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();
