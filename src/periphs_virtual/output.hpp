@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "../render/color.hpp"
 #include "../render/screen.hpp"
 
 class OutputPeripherals {

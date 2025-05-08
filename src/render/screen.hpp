@@ -1,7 +1,6 @@
 #ifndef SCREEN_HPP
 #define SCREEN_HPP
 
-#include <cstddef>
 #include <string>
 
 #include "../mz_apo/font_types.h"

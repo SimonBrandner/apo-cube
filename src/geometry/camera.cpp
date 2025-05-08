@@ -6,7 +6,7 @@
 
 #include <complex>
 
-Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(60), distance_from_cube(15)  {}
+Camera::Camera() : position(0, 0, 0), yaw(0), pitch(0), fov(60), distance_from_cube(15), roll(0)  {}
 
 float get_min_distance_limit(float fov) {
 	// diagonal of the cube

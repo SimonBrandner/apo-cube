@@ -35,7 +35,7 @@ Screen Renderer::renderer_cube() {
 	// draws all the faces of the cube to the screen
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		Face &face = cube.get_faces()[i];
-		if (is_face_visible(face, camera.get_fov())) {
+		if (is_face_visible(face)) {
 			calculate_pixels_bresenham(face, screen);
 		}
 	}

@@ -2,7 +2,6 @@
 
 #include <array>
 #include <cmath>
-#include <cstdlib>
 #include <iostream>
 
 #include "../math/vector.hpp"

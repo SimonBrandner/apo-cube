@@ -7,7 +7,8 @@
 #include "../math/vector.hpp"
 #include "../render/color.hpp"
 
-Face::Face() {}
+Face::Face() : center(0, 0, 0), color(Color::Black()),
+								   orientation('f') {}
 
 Face::Face(Vector center, float edge_length, Color color, char orientation,
 		   int i, int j)

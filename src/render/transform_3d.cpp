@@ -4,8 +4,6 @@
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 
-#include <iostream>
-
 Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float yaw = camera.get_yaw();
 	float pitch = camera.get_pitch();
@@ -59,7 +57,7 @@ void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &
 	point = rotation_matrix * point;
 }
 
-bool is_face_visible(Face &face, float fov) {
+bool is_face_visible(Face &face) {
 	auto vertices = face.get_vertices();
 	for (int i = 0; i < 4; ++i) {
 		Vector point = vertices[i];
