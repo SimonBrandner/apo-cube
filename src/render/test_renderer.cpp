@@ -3,6 +3,7 @@
 
 #include "../geometry/camera.hpp"
 #include "../geometry/cube.hpp"
+#include "../math/utils.hpp"
 
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
 		std::fill(std::begin(leds), std::end(leds), true);
 
 		float distance_from_cube = abs(camera.get_position() - CUBE_MIDDLE);
-		for (size_t i = 0; i < distance_from_cube; ++i) {
+		for (size_t i = 0; i < min(distance_from_cube, 32); ++i) {
 			leds[i] = false;
 		}
 		outputs.set_leds(leds);

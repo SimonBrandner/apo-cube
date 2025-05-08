@@ -8,5 +8,6 @@ float tan_deg(float x);
 int mod(int a, int b);
 float sqrt(float x, int pow);
 float max(float a, float b);
+float min(float a, float b);
 
 #endif // MATH_UTILS_HPP
