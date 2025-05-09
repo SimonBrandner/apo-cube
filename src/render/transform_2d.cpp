@@ -13,7 +13,6 @@
  * STRUCTURE:
  * - TODO sort the renderer folder into more organized structure
  * - FIXME static casting
- * - FIXME revisit + add consts in functions where needed
  */
 
 // rescale the 2D coordinates to match the screen size
@@ -57,10 +56,10 @@ void convert_to_2d(Vector &point, float fov) {
 }
 
 // calculates the line pixels of the face
+// implementation of Bresenham's line algorithm
 void calculate_pixels_bresenham(Face &face, Screen &screen) {
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
-	// my implementation of Bresenham's line algorithm (used in vba Excel)
 	// draws the lines between the vertices
 	for (size_t i = 0; i < face.get_vertices().size(); ++i) {
 		Vector start = face.get_vertices()[i];

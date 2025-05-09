@@ -11,6 +11,7 @@ Camera::Camera()
 
 float Camera::get_min_zoom_level() {
 	// the goal is to find min distance from which the cube is fully visible.
+
 	// a cube can be rotating anyway, so we can assume the cube is a sphere.
 	// assuming the sphere (cube) center will be in the middle of the screen.
 	float r = std::sqrt(3.0f) * CUBE_EDGE_LENGTH * 0.5f;
@@ -32,8 +33,6 @@ float Camera::get_min_zoom_level() {
 	float min_n = r / sin_half;
 	return min_n;
 }
-
-
 
 void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;

@@ -9,7 +9,6 @@
 
 Face::Face() : center(0, 0, 0), color(Color::Black()),
 								   orientation('f') {}
-
 Face::Face(Vector center, float edge_length, Color color, char orientation)
 	: center(center), color(color), orientation(orientation) {
 
