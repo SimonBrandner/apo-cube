@@ -61,17 +61,12 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	// create the faces of the cube and subdivides them, for clipping purposes
 	int face_index = 0;
 	for (const auto &face : faces) {
-		for (int i = 0; i < FACE_SUBDIVISION; ++i) {
-			for (int j = 0; j < FACE_SUBDIVISION; ++j) {
-				this->faces[face_index++] = Face(
-					offset_center(face.dx, face.dy, face.dz),
-					edge_length,
-					face.color,
-					face.id,
-					i, j
-				);
-			}
-		}
+		this->faces[face_index++] = Face(
+			offset_center(face.dx, face.dy, face.dz),
+			edge_length,
+			face.color,
+			face.id
+		);
 	}
 }
 

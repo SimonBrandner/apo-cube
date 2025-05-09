@@ -6,8 +6,6 @@
 #include "../math/vector.hpp"
 #include "../render/color.hpp"
 
-#define FACE_SUBDIVISION 1
-
 class Face {
 	private:
 		Vector center;
@@ -18,8 +16,7 @@ class Face {
 
 	public:
 		Face();
-		Face(Vector center, float edge_length, Color color, char orientation,
-			 int i, int j);
+		Face(Vector center, float edge_length, Color color, char orientation);
 		Vector &get_center_point();
 		std::array<Vector, 4> &get_vertices();
 		Color get_color() const { return color; }

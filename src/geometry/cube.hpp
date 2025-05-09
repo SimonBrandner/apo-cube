@@ -11,7 +11,7 @@
 #define CUBE_MIDDLE Vector(0, 0, -15)
 #define CUBE_EDGE_LENGTH 10
 
-#define NUMBER_OF_FACES (6 * FACE_SUBDIVISION * FACE_SUBDIVISION)
+#define NUMBER_OF_FACES 6
 
 struct CubeColorConfig {
 	public:
