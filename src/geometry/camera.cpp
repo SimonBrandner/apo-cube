@@ -39,7 +39,7 @@ void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
 	this->zoom += (float)input_delta.red;
-	this->zoom = max(get_min_zoom_level(), this->zoom);
+	this->zoom = std::max(get_min_zoom_level(), this->zoom);
 }
 
 void Camera::set_position(float x, float y, float z) {
