@@ -4,23 +4,36 @@
 #include "../math/vector.hpp"
 #include "cube.hpp"
 
-#include <complex>
+#include <cmath>
 
 Camera::Camera()
-	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), distance_from_cube(20) {}
+	: position(0, 0, 0), yaw(0), pitch(0), fov(90), roll(0), distance_from_cube(20) {}
+
 
 float Camera::get_min_distance_limit() {
-	// diagonal of the cube
-	float min_limit = std::sqrt(3.0f) * CUBE_EDGE_LENGTH;
+	// the goal is to find min distance from which the cube is fully visible.
+	// cube can be rotating anyway, so we can assume the cube is a sphere.
+	float r = std::sqrt(3.0f) * CUBE_EDGE_LENGTH * 0.5f;
 
-	// diagonal of the cube face
-	min_limit = min_limit / std::sqrt(2.0f);
+	// angle from the center of the sphere to the edge of view frustum
+	float half_fov = fov * 0.5f;
 
-	// include the fov into the distance limit
-	min_limit = min_limit * (sin_deg(45.0f) / sin_deg(fov * 0.5f));
+	// the angle which the sphere "occupies" in the view frustum
+	float sin_half = sin_deg(half_fov);
 
-	return min_limit;
+	// if the sphere radius is too small, make it invisible
+	// (simulating far plane).
+	if (std::abs(sin_half) < 1e-6f) {
+		return std::numeric_limits<float>::infinity();
+	}
+
+	// the distance must be <= r / sin_half, but the minimum distance is equal.
+	// because the angle of a sphere must fit into the fov angle.
+	float min_n = r / sin_half;
+	return min_n;
 }
+
+
 
 void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;
