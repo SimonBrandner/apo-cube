@@ -56,7 +56,7 @@ void transform_cube(Cube &cube, Camera &camera) {
 		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
 		face.set_distance_from_camera(abs(face.get_center_point()));
 
-		for (int j = 0; j < 4; ++j) {
+		for (int j = 0; j < VERTICES; ++j) {
 			transform_vector_3d(rotation_matrix, camera, vertices[j]);
 			convert_to_2d(vertices[j], camera.get_fov());
 		}

@@ -55,6 +55,6 @@ Vector &Face::get_center_point() {
 	return this->center;
 }
 
-std::array<Vector, 4> &Face::get_vertices() {
+std::array<Vector, VERTICES> &Face::get_vertices() {
 	return this->vertices;
 }

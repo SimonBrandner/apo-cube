@@ -58,7 +58,7 @@ void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &
 
 bool is_face_visible(Face &face) {
 	auto vertices = face.get_vertices();
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < VERTICES; ++i) {
 		Vector point = vertices[i];
 		if (point.get_z() >= -1e-6f) {
 			return false;
