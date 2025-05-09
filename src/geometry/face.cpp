@@ -34,12 +34,14 @@ Face::Face(Vector center, float edge_length, Color color, char orientation)
 
 	case 'l':
 	case 'r':
-	default: // default should not ever happen
 		vertices[0] = Vector(center.at(0), center.at(1) - half, center.at(2) - half);
 		vertices[1] = Vector(center.at(0), center.at(1) - half, center.at(2) + half);
 		vertices[2] = Vector(center.at(0), center.at(1) + half, center.at(2) + half);
 		vertices[3] = Vector(center.at(0), center.at(1) + half, center.at(2) - half);
 		break;
+
+	default:
+		throw std::invalid_argument("Unknown face orientation");
 	}
 }
 
