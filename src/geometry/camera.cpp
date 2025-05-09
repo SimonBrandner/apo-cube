@@ -7,10 +7,9 @@
 #include <cmath>
 
 Camera::Camera()
-	: position(0, 0, 0), yaw(0), pitch(0), fov(90), roll(0), distance_from_cube(20) {}
+	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), zoom(20) {}
 
-
-float Camera::get_min_distance_from_cube() {
+float Camera::get_min_zoom_level() {
 	// the goal is to find min distance from which the cube is fully visible.
 	// a cube can be rotating anyway, so we can assume the cube is a sphere.
 	// assuming the sphere (cube) center will be in the middle of the screen.
@@ -39,8 +38,8 @@ float Camera::get_min_distance_from_cube() {
 void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
-	this->distance_from_cube += (float)input_delta.red;
-	this->distance_from_cube = max(get_min_distance_from_cube(), this->distance_from_cube);
+	this->zoom += (float)input_delta.red;
+	this->zoom = max(get_min_zoom_level(), this->zoom);
 }
 
 void Camera::set_position(float x, float y, float z) {
@@ -52,4 +51,4 @@ float Camera::get_yaw() const { return this->yaw; }
 float Camera::get_pitch() const { return this->pitch; }
 float Camera::get_roll() const { return this->roll; }
 float Camera::get_fov() const { return this->fov; }
-float Camera::get_distance_from_cube() const { return this->distance_from_cube; }
+float Camera::get_zoom() const { return this->zoom; }
