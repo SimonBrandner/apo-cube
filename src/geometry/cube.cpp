@@ -49,7 +49,7 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 		char id;
 	};
 
-	std::array<FaceConfig, 6> faces = {{
+	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
 		{ 0,  0,  1, color_config.front,  'f'},
 		{ 0,  0, -1, color_config.back,   'b'},
 		{ 0,  1,  0, color_config.top,    't'},
