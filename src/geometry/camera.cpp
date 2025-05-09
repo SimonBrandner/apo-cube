@@ -10,7 +10,7 @@ Camera::Camera()
 	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), distance_from_cube(15) {}
 
 
-float get_min_distance_limit(float fov) {
+float Camera::get_min_distance_limit() {
 	// diagonal of the cube
 	float min_limit = std::sqrt(3.0f) * CUBE_EDGE_LENGTH;
 
@@ -27,7 +27,7 @@ void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
 	this->distance_from_cube += (float)input_delta.red;
-	this->distance_from_cube = max(get_min_distance_limit(fov), this->distance_from_cube);
+	this->distance_from_cube = max(get_min_distance_limit(), this->distance_from_cube);
 }
 
 void Camera::set_position(float x, float y, float z) {

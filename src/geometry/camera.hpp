@@ -21,6 +21,7 @@ class Camera {
 		Camera();
 		void update(KnobRotation input_delta);
 		Vector get_position() const;
+		float get_min_distance_limit();
 		float get_yaw() const;
 		float get_pitch() const;
 		float get_roll() const;
