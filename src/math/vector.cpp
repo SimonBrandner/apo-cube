@@ -82,8 +82,7 @@ const double abs(const Vector &vector) {
 
 const Vector Vector::operator/(float scalar) const {
 	if (scalar == 0.0f) {
-		std::cerr << "Division by zero!" << std::endl;
-		exit(-1);
+		throw std::runtime_error("Division by zero");
 	}
 
 	float data[3] = {0};
