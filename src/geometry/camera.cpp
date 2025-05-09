@@ -10,9 +10,10 @@ Camera::Camera()
 	: position(0, 0, 0), yaw(0), pitch(0), fov(90), roll(0), distance_from_cube(20) {}
 
 
-float Camera::get_min_distance_limit() {
+float Camera::get_min_distance_from_cube() {
 	// the goal is to find min distance from which the cube is fully visible.
-	// cube can be rotating anyway, so we can assume the cube is a sphere.
+	// a cube can be rotating anyway, so we can assume the cube is a sphere.
+	// assuming the sphere (cube) center will be in the middle of the screen.
 	float r = std::sqrt(3.0f) * CUBE_EDGE_LENGTH * 0.5f;
 
 	// angle from the center of the sphere to the edge of view frustum
@@ -39,7 +40,7 @@ void Camera::update(KnobRotation input_delta) {
 	this->pitch += (float)input_delta.green;
 	this->yaw += (float)input_delta.blue;
 	this->distance_from_cube += (float)input_delta.red;
-	this->distance_from_cube = max(get_min_distance_limit(), this->distance_from_cube);
+	this->distance_from_cube = max(get_min_distance_from_cube(), this->distance_from_cube);
 }
 
 void Camera::set_position(float x, float y, float z) {
