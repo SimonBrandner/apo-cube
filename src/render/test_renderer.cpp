@@ -36,8 +36,9 @@ int main(int argc, char *argv[]) {
 		bool leds[32];
 		std::fill(std::begin(leds), std::end(leds), true);
 
+		float min_distance_limit = camera.get_min_distance_limit();
 		float distance_from_cube = abs(camera.get_position() - CUBE_MIDDLE);
-		for (size_t i = 0; i < min(distance_from_cube, 32); ++i) {
+		for (size_t i = 0; i < min(distance_from_cube - min_distance_limit, 32); ++i) {
 			leds[i] = false;
 		}
 		outputs.set_leds(leds);
