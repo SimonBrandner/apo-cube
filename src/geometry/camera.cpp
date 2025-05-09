@@ -12,10 +12,10 @@ Camera::Camera()
 
 float get_min_distance_limit(float fov) {
 	// diagonal of the cube
-	float min_limit = sqrt(3.0f,2) * CUBE_EDGE_LENGTH;
+	float min_limit = std::sqrt(3.0f) * CUBE_EDGE_LENGTH;
 
 	// diagonal of the cube face
-	min_limit = min_limit / sqrt(2.0f,2);
+	min_limit = min_limit / std::sqrt(2.0f);
 
 	// include the fov into the distance limit
 	min_limit = min_limit * (sin_deg(45.0f) / sin_deg(fov * 0.5f));

@@ -22,20 +22,6 @@ int mod(int a, int b) {
 	return r < 0 ? r + b : r;
 }
 
-float sqrt(float x, int n) {
-	if (n == 0) {
-		return 1;
-	}
-	if (n == 1) {
-		return x;
-	}
-	float result = x;
-	for (int i = 0; i < n - 1; ++i) {
-		result = std::sqrt(result);
-	}
-	return result;
-}
-
 float max(float a, float b) {
 	return a > b ? a : b;
 }
