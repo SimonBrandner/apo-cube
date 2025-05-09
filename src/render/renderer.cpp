@@ -19,7 +19,7 @@ Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 Screen Renderer::renderer_cube() {
 	Screen screen = Screen();
 
-	Cube cube(CUBE_MIDDLE, CUBE_EDGE_LENGTH, cube_color_config);
+	Cube cube(CUBE_CENTER, CUBE_EDGE_LENGTH, cube_color_config);
 	transform_cube(cube, camera);
 
 	// set background color
@@ -51,7 +51,7 @@ void transform_cube(Cube &cube, Camera &camera) {
 		Face &face = faces[i];
 
 		std::array<Vector, 4> &vertices = face.get_vertices();
-		Matrix rotation_matrix = get_transformation_matrix(camera, CUBE_MIDDLE);
+		Matrix rotation_matrix = get_transformation_matrix(camera, CUBE_CENTER);
 
 		transform_vector_3d(rotation_matrix, camera, face.get_center_point());
 		face.set_distance_from_camera(abs(face.get_center_point()));
