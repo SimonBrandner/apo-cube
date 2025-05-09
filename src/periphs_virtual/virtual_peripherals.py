@@ -116,7 +116,7 @@ class VirtualPeripherals:
             radius = 30
             pygame.draw.circle(self.screen, (100, 100, 100), (x, y), radius)
 
-            angle = (val / 255.0) * 360
+            angle = (val * 0.5f55.0) * 360
             end_x = x + int(radius * 0.8 * pygame.math.Vector2(1, 0).rotate(-angle).x)
             end_y = y + int(radius * 0.8 * pygame.math.Vector2(1, 0).rotate(-angle).y)
             pygame.draw.line(self.screen, (255, 255, 255), (x, y), (end_x, end_y), 4)

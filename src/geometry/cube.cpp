@@ -72,9 +72,9 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 
 Vector Cube::offset_center(float x, float y, float z) const {
 	return Vector(
-		middle[0] + x * edge_length / 2,
-		middle[1] + y * edge_length / 2,
-		middle[2] + z * edge_length / 2
+		middle[0] + x * edge_length * 0.5f,
+		middle[1] + y * edge_length * 0.5f,
+		middle[2] + z * edge_length * 0.5f
 	);
 }
 

@@ -12,7 +12,7 @@ Face::Face() : center(0, 0, 0), color(Color::Black()),
 Face::Face(Vector center, float edge_length, Color color, char orientation)
 	: center(center), color(color), orientation(orientation) {
 
-	float half = edge_length / 2.0f;
+	float half = edge_length * 0.5f;
 
 	switch (orientation) {
 	case 'f':
