@@ -10,7 +10,11 @@
 #include "renderer.hpp"
 #include "screen.hpp"
 
-// this will keep rendering frames based of the input delta.
+/**
+ * This is a test program for the renderer for virtual peripherals.
+ * The main for the real peripherals is in src/main.cpp.
+ * This will keep rendering frames based of the input delta.
+ */
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();

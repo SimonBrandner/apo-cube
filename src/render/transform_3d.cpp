@@ -64,6 +64,5 @@ bool is_face_visible(Face &face) {
 			return false;
 		}
 	}
-
 	return true;
 }

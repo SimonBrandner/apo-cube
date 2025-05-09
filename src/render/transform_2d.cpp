@@ -12,6 +12,7 @@
 /* LIST OD TODOs:
  * STRUCTURE:
  * - TODO sort the renderer folder into more organized structure
+ * - FIXME static casting
  * - FIXME revisit + add consts in functions where needed
  */
 
@@ -59,8 +60,8 @@ void convert_to_2d(Vector &point, float fov) {
 void calculate_pixels_bresenham(Face &face, Screen &screen) {
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
-	// my implementation of Bresenham's line algorithm (used in vba excel)
-	// draw the lines between the vertices
+	// my implementation of Bresenham's line algorithm (used in vba Excel)
+	// draws the lines between the vertices
 	for (size_t i = 0; i < face.get_vertices().size(); ++i) {
 		Vector start = face.get_vertices()[i];
 		Vector end = face.get_vertices()[(i + 1) % face.get_vertices().size()];
