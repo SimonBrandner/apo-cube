@@ -2,7 +2,6 @@
 
 #include <array>
 #include <cmath>
-#include <cstdlib>
 #include <iostream>
 
 #include "../math/vector.hpp"
@@ -50,7 +49,7 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 		char id;
 	};
 
-	std::array<FaceConfig, 6> faces = {{
+	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
 		{ 0,  0,  1, color_config.front,  'f'},
 		{ 0,  0, -1, color_config.back,   'b'},
 		{ 0,  1,  0, color_config.top,    't'},
@@ -60,27 +59,22 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	}};
 
 	// create the faces of the cube and subdivides them, for clipping purposes
-	long face_index = 0;
+	int face_index = 0;
 	for (const auto &face : faces) {
-		for (int i = 0; i < FACE_SUBDIVISION; ++i) {
-			for (int j = 0; j < FACE_SUBDIVISION; ++j) {
-				this->faces[face_index++] = Face(
-					offset_center(face.dx, face.dy, face.dz),
-					edge_length,
-					face.color,
-					face.id,
-					i, j
-				);
-			}
-		}
+		this->faces[face_index++] = Face(
+			offset_center(face.dx, face.dy, face.dz),
+			edge_length,
+			face.color,
+			face.id
+		);
 	}
 }
 
 Vector Cube::offset_center(float x, float y, float z) const {
 	return Vector(
-		middle[0] + x * edge_length / 2,
-		middle[1] + y * edge_length / 2,
-		middle[2] + z * edge_length / 2
+		middle[0] + x * edge_length * 0.5f,
+		middle[1] + y * edge_length * 0.5f,
+		middle[2] + z * edge_length * 0.5f
 	);
 }
 

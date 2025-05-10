@@ -3,7 +3,10 @@
 
 #include "../geometry/camera.hpp"
 #include "../math/vector.hpp"
+#include "../math/matrix.hpp"
 
-void transform_vector(Camera camera, Vector &point);
+Matrix get_transformation_matrix(Camera &camera, Vector middle_cube);
+void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point);
+bool is_face_visible(Face &face);
 
 #endif // TRANSFORM_3D_HPP

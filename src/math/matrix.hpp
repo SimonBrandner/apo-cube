@@ -1,8 +1,6 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <cstddef>
-
 #include "./vector.hpp"
 
 class Matrix {

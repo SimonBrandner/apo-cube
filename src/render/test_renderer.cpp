@@ -3,13 +3,18 @@
 
 #include "../geometry/camera.hpp"
 #include "../geometry/cube.hpp"
+#include "../math/utils.hpp"
 
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"
 #include "renderer.hpp"
 #include "screen.hpp"
 
-// this will keep renderering frames based of the input delta.
+/**
+ * This is a test program for the renderer for virtual peripherals.
+ * The main for the real peripherals is in src/main.cpp.
+ * This will keep rendering frames based of the input delta.
+ */
 int main(int argc, char *argv[]) {
 	OutputPeripherals outputs = OutputPeripherals();
 	InputPeripherals inputs = InputPeripherals();
@@ -20,14 +25,8 @@ int main(int argc, char *argv[]) {
 	Camera camera = Camera();
 
 	CubeColorConfig cube_color_config = CubeColorConfig();
-	cube_color_config.back = Color(0, 0, 255);
-	cube_color_config.front = Color(255, 0, 0);
-	cube_color_config.top = Color(0, 255, 0);
-	cube_color_config.bottom = Color(255, 255, 0);
-	cube_color_config.left = Color(255, 0, 255);
-	cube_color_config.right = Color(0, 255, 255);
 
-	Color background_color = Color(0, 0, 0);
+	Color background_color = Color::White();
 
 	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
@@ -37,6 +36,16 @@ int main(int argc, char *argv[]) {
 
 		Screen screen = renderer.renderer_cube();
 		outputs.set_screen(screen);
+
+		bool leds[32];
+		std::fill(std::begin(leds), std::end(leds), true);
+
+		float min_distance_limit = camera.get_min_zoom_level();
+		float zoom = abs(camera.get_position() - CUBE_CENTER);
+		for (size_t i = 0; i < std::min(zoom - min_distance_limit, 32.0f); ++i) {
+			leds[i] = false;
+		}
+		outputs.set_leds(leds);
 
 		frame_count++;
 		auto current_time = std::chrono::high_resolution_clock::now();

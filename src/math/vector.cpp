@@ -79,3 +79,32 @@ const double abs(const Vector &vector) {
 	}
 	return sqrt(sum);
 }
+
+const Vector Vector::operator/(float scalar) const {
+	if (scalar == 0.0f) {
+		throw std::runtime_error("Division by zero");
+	}
+
+	float data[3] = {0};
+	for (size_t i = 0; i < 3; ++i) {
+		data[i] = this->data[i] / scalar;
+	}
+
+	return Vector(data);
+}
+
+Vector Vector::normalized() const {
+	float len = abs(*this);
+	if (len > 0.0f) {
+		return *this / len;
+	}
+	return *this; // return zero vector if length is zero
+}
+
+Vector Vector::cross(const Vector &rhs) const {
+	float x = this->data[1] * rhs.at(2) - this->data[2] * rhs.at(1);
+	float y = this->data[2] * rhs.at(0) - this->data[0] * rhs.at(2);
+	float z = this->data[0] * rhs.at(1) - this->data[1] * rhs.at(0);
+
+	return Vector(x, y, z);
+}

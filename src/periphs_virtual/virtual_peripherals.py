@@ -27,7 +27,12 @@ def read_u16(data, offset=0):
     return struct.unpack_from(">H" if is_big_endian() else "<H", data, offset)[0]
 
 def read_u32(data, offset=0):
-    return struct.unpack_from(">I" if is_big_endian() else "<I", data, offset)[0]
+    while True:
+        try:
+            return struct.unpack_from(">I" if is_big_endian() else "<I", data, offset)[0]
+        except struct.error:
+            print("Error reading 32-bit unsigned integer. Retrying...")
+            time.sleep(0.1)
 
 def write_u32(value):
     return struct.pack(">I" if is_big_endian() else "<I", value)
@@ -80,11 +85,16 @@ class VirtualPeripherals:
 
     def draw_leds(self):
         try:
-            with open(LEDS_OUT, "rb") as f:
-                val = read_u32(f.read(4))
-                self.leds = [(val >> i) & 1 for i in range(32)]
+            try:
+                with open(LEDS_OUT, "rb") as f:
+                    raw = f.read(4)
+                    if len(raw) == 4:
+                        val = read_u32(raw)
+                        self.leds = [(val >> i) & 1 for i in range(32)]
+            except (OSError, struct.error):
+                print("Error reading LEDs file. Starting with default values.")
         except FileNotFoundError:
-            self.leds = [0] * 32
+            print("leds.out file not found. Starting with default values.")
 
         for i, on in enumerate(self.leds):
             color = (255, 165, 0) if on else (0, 0, 0)
@@ -106,7 +116,7 @@ class VirtualPeripherals:
             radius = 30
             pygame.draw.circle(self.screen, (100, 100, 100), (x, y), radius)
 
-            angle = (val / 255.0) * 360
+            angle = (val * 0.5f55.0) * 360
             end_x = x + int(radius * 0.8 * pygame.math.Vector2(1, 0).rotate(-angle).x)
             end_y = y + int(radius * 0.8 * pygame.math.Vector2(1, 0).rotate(-angle).y)
             pygame.draw.line(self.screen, (255, 255, 255), (x, y), (end_x, end_y), 4)

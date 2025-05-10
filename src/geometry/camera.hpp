@@ -14,14 +14,20 @@ class Camera {
 		float yaw;
 		float pitch;
 		float fov;
+		float roll;
+		float zoom;
 
 	public:
 		Camera();
 		void update(KnobRotation input_delta);
-		Vector get_position();
-		float get_yaw();
-		float get_pitch();
-		float get_fov();
+		Vector get_position() const;
+		float get_min_zoom_level();
+		float get_yaw() const;
+		float get_pitch() const;
+		float get_roll() const;
+		float get_fov() const;
+		float get_zoom() const;
+		void set_position(float x, float y, float z);
 };
 
 #endif // CAMERA_HPP

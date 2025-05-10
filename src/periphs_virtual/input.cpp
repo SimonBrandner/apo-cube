@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <unistd.h>
 
 #define FSIZERGB 3
 #define FSIZEPRESSES 1
