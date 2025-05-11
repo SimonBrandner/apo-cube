@@ -39,9 +39,9 @@ int main(int argc, char *argv[]) {
 		bool leds[32];
 		std::fill(std::begin(leds), std::end(leds), true);
 
-		float min_distance_limit = camera.get_min_zoom_level();
-		float zoom = abs(camera.get_position() - CUBE_CENTER);
-		for (size_t i = 0; i < std::min(zoom - min_distance_limit, 32.0f); ++i) {
+		float min_distance_limit = camera.get_min_distance();
+		float distance = abs(camera.get_position() - CUBE_CENTER);
+		for (size_t i = 0; i < std::min(distance - min_distance_limit, 32.0f); ++i) {
 			leds[i] = false;
 		}
 		outputs.set_leds(leds);
