@@ -1,3 +1,5 @@
+#include "transform_3d.hpp"
+
 #include "../geometry/camera.hpp"
 #include "../geometry/face.hpp"
 #include "../math/matrix.hpp"

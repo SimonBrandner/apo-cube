@@ -1,7 +1,6 @@
 #include "face.hpp"
 
 #include <array>
-#include <cmath>
 #include <iostream>
 
 #include "../graphics/color.hpp"

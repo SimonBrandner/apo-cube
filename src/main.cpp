@@ -1,6 +1,7 @@
 #include <chrono>
 #include <cstdint>
 #include <cstdlib>
+#include <iostream>
 #include <unistd.h>
 
 #include "./geometry/camera.hpp"

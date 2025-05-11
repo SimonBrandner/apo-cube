@@ -1,8 +1,9 @@
 #ifndef INPUT_HPP
 #define INPUT_HPP
 
-#include "mapping.hpp"
 #include <cstdint>
+
+#include "mapping.hpp"
 
 struct KnobRotation {
 	public:

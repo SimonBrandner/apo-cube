@@ -9,12 +9,6 @@
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 
-/* LIST OD TODOs:
- * STRUCTURE:
- * - TODO sort the renderer folder into more organized structure
- * - FIXME static casting
- */
-
 // rescale the 2D coordinates to match the screen size
 void rescale_2d_to_screen(Vector &point2d) {
 	float x_screen, y_screen;

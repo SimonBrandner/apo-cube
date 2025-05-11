@@ -1,10 +1,10 @@
 #include "camera.hpp"
 
+#include <cmath>
+
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 #include "cube.hpp"
-
-#include <cmath>
 
 Camera::Camera()
 	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), zoom(20) {}

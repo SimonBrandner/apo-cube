@@ -1,7 +1,8 @@
+#include "./utils.hpp"
+
 #include <iostream>
 
 #include "../mz_apo/serialize_lock.h"
-#include "./utils.hpp"
 
 PeripheralMemoryMapping setup() {
 	/* Serialize execution of applications */

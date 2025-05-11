@@ -1,7 +1,8 @@
+#include "./input.hpp"
+
 #include <cstdint>
 
 #include "../mz_apo/mzapo_regs.h"
-#include "./input.hpp"
 #include "./mapping.hpp"
 
 InputPeripherals::InputPeripherals(

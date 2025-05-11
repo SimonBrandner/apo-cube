@@ -3,7 +3,6 @@
 
 #include "../geometry/camera.hpp"
 #include "../geometry/cube.hpp"
-#include "../math/utils.hpp"
 
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"

@@ -1,10 +1,10 @@
-#include "input.hpp"
-#include "output.hpp"
-#include "../graphics/color.hpp"
-
 #include <iostream>
 #include <chrono>
 #include <thread>
+
+#include "input.hpp"
+#include "output.hpp"
+#include "../graphics/color.hpp"
 
 int main(void) {
 	srand(time(NULL));

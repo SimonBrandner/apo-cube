@@ -1,11 +1,7 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
-#include <iostream>
-#include <cstddef>
-
 #include "face.hpp"
-
 #include "../graphics/color.hpp"
 
 #define CUBE_CENTER Vector(0, 0, -15)

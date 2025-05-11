@@ -2,8 +2,9 @@
 #define TRANSFORM_3D_HPP
 
 #include "../geometry/camera.hpp"
-#include "../math/vector.hpp"
 #include "../math/matrix.hpp"
+#include "../math/vector.hpp"
+#include "../geometry/face.hpp"
 
 Matrix get_transformation_matrix(Camera &camera, Vector middle_cube);
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point);

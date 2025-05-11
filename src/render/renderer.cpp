@@ -2,13 +2,12 @@
 
 #include <array>
 #include <cmath>
+#include <algorithm>
 
 #include "../geometry/camera.hpp"
 #include "../math/vector.hpp"
 #include "./transform_2d.hpp"
 #include "./transform_3d.hpp"
-
-#include <algorithm>
 
 Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 				   Color background_color)
