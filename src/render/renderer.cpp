@@ -2,13 +2,12 @@
 
 #include <array>
 #include <cmath>
+#include <algorithm>
 
 #include "../geometry/camera.hpp"
 #include "../math/vector.hpp"
 #include "./transform_2d.hpp"
 #include "./transform_3d.hpp"
-
-#include <algorithm>
 
 Renderer::Renderer(Camera &camera, CubeColorConfig cube_color_config,
 				   Color background_color)
@@ -35,9 +34,7 @@ Screen Renderer::renderer_cube() {
 	// draws all the faces of the cube to the screen
 	for (int i = 0; i < NUMBER_OF_FACES; ++i) {
 		Face &face = cube.get_faces()[i];
-		if (is_face_visible(face)) {
-			calculate_pixels_bresenham(face, screen);
-		}
+		calculate_pixels_bresenham(face, screen);
 	}
 
 	return screen;

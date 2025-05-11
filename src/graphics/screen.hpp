@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../mz_apo/font_types.h"
-#include "./color.hpp"
+#include "color.hpp"
 
 #define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 320

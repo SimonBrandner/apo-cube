@@ -2,8 +2,8 @@
 #define TRANSFORM_2D_HPP
 
 #include "../geometry/face.hpp"
+#include "../graphics/screen.hpp"
 #include "../math/vector.hpp"
-#include "./screen.hpp"
 
 void rescale_2d_to_screen(Vector &point2d);
 void convert_to_2d(Vector &point, float fov);

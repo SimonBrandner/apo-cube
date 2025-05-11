@@ -1,6 +1,7 @@
 #include <chrono>
 #include <cstdint>
 #include <cstdlib>
+#include <iostream>
 #include <unistd.h>
 
 #include "./geometry/camera.hpp"
@@ -9,9 +10,9 @@
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
-#include "./render/menu.hpp"
+#include "./graphics/menu.hpp"
+#include "./graphics/screen.hpp"
 #include "./render/renderer.hpp"
-#include "./render/screen.hpp"
 
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		  CubeColorConfig &cube_color_config) {
@@ -84,9 +85,9 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		output_peripherals.set_screen(screen);
 
 		bool leds[32] = {true};
-		float min_distance_limit = camera.get_min_zoom_level();
-		float zoom = abs(camera.get_position() - CUBE_CENTER);
-		for (size_t i = 0; i < zoom - min_distance_limit; ++i) {
+		float min_distance_limit = camera.get_min_distance();
+		float distance = abs(camera.get_position() - CUBE_CENTER);
+		for (size_t i = 0; i < distance - min_distance_limit; ++i) {
 			leds[i] = false;
 		}
 		output_peripherals.set_leds(leds);

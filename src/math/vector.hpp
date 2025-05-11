@@ -18,10 +18,10 @@ class Vector {
 		const Vector operator*(const Vector &rhs) const;
 		const Vector operator/(float scalar) const;
 
-		const float distance(const Vector &rhs) const;
-
 		Vector normalized() const;
 		Vector cross(const Vector &rhs) const;
+
+		const float distance(const Vector &rhs) const;
 
 		const float at(size_t index) const;
 		const float get_x() const;

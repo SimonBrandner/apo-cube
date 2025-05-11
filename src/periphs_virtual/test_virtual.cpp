@@ -1,11 +1,17 @@
-#include "input.hpp"
-#include "output.hpp"
-#include "../render/color.hpp"
-
 #include <iostream>
 #include <chrono>
 #include <thread>
 
+#include "input.hpp"
+#include "output.hpp"
+#include "../graphics/color.hpp"
+
+/*
+ * This is a test program for the virtual peripherals.
+ * The main for the real peripherals is in src/main.cpp.
+ * This writes into files in ./memory and then the python program renders the
+ * screen using these files.
+ */
 int main(void) {
 	srand(time(NULL));
 

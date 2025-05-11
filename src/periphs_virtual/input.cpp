@@ -8,12 +8,12 @@
 
 InputPeripherals::InputPeripherals() {}
 
-// Returns the difference between the current and previous state of the RGB knobs
+// returns the difference between the current and previous state of the RGB knobs
 KnobRotation InputPeripherals::get_delta() {
 	std::ifstream file(fname_knobs, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file: " << fname_knobs << std::endl;
-		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		// do not exit, because the file can be locked by vir. periph.
 		return {0, 0, 0}; // just return delta 0
 	}
 
@@ -22,7 +22,7 @@ KnobRotation InputPeripherals::get_delta() {
 	file.read(buffer, FSIZERGB);
 	if (!file) {
 		std::cerr << "Error reading file: " << fname_knobs << std::endl;
-		//exit(-1); // do not exit, because the file can be locked by vir. periph.
+		// do not exit, because the file can be locked by vir. periph.
 		return {0, 0, 0}; // just return delta 0
 	}
 
@@ -53,7 +53,7 @@ KnobRotation InputPeripherals::get_delta() {
 	return {red_delta, green_delta, blue_delta};
 }
 
-// Returns the current state of the RGB knobs
+// returns the current state of the RGB knobs
 KnobPress InputPeripherals::get_knob_press_state() {
 	std::ifstream file(fname_knob_presses, std::ios::binary);
 	if (!file) {

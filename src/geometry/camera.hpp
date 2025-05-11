@@ -15,18 +15,18 @@ class Camera {
 		float pitch;
 		float fov;
 		float roll;
-		float zoom;
+		float distance;
 
 	public:
 		Camera();
-		void update(KnobRotation input_delta);
 		Vector get_position() const;
-		float get_min_zoom_level();
+		float get_min_distance();
 		float get_yaw() const;
 		float get_pitch() const;
 		float get_roll() const;
 		float get_fov() const;
-		float get_zoom() const;
+		float get_distance() const;
+		void update(KnobRotation input_delta);
 		void set_position(float x, float y, float z);
 };
 

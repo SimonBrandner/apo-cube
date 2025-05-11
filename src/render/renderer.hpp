@@ -3,7 +3,7 @@
 
 #include "../geometry/camera.hpp"
 #include "../geometry/cube.hpp"
-#include "screen.hpp"
+#include "../graphics/screen.hpp"
 
 class Renderer {
 	private:

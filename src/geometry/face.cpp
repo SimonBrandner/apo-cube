@@ -1,11 +1,10 @@
 #include "face.hpp"
 
 #include <array>
-#include <cmath>
 #include <iostream>
 
+#include "../graphics/color.hpp"
 #include "../math/vector.hpp"
-#include "../render/color.hpp"
 
 Face::Face() : center(0, 0, 0), color(Color::Black()),
 								   orientation('f') {}

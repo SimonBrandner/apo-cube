@@ -6,7 +6,7 @@ LDFLAGS += -static
 LDLIBS += -lrt -lpthread
 #LDLIBS += -lm
 
-SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp src/peripherals/mapping.cpp src/math/utils.cpp src/render/color.cpp src/peripherals/output.cpp src/render/screen.cpp src/peripherals/utils.cpp src/render/menu.cpp src/render/renderer.cpp src/render/transform_2d.cpp src/render/transform_3d.cpp src/mz_apo/font_types.h src/mz_apo/font_prop14x16.c src/geometry/face.cpp
+SOURCES = src/main.cpp src/math/vector.cpp src/math/matrix.cpp src/mz_apo/mzapo_phys.c src/mz_apo/mzapo_parlcd.c src/mz_apo/serialize_lock.c src/peripherals/input.cpp src/geometry/cube.cpp src/geometry/camera.cpp src/peripherals/mapping.cpp src/math/utils.cpp src/graphics/color.cpp src/peripherals/output.cpp src/graphics/screen.cpp src/peripherals/utils.cpp src/graphics/menu.cpp src/render/renderer.cpp src/render/transform_2d.cpp src/render/transform_3d.cpp src/mz_apo/font_types.h src/mz_apo/font_prop14x16.c src/geometry/face.cpp
 TARGET_EXE = apo_cube
 
 # ===================== Main Build =====================
@@ -90,7 +90,7 @@ debug: copy-executable $(TARGET_EXE)
 	ddd --debugger gdb-multiarch -x connect.gdb $(TARGET_EXE)
 
 # ===================== Virtual Build (runv) =====================
-runv_SRC = src/render/test_renderer.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/geometry/cube.cpp src/geometry/face.cpp src/geometry/camera.cpp src/math/vector.cpp src/math/matrix.cpp src/math/utils.cpp src/render/color.cpp src/render/renderer.cpp src/render/transform_2d.cpp src/render/transform_3d.cpp src/render/screen.cpp
+runv_SRC = src/render/test_renderer.cpp src/periphs_virtual/input.cpp src/periphs_virtual/output.cpp src/geometry/cube.cpp src/geometry/face.cpp src/geometry/camera.cpp src/math/vector.cpp src/math/matrix.cpp src/math/utils.cpp src/graphics/color.cpp src/graphics/screen.cpp src/render/renderer.cpp src/render/transform_2d.cpp src/render/transform_3d.cpp
 runv_TARGET = apo_cube_virtual
 runv_CXX = g++
 runv_CXXFLAGS = -Wall -g -DVIRTUAL_PERIPHERALS

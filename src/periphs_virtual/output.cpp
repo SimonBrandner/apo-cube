@@ -8,7 +8,7 @@
 
 OutputPeripherals::OutputPeripherals() {}
 
-// Sets the 32 LEDs file to 32 * 0/1
+// sets the 32 LEDs file to 32 * 0/1
 bool OutputPeripherals::set_leds(bool leds[FSIZELEDS*BYTE]) {
 	std::ofstream file(fname_leds, std::ios::binary);
 	if (!file) {
@@ -26,7 +26,7 @@ bool OutputPeripherals::set_leds(bool leds[FSIZELEDS*BYTE]) {
 	return true;
 }
 
-// Sets the screen file to the 2D array of RGB565 values
+// sets the screen file to the 2D array of RGB565 values
 bool OutputPeripherals::set_screen(Screen screen) {
 	std::ofstream file(fname_screen, std::ios::binary);
 	if (!file) {

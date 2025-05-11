@@ -1,3 +1,5 @@
+#include "./mapping.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -6,7 +8,6 @@
 #include "../mz_apo/mzapo_phys.h"
 #include "../mz_apo/mzapo_regs.h"
 
-#include "./mapping.hpp"
 
 PeripheralMemoryMapping::PeripheralMemoryMapping() {
 	this->spi_address =

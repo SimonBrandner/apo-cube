@@ -4,8 +4,8 @@
 #include <cmath>
 #include <iostream>
 
+#include "../graphics/color.hpp"
 #include "../math/vector.hpp"
-#include "../render/color.hpp"
 #include "./face.hpp"
 
 CubeColorConfig::CubeColorConfig() {

@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../render/screen.hpp"
+#include "../graphics/screen.hpp"
 
 class OutputPeripherals {
 	private:

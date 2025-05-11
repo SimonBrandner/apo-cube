@@ -1,7 +1,7 @@
 #ifndef OUTPUT_HPP
 #define OUTPUT_HPP
 
-#include "../render/screen.hpp"
+#include "../graphics/screen.hpp"
 #include "./mapping.hpp"
 
 class OutputPeripherals {

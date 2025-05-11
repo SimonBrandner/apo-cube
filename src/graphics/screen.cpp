@@ -1,10 +1,11 @@
+#include "screen.hpp"
+
 #include <cstddef>
 #include <iostream>
 #include <string>
 
 #include "../mz_apo/font_types.h"
-#include "./color.hpp"
-#include "./screen.hpp"
+#include "color.hpp"
 
 size_t get_character_width(font_descriptor_t *font_descriptor, int character) {
 	if ((character < font_descriptor->firstchar) ||

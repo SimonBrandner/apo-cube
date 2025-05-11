@@ -4,16 +4,11 @@
 #include <cmath>
 #include <iostream>
 
+#include "../graphics/color.hpp"
+#include "../graphics/screen.hpp"
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
-#include "color.hpp"
-#include "screen.hpp"
-
-/* LIST OD TODOs:
- * STRUCTURE:
- * - TODO sort the renderer folder into more organized structure
- * - FIXME static casting
- */
+#include "transform_3d.hpp"
 
 // rescale the 2D coordinates to match the screen size
 void rescale_2d_to_screen(Vector &point2d) {
@@ -40,8 +35,9 @@ void convert_to_2d(Vector &point, float fov) {
 	float y = point.get_y();
 	float z = point.get_z();
 
-	if (std::abs(z) < 1e-6f) {
-		z = (z >= 0.0f) ? 1e-6f : -1e-6f; // preserve the sign
+	// preserve the sign
+	if (std::abs(z) < std::abs(NEAR_PLANE)) {
+		z = (z >= 0.0f) ? std::abs(NEAR_PLANE) : -std::abs(NEAR_PLANE);
 	}
 
 	// perspective projection
