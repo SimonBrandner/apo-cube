@@ -4,10 +4,10 @@
 #include <cmath>
 #include <iostream>
 
+#include "../graphics/color.hpp"
+#include "../graphics/screen.hpp"
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
-#include "color.hpp"
-#include "screen.hpp"
 
 /* LIST OD TODOs:
  * STRUCTURE:

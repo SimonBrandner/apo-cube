@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <unistd.h>
 
+#include "../graphics/screen.hpp"
 #include "../mz_apo/mzapo_parlcd.h"
 #include "../mz_apo/mzapo_regs.h"
-#include "../render/screen.hpp"
 #include "./mapping.hpp"
 #include "./output.hpp"
 

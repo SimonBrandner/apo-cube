@@ -3,8 +3,8 @@
 
 #include <array>
 
+#include "../graphics/color.hpp"
 #include "../math/vector.hpp"
-#include "../render/color.hpp"
 
 #define VERTICES 4
 

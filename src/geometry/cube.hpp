@@ -6,7 +6,7 @@
 
 #include "face.hpp"
 
-#include "../render/color.hpp"
+#include "../graphics/color.hpp"
 
 #define CUBE_CENTER Vector(0, 0, -15)
 #define CUBE_EDGE_LENGTH 10

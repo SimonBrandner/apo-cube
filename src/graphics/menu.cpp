@@ -4,7 +4,7 @@
 
 #include "../mz_apo/font_types.h"
 #include "./menu.hpp"
-#include "./screen.hpp"
+#include "screen.hpp"
 
 Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_button) {
 	Screen screen = Screen();

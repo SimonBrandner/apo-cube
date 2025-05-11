@@ -9,9 +9,9 @@
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
-#include "./render/menu.hpp"
+#include "./graphics/menu.hpp"
+#include "graphics/screen.hpp"
 #include "./render/renderer.hpp"
-#include "./render/screen.hpp"
 
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		  CubeColorConfig &cube_color_config) {

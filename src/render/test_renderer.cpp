@@ -7,8 +7,9 @@
 
 #include "../periphs_virtual/output.hpp"
 #include "../periphs_virtual/input.hpp"
+#include "../graphics/screen.hpp"
 #include "renderer.hpp"
-#include "screen.hpp"
+
 
 /**
  * This is a test program for the renderer for virtual peripherals.

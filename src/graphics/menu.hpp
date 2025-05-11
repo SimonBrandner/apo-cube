@@ -2,7 +2,7 @@
 #define MENU_HPP
 
 #include "../geometry/cube.hpp"
-#include "./screen.hpp"
+#include "screen.hpp"
 
 #define X_OFFSET 10
 #define START_BUTTON_INDEX 6
