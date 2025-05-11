@@ -11,8 +11,8 @@ class Matrix {
 
 		const float at(const size_t &row, const size_t &column) const;
 		const Matrix transpose() const;
-		const Vector operator*(const Vector &rhs) const;
 		const Matrix operator*(const Matrix &rhs) const;
+		const Vector operator*(const Vector &rhs) const;
 };
 
 std::ostream &operator<<(std::ostream &stream, const Matrix &matrix);

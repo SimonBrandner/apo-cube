@@ -11,20 +11,20 @@
 class Face {
 	private:
 		Vector center;
-		std::array<Vector, VERTICES> vertices;
 		Color color;
+		std::array<Vector, VERTICES> vertices;
 		float distance_from_camera = 0.0f;
 		char orientation;
 
 	public:
 		Face();
 		Face(Vector center, float edge_length, Color color, char orientation);
-		Vector &get_center_point();
 		std::array<Vector, VERTICES> &get_vertices();
+		Vector &get_center_point();
 		Color get_color() const { return color; }
-		void set_distance_from_camera(float distance);
 		float get_distance_from_camera() const;
 		char get_orientation() const { return orientation; }
+		void set_distance_from_camera(float distance);
 };
 
 #endif // FACE_HPP
