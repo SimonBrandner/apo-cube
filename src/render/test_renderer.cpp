@@ -22,11 +22,8 @@ int main(int argc, char *argv[]) {
 	int frame_count = 0;
 
 	Camera camera = Camera();
-
 	CubeColorConfig cube_color_config = CubeColorConfig();
-
 	Color background_color = Color::White();
-
 	Renderer renderer = Renderer(camera, cube_color_config, background_color);
 
 	while (true) {
