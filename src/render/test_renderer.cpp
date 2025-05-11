@@ -9,7 +9,6 @@
 #include "../graphics/screen.hpp"
 #include "renderer.hpp"
 
-
 /**
  * This is a test program for the renderer for virtual peripherals.
  * The main for the real peripherals is in src/main.cpp.

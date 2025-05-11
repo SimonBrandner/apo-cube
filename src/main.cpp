@@ -11,7 +11,7 @@
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
 #include "./graphics/menu.hpp"
-#include "graphics/screen.hpp"
+#include "./graphics/screen.hpp"
 #include "./render/renderer.hpp"
 
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
