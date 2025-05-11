@@ -6,8 +6,9 @@
 #include "../math/vector.hpp"
 #include "../geometry/face.hpp"
 
+#define NEAR_PLANE 1e-6f
+
 Matrix get_transformation_matrix(Camera &camera, Vector middle_cube);
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point);
-bool is_face_visible(Face &face);
 
 #endif // TRANSFORM_3D_HPP

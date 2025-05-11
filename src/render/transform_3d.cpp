@@ -6,6 +6,10 @@
 #include "../math/utils.hpp"
 #include "../math/vector.hpp"
 
+/* transform the cube and set the yaw and pitch by setting the position of the
+ * camera and orientation to look at the center of the cube from the given yaw
+ * and pitch and roll
+ */
 Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float yaw = camera.get_yaw();
 	float pitch = camera.get_pitch();
@@ -24,6 +28,7 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float rel_y = distance * sin_pitch;
 	float rel_z = distance * cos_pitch * cos_yaw;
 
+	// new position of the camera
 	Vector new_position = middle_cube + Vector(rel_x, rel_y, rel_z);
 	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
 
@@ -49,6 +54,7 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	Matrix pitch_matrix(pitch_array);
 	Matrix roll_matrix(roll_array);
 
+	// roll must be applied first
 	Matrix rotation_matrix = roll_matrix * pitch_matrix * yaw_matrix;
 	return rotation_matrix;
 }
@@ -56,15 +62,4 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point) {
 	point = point - camera.get_position();
 	point = rotation_matrix * point;
-}
-
-bool is_face_visible(Face &face) {
-	auto vertices = face.get_vertices();
-	for (int i = 0; i < VERTICES; ++i) {
-		Vector point = vertices[i];
-		if (point.get_z() >= -1e-6f) {
-			return false;
-		}
-	}
-	return true;
 }
