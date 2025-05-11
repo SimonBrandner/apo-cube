@@ -19,7 +19,7 @@ class Camera {
 
 	public:
 		Camera();
-		Vector get_position() const
+		Vector get_position() const;
 		float get_min_distance();
 		float get_yaw() const;
 		float get_pitch() const;
