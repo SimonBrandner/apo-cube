@@ -16,7 +16,7 @@ Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_button) {
 		"Right:", "Top",   "Bottom"}; // Strange Charm!
 
 	screen.draw_text("Welcome to apo-cube!", 10, 10, text_color, &font);
-	screen.draw_rectangle(4, 55 + selected_button * ROW_HEIGHT, 4, 4,
+	screen.draw_rectangle(4, Y_OFFSET + 6 + selected_button * ROW_HEIGHT, 4, 4,
 						  text_color);
 
 	for (size_t i = 0; i < NUMBER_OF_FACES; ++i) {
