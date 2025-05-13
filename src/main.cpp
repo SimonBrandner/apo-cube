@@ -77,7 +77,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 
 	while (true) {
 		KnobPress press_delta = input_peripherals.get_press_delta();
-		if (press_delta.green) {
+		if (press_delta.red) {
 			break;
 		}
 
@@ -87,10 +87,12 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		Screen screen = renderer.renderer_cube();
 		output_peripherals.set_screen(screen);
 
-		bool leds[32] = {true};
+		bool leds[32];
+		std::fill(std::begin(leds), std::end(leds), true);
+
 		float min_distance_limit = camera.get_min_distance();
 		float distance = abs(camera.get_position() - CUBE_CENTER);
-		for (size_t i = 0; i < distance - min_distance_limit; ++i) {
+		for (size_t i = 0; i < std::min(distance - min_distance_limit, 32.0f); ++i) {
 			leds[i] = false;
 		}
 		output_peripherals.set_leds(leds);

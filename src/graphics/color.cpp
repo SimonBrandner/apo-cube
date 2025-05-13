@@ -22,6 +22,6 @@ uint16_t Color::to_rgb565() const {
 	return r | g | b;
 }
 
-uint8_t Color::get_red() { return this->red; }
-uint8_t Color::get_green() { return this->green; }
-uint8_t Color::get_blue() { return this->blue; }
+uint8_t Color::get_red() const { return this->red; }
+uint8_t Color::get_green() const { return this->green; }
+uint8_t Color::get_blue() const { return this->blue; }

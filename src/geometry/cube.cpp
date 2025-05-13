@@ -31,31 +31,29 @@ Color &CubeColorConfig::at(size_t index) {
 		return this->top;
 	case 5:
 		return this->bottom;
+	default:
+		std::cerr << "Unknown face: " << index << std::endl;
+		exit(-1);
 	}
-
-	std::cerr << "Unknown face: " << index << std::endl;
-	exit(-1);
 }
 
 Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	: edge_length(edge_length) {
-	for (int i = 0; i < 3; ++i) {
-		this->middle[i] = center_point.at(i);
-	}
+	this->center = center_point;
 
 	struct FaceConfig {
 		float dx, dy, dz;
 		Color color;
-		char id;
+		FaceOrientation orientation;
 	};
 
 	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
-		{ 0,  0,  1, color_config.front,  'f'},
-		{ 0,  0, -1, color_config.back,   'b'},
-		{ 0,  1,  0, color_config.top,    't'},
-		{ 0, -1,  0, color_config.bottom, 'd'},
-		{ 1,  0,  0, color_config.right,  'r'},
-		{-1,  0,  0, color_config.left,   'l'}
+		{ 0,  0,  1, color_config.front, FaceOrientation::FRONT},
+		{ 0,  0, -1, color_config.back, FaceOrientation::BACK},
+		{ 0,  1,  0, color_config.top, FaceOrientation::TOP},
+		{ 0, -1,  0, color_config.bottom, FaceOrientation::BOTTOM},
+		{ 1,  0,  0, color_config.right, FaceOrientation::RIGHT},
+		{-1,  0,  0, color_config.left, FaceOrientation::LEFT}
 	}};
 
 	// create the faces of the cube and subdivides them, for clipping purposes
@@ -65,16 +63,16 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 			offset_center(face.dx, face.dy, face.dz),
 			edge_length,
 			face.color,
-			face.id
+			face.orientation
 		);
 	}
 }
 
 Vector Cube::offset_center(float x, float y, float z) const {
 	return Vector(
-		middle[0] + x * edge_length * 0.5f,
-		middle[1] + y * edge_length * 0.5f,
-		middle[2] + z * edge_length * 0.5f
+		center.at(0) + x * edge_length * 0.5f,
+		center.at(1) + y * edge_length * 0.5f,
+		center.at(2) + z * edge_length * 0.5f
 	);
 }
 
