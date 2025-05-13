@@ -88,9 +88,11 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		output_peripherals.set_screen(screen);
 
 		bool leds[32] = {true};
+		std::fill(std::begin(leds), std::end(leds), true);
+
 		float min_distance_limit = camera.get_min_distance();
 		float distance = abs(camera.get_position() - CUBE_CENTER);
-		for (size_t i = 0; i < distance - min_distance_limit; ++i) {
+		for (size_t i = 0; i < std::min(distance - min_distance_limit, 32.0f); ++i) {
 			leds[i] = false;
 		}
 		output_peripherals.set_leds(leds);
