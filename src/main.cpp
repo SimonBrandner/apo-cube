@@ -6,12 +6,12 @@
 
 #include "./geometry/camera.hpp"
 #include "./geometry/cube.hpp"
+#include "./graphics/menu.hpp"
+#include "./graphics/screen.hpp"
 #include "./math/utils.hpp"
 #include "./peripherals/input.hpp"
 #include "./peripherals/output.hpp"
 #include "./peripherals/utils.hpp"
-#include "./graphics/menu.hpp"
-#include "./graphics/screen.hpp"
 #include "./render/renderer.hpp"
 
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
@@ -28,11 +28,14 @@ bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		KnobPress press_delta = input_peripherals.get_press_delta();
 
 		// Update color
-		Color old_color = cube_color_config.at(selected_button);
-		Color new_color = Color(old_color.get_red() + rotation_delta.red,
-								old_color.get_green() + rotation_delta.green,
-								old_color.get_blue() + rotation_delta.blue);
-		cube_color_config.at(selected_button) = new_color;
+		if (selected_button >= 0 && selected_button < 6) {
+			Color old_color = cube_color_config.at(selected_button);
+			Color new_color =
+				Color(old_color.get_red() + rotation_delta.red,
+					  old_color.get_green() + rotation_delta.green,
+					  old_color.get_blue() + rotation_delta.blue);
+			cube_color_config.at(selected_button) = new_color;
+		}
 
 		// Handle presses
 		if (press_delta.green) {
