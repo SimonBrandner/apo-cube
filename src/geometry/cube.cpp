@@ -39,9 +39,7 @@ Color &CubeColorConfig::at(size_t index) {
 
 Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	: edge_length(edge_length) {
-	for (int i = 0; i < 3; ++i) {
-		this->center[i] = center_point.at(i);
-	}
+	this->center = center_point;
 
 	struct FaceConfig {
 		float dx, dy, dz;
@@ -65,16 +63,16 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 			offset_center(face.dx, face.dy, face.dz),
 			edge_length,
 			face.color,
-			face.id
+			face.orientation
 		);
 	}
 }
 
 Vector Cube::offset_center(float x, float y, float z) const {
 	return Vector(
-		center[0] + x * edge_length * 0.5f,
-		center[1] + y * edge_length * 0.5f,
-		center[2] + z * edge_length * 0.5f
+		center.at(0) + x * edge_length * 0.5f,
+		center.at(1) + y * edge_length * 0.5f,
+		center.at(2) + z * edge_length * 0.5f
 	);
 }
 
