@@ -2,11 +2,7 @@
 #define CAMERA_HPP
 
 #include "../math/vector.hpp"
-#ifdef VIRTUAL_PERIPHERALS
-#include "../periphs_virtual/input.hpp"
-#else
 #include "../peripherals/input.hpp"
-#endif
 
 class Camera {
 	private:
