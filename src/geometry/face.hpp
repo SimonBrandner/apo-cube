@@ -8,6 +8,15 @@
 
 #define VERTICES 4
 
+enum FaceOrientation {
+	FRONT = 'f',
+	BACK = 'b',
+	LEFT = 'l',
+	RIGHT = 'r',
+	TOP = 't',
+	BOTTOM = 'd'
+};
+
 class Face {
 	private:
 		Vector center;

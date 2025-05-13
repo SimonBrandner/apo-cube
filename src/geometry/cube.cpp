@@ -50,12 +50,12 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	};
 
 	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
-		{ 0,  0,  1, color_config.front,  'f'},
-		{ 0,  0, -1, color_config.back,   'b'},
-		{ 0,  1,  0, color_config.top,    't'},
-		{ 0, -1,  0, color_config.bottom, 'd'},
-		{ 1,  0,  0, color_config.right,  'r'},
-		{-1,  0,  0, color_config.left,   'l'}
+		{ 0,  0,  1, color_config.front,  FRONT},
+		{ 0,  0, -1, color_config.back,   BACK},
+		{ 0,  1,  0, color_config.top,    TOP},
+		{ 0, -1,  0, color_config.bottom, BOTTOM},
+		{ 1,  0,  0, color_config.right,  RIGHT},
+		{-1,  0,  0, color_config.left,   LEFT}
 	}};
 
 	// create the faces of the cube and subdivides them, for clipping purposes

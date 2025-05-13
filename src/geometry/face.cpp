@@ -14,24 +14,24 @@ Face::Face(Vector center, float edge_length, Color color, char orientation)
 	float half = edge_length * 0.5f;
 
 	switch (orientation) {
-	case 'f':
-	case 'b':
+	case FRONT:
+	case BACK:
 		vertices[0] = Vector(center.at(0) - half, center.at(1) - half, center.at(2));
 		vertices[1] = Vector(center.at(0) - half, center.at(1) + half, center.at(2));
 		vertices[2] = Vector(center.at(0) + half, center.at(1) + half, center.at(2));
 		vertices[3] = Vector(center.at(0) + half, center.at(1) - half, center.at(2));
 		break;
 
-	case 't':
-	case 'd':
+	case TOP:
+	case BOTTOM:
 		vertices[0] = Vector(center.at(0) - half, center.at(1), center.at(2) - half);
 		vertices[1] = Vector(center.at(0) - half, center.at(1), center.at(2) + half);
 		vertices[2] = Vector(center.at(0) + half, center.at(1), center.at(2) + half);
 		vertices[3] = Vector(center.at(0) + half, center.at(1), center.at(2) - half);
 		break;
 
-	case 'l':
-	case 'r':
+	case LEFT:
+	case RIGHT:
 		vertices[0] = Vector(center.at(0), center.at(1) - half, center.at(2) - half);
 		vertices[1] = Vector(center.at(0), center.at(1) - half, center.at(2) + half);
 		vertices[2] = Vector(center.at(0), center.at(1) + half, center.at(2) + half);
