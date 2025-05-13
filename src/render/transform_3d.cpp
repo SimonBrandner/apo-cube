@@ -10,7 +10,7 @@
  * camera and orientation to look at the center of the cube from the given yaw
  * and pitch and roll
  */
-Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
+Matrix get_transformation_matrix(Camera &camera, Vector center_cube) {
 	float yaw = camera.get_yaw();
 	float pitch = camera.get_pitch();
 	float roll = camera.get_roll();
@@ -29,7 +29,7 @@ Matrix get_transformation_matrix(Camera &camera, Vector middle_cube) {
 	float rel_z = distance * cos_pitch * cos_yaw;
 
 	// new position of the camera
-	Vector new_position = middle_cube + Vector(rel_x, rel_y, rel_z);
+	Vector new_position = center_cube + Vector(rel_x, rel_y, rel_z);
 	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
 
 	float yaw_array[9] = {

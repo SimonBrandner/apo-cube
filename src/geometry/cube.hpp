@@ -25,7 +25,7 @@ class Cube {
 	private:
 		CubeColorConfig color_config;
 		float edge_length;
-		float middle[3];
+		float center[3];
 		std::array<Face, NUMBER_OF_FACES> faces;
 
 	public:
