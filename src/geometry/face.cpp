@@ -7,31 +7,31 @@
 #include "../math/vector.hpp"
 
 Face::Face() : center(0, 0, 0), color(Color::Black()),
-								   orientation('f') {}
-Face::Face(Vector center, float edge_length, Color color, char orientation)
+								   orientation(FaceOrientation::FRONT) {}
+Face::Face(Vector center, float edge_length, Color color, FaceOrientation orientation)
 	: center(center), color(color), orientation(orientation) {
 
 	float half = edge_length * 0.5f;
 
 	switch (orientation) {
-	case FRONT:
-	case BACK:
+	case FaceOrientation::FRONT:
+	case FaceOrientation::BACK:
 		vertices[0] = Vector(center.at(0) - half, center.at(1) - half, center.at(2));
 		vertices[1] = Vector(center.at(0) - half, center.at(1) + half, center.at(2));
 		vertices[2] = Vector(center.at(0) + half, center.at(1) + half, center.at(2));
 		vertices[3] = Vector(center.at(0) + half, center.at(1) - half, center.at(2));
 		break;
 
-	case TOP:
-	case BOTTOM:
+	case FaceOrientation::TOP:
+	case FaceOrientation::BOTTOM:
 		vertices[0] = Vector(center.at(0) - half, center.at(1), center.at(2) - half);
 		vertices[1] = Vector(center.at(0) - half, center.at(1), center.at(2) + half);
 		vertices[2] = Vector(center.at(0) + half, center.at(1), center.at(2) + half);
 		vertices[3] = Vector(center.at(0) + half, center.at(1), center.at(2) - half);
 		break;
 
-	case LEFT:
-	case RIGHT:
+	case FaceOrientation::LEFT:
+	case FaceOrientation::RIGHT:
 		vertices[0] = Vector(center.at(0), center.at(1) - half, center.at(2) - half);
 		vertices[1] = Vector(center.at(0), center.at(1) - half, center.at(2) + half);
 		vertices[2] = Vector(center.at(0), center.at(1) + half, center.at(2) + half);

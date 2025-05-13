@@ -46,16 +46,16 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	struct FaceConfig {
 		float dx, dy, dz;
 		Color color;
-		char id;
+		FaceOrientation orientation;
 	};
 
 	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
-		{ 0,  0,  1, color_config.front,  FRONT},
-		{ 0,  0, -1, color_config.back,   BACK},
-		{ 0,  1,  0, color_config.top,    TOP},
-		{ 0, -1,  0, color_config.bottom, BOTTOM},
-		{ 1,  0,  0, color_config.right,  RIGHT},
-		{-1,  0,  0, color_config.left,   LEFT}
+		{ 0,  0,  1, color_config.front, FaceOrientation::FRONT},
+		{ 0,  0, -1, color_config.back, FaceOrientation::BACK},
+		{ 0,  1,  0, color_config.top, FaceOrientation::TOP},
+		{ 0, -1,  0, color_config.bottom, FaceOrientation::BOTTOM},
+		{ 1,  0,  0, color_config.right, FaceOrientation::RIGHT},
+		{-1,  0,  0, color_config.left, FaceOrientation::LEFT}
 	}};
 
 	// create the faces of the cube and subdivides them, for clipping purposes
