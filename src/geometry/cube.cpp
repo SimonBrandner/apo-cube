@@ -31,10 +31,10 @@ Color &CubeColorConfig::at(size_t index) {
 		return this->top;
 	case 5:
 		return this->bottom;
+	default:
+		std::cerr << "Unknown face: " << index << std::endl;
+		exit(-1);
 	}
-
-	std::cerr << "Unknown face: " << index << std::endl;
-	exit(-1);
 }
 
 Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
