@@ -77,7 +77,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 
 	while (true) {
 		KnobPress press_delta = input_peripherals.get_press_delta();
-		if (press_delta.green) {
+		if (press_delta.red) {
 			break;
 		}
 

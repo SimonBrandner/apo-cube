@@ -30,7 +30,7 @@ program. The following controls can be used in the menu:
 Once you enter the game, the following controls can be used to move the camera
 around the cube:
 
-- green knob click - exit to the menu,
+- red knob click - exit to the menu,
 - red knob rotation - change the distance of the camera from the cube,
 - green knob rotation - change the camera's pitch and
 - blue knob rotation - change the camera's yaw.
