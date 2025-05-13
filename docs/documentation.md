@@ -75,22 +75,22 @@ The main file that initializes the application and manages the state of the prog
 
 ### Application Flow
 
-1. **Initialization (Real Peripherals Only)**: After uploading the program into the MZ_APO, the program starts with *setting up access to the MZ_APO's hardware*.
+1. **Initialization (MZ_APO Only)**: After uploading the program into the MZ_APO, the program starts with *setting up access to the MZ_APO's hardware*.
 2. **Menu**: The application presents a **menu on the LCD**.
     *   Users can navigate options using **red and blue knob clicks**.
     *   If a cube face is selected, **knob rotation changes its color**, with RGB values displayed as text.
-    *   Pressing the **green knob selects an option**, either starting the 3D view *(step 3)* or exiting the program.
+    *   Pressing the **green knob selects an option**, either starting the 3D view *(step 3)* or exiting the program *(step 4)*.
 3. **Render**: If "Start" is selected, the program switches to rendering the 3D cube on the LCD.
     *   **Knob rotations control the Camera**: Red changes distance, green changes pitch, and blue changes yaw.
     *   The **Camera's distance is shown visually on the 32 LED diodes**.
     *   Pressing the **red knob returns to the menu,** *(step 2)*.
-4. **Cleanup (Real Peripherals Only)**: Before the program finishes (after exiting from the menu), any held resources, like the serialization lock, are released.
+4. **Cleanup (MZ_APO Only)**: Before the program finishes (after exiting from the menu), any held resources, like the serialization lock, are released.
 
 ### Cube Rendering Pipeline
 
 1. An empty `Screen` (buffer) is created.
 2. A `Cube` instance is created with its properties (center, edge length, colors). The cube is initially centered at `(0, 0, -15)` with an edge length of 10.
-3. Based on the Camera and Cube, the transformation matrix is calculated. 
+3. Based on the `Camera` and `Cube`, the transformation matrix is calculated. 
 4. The camera is moved to position around the cube based on the yaw and pitch, and the looking vector of the camera is set to the center of the cube.
 5. Each vertex of all cube faces with middles is transformed in 3D using the transformation matrix.
 6. All faces are sorted from farthest to closest based on the distance from the camera to ensure the correct visibility order of the faces.
