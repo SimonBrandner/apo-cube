@@ -11,7 +11,7 @@ Camera::Camera()
 
 // this function finds the minimum distance in which is the cube fullly visible
 // calculaing using the lowest angle of the view frustum with fully visible cube
-float Camera::get_min_distance() {
+float Camera::get_min_distance() const {
 
 	// a cube can be rotating anyway, so we can assume the cube is a sphere.
 	// assuming the sphere (cube) center will be in the middle of the screen.
