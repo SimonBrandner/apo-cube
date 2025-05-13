@@ -15,34 +15,34 @@ Here is the list of all directories and their contents:
 
 This directory contains the geometry objects related to the 3D cube rendering.
 
-- `Cube` class: Represents the cube, containing the 6 faces, the cube center position, and edge size.
-- `Face` class: Represents a single face of the cube, containing its vertices, color and distance from the camera.
-- `Camera` class: Represents the camera's position and orientation in 3D space, including yaw, pitch, (roll) and distance from the cube.
+- `Cube.cpp` class: Represents the cube, containing the 6 faces, the cube center position, and edge size.
+- `Face.cpp` class: Represents a single face of the cube, containing its vertices, color and distance from the camera.
+- `Camera.cpp` class: Represents the camera's position and orientation in 3D space, including yaw, pitch, (roll) and distance from the cube.
 
 #### `src/graphics/`
 
 This directory contains the graphics-related classes and functions.
 
-- `Screen` class: Represents the LCD screen buffer, containing pixel data and methods for drawing shapes and text.
-- `Color` class: Manages color representation and conversion to RGB565 format that the LCD uses.
-- `menu`: Contains the menu elements and manages the menu rendering.
+- `Screen.cpp` class: Represents the LCD screen buffer, containing pixel data and methods for drawing shapes and text.
+- `Color.cpp` class: Manages color representation and conversion to RGB565 format that the LCD uses.
+- `menu.cpp`: Contains the menu elements and manages the menu rendering.
 
 #### `src/math/`
 
 This directory contains mathematical objects like vectors and matrices or custom functions.
 
-- `Matrix` class: Represents a 3x3 matrix and provides methods for matrix operations.
-- `Vector` class: Represents a 3D vector and provides methods for vector operations.
-- `utils`: Contains utility functions for mathematical operations, such as goniometric functions and mod operation.
+- `Matrix.cpp` class: Represents a 3x3 matrix and provides methods for matrix operations.
+- `Vector.cpp` class: Represents a 3D vector and provides methods for vector operations.
+- `utils.cpp`: Contains utility functions for mathematical operations, such as goniometric functions and mod operation.
 
 #### `src/render/`
 
 This directory contains the rendering-related classes for 3D and 2D graphics.
 
-- `Renderer` class: Manages the rendering process, transforming 3D coordinates to 2D screen coordinates, and drawing the cube on the screen.
-- `transform_3d`: Contains functions for calculating the transformation matrix and applying it to the cube and camera.
-- `transform_2d`: Contains perspective projection functions, Bresenham's line algorithm for drawing lines and filling shapes on the screen.
-- `test_render`: Is a file with main, which is used for testing the render processing with the virtual peripherals.
+- `Renderer.cpp` class: Manages the rendering process, transforming 3D coordinates to 2D screen coordinates, and drawing the cube on the screen.
+- `transform_3d.cpp`: Contains functions for calculating the transformation matrix and applying it to the cube and camera.
+- `transform_2d.cpp`: Contains perspective projection functions, Bresenham's line algorithm for drawing lines and filling shapes on the screen.
+- `test_render.cpp`: Is a file with main, which is used for testing the render processing with the virtual peripherals.
 
 #### `src/mz_apo/`
 
@@ -52,10 +52,10 @@ This directory contains the MZ_APO functions written in C provided by the [MZ AP
 
 This directory contains the classes and functions for handling the input and output peripherals of the MZ_APO.
 
-- `Input` class: Handles the rotary knobs input, reading their state and rotation values
-- `Output` class: Handles the output to the LCD and LEDs, writing pixel data to the screen and updating the LED states.
-- `Mapping` class: Handles the memory mapping of the MZ_APO hardware registers, allowing direct access to the hardware.
-- `utils`: Contains setup functions for the peripherals.
+- `Input.cpp` class: Handles the rotary knobs input, reading their state and rotation values
+- `Output.cpp` class: Handles the output to the LCD and LEDs, writing pixel data to the screen and updating the LED states.
+- `Mapping.cpp` class: Handles the memory mapping of the MZ_APO hardware registers, allowing direct access to the hardware.
+- `utils.cpp`: Contains setup functions for the peripherals.
 
 #### `scripts/virtual_peripherals/`
 
@@ -67,6 +67,7 @@ This directory contains the classes and functions for handling the input and out
 
 - The directory contains the same files as the `src/peripherals/` directory, but are redirected to files and the Mapping class for the project consistency is empty.
 
+`test_virtual.cpp`: is a file with main, which is used for testing the render processing with the virtual peripherals.
 
 #### `src/main.cpp`
 
