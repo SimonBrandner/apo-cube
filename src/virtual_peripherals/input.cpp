@@ -11,8 +11,7 @@
 
 InputPeripherals::InputPeripherals(PeripheralMemoryMapping _) {}
 
-// returns the difference between the current and previous state of the RGB
-// knobs
+// returns the diff between the current and previous state of the RGB knobs
 KnobRotation InputPeripherals::get_rotation_delta() {
 	std::ifstream file(FILE_NAME_ROTATION, std::ios::binary);
 	if (!file) {
@@ -47,6 +46,12 @@ KnobRotation InputPeripherals::get_rotation_delta() {
 	delta.red = new_state.red - this->rotation_state.red;
 
 	this->rotation_state = new_state;
+
+	// avoid using the old state of the knobs
+	if (!this->first_read) {
+		this->first_read = true;
+		return {0, 0, 0};
+	}
 
 	return delta;
 }

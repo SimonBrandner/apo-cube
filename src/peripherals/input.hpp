@@ -24,6 +24,7 @@ class InputPeripherals {
 		PeripheralMemoryMapping peripheral_memory_mapping;
 		KnobPress press_state;
 		KnobRotation rotation_state;
+		bool first_read = false;
 
 	public:
 		InputPeripherals(PeripheralMemoryMapping peripheral_memory_mapping);
