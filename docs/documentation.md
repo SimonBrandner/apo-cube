@@ -97,3 +97,15 @@ The main file that initializes the application and manages the state of the prog
 8. Using Bresenham's line algorithm, the edges of the projected faces are drawn on the screen.
 9. The interior of the faces is filled based on the edges drawn.
 10. The `Screen` buffer is sent to the LCD for display.
+
+### Camera Properties
+
+The camera contains the following properties:
+- `yaw`: The rotation around the Y-axis, controlling the left-right view.
+- `pitch`: The rotation around the X-axis, controlling the up-down view.
+- `roll`: The rotation around the Z-axis, not used in this project.
+- `distance`: The distance from the camera to the cube, controlled by the red knob.
+
+The distance is limited to a minimum value based on the cube properties, ensuring the cube remains fully visible. The camera's position is calculated based on the yaw and pitch angles, and the distance from the cube center.
+
+All the properties except the roll can be changed using the knobs. The roll is not used in this project, but it is included in the Camera class for future use.
