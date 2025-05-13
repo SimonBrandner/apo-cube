@@ -87,7 +87,7 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		Screen screen = renderer.renderer_cube();
 		output_peripherals.set_screen(screen);
 
-		bool leds[32] = {true};
+		bool leds[32];
 		std::fill(std::begin(leds), std::end(leds), true);
 
 		float min_distance_limit = camera.get_min_distance();
