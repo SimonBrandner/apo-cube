@@ -54,3 +54,19 @@ Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_button) {
 
 	return screen;
 }
+
+Screen draw_exit_screen() {
+	Screen screen;
+	std::string text_rows[6] = {"The application has ended. Clicking and",
+								"rotating knobs now will have no effect.",
+								"It would be like trying to swim upstream",
+								"like a salmon.",
+								"",
+								"You are not a salmon."};
+	for (size_t i = 0; i < 6; ++i) {
+		screen.draw_text(text_rows[i], X_OFFSET, X_OFFSET + i * ROW_HEIGHT,
+						 Color::White(), &font_winFreeSystem14x16);
+	}
+
+	return screen;
+}
