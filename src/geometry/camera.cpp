@@ -36,9 +36,9 @@ float Camera::get_min_distance() const {
 }
 
 void Camera::update(KnobRotation input_delta) {
-	this->pitch += (float)input_delta.green;
-	this->yaw += (float)input_delta.blue;
-	this->distance += (float)input_delta.red;
+	this->pitch += static_cast<float>(input_delta.green);
+	this->yaw += static_cast<float>(input_delta.blue);
+	this->distance += static_cast<float>(input_delta.red);
 
 	// applying the distance limit of the cube to fit it in the screen
 	this->distance = std::max(get_min_distance(), this->distance);
