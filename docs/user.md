@@ -34,9 +34,9 @@ Once `apo-cube` is running, you are going to be greeted by the main menu in
 which you can set the color of the cube's faces, start the 3D view or exit the
 program. The following controls can be used in the menu:
 
-- red knob click - select the next option in the menu,
+- red knob click - select the previous option in the menu,
 - green knob click - click the selected option,
-- blue knob click - select the previous option in the menu and
+- blue knob click - select the next option in the menu and
 - knob rotation - when a face is selected, turning a knob will change the
   corresponding part of the face's RGB value.
 
