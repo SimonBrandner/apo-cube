@@ -96,7 +96,8 @@ void calculate_pixels_bresenham(Face &face, Screen &screen) {
 	fill_face(face, screen, is_pixel);
 }
 
-void fill_face(Face &face, Screen &screen,  bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+void fill_face(Face &face, Screen &screen,
+			   bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	int min_x = SCREEN_WIDTH, min_y = SCREEN_HEIGHT;
 	int max_x = 0, max_y = 0;
 
@@ -137,6 +138,7 @@ void fill_face(Face &face, Screen &screen,  bool is_pixel[SCREEN_HEIGHT][SCREEN_
 			continue; // no line found
 		}
 
-		screen.draw_rectangle(start_x, y, end_x - start_x + 1, 1, face.get_color());
+		screen.draw_rectangle(start_x, y, end_x - start_x + 1, 1,
+							  face.get_color());
 	}
 }

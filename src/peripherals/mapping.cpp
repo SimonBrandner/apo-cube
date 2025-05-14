@@ -8,7 +8,6 @@
 #include "../mz_apo/mzapo_phys.h"
 #include "../mz_apo/mzapo_regs.h"
 
-
 PeripheralMemoryMapping::PeripheralMemoryMapping() {
 	this->spi_address =
 		(uint8_t *)map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);

@@ -6,7 +6,6 @@
 #include "../math/vector.hpp"
 #include "cube.hpp"
 
-
 Camera::Camera()
 	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), distance(20) {}
 

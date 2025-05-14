@@ -42,40 +42,33 @@ Cube::Cube(Vector center_point, float edge_length, CubeColorConfig color_config)
 	this->center = center_point;
 
 	struct FaceConfig {
-		float dx, dy, dz;
-		Color color;
-		FaceOrientation orientation;
+		public:
+			float dx, dy, dz;
+			Color color;
+			FaceOrientation orientation;
 	};
 
-	std::array<FaceConfig, NUMBER_OF_FACES> faces = {{
-		{ 0,  0,  1, color_config.front, FaceOrientation::FRONT},
-		{ 0,  0, -1, color_config.back, FaceOrientation::BACK},
-		{ 0,  1,  0, color_config.top, FaceOrientation::TOP},
-		{ 0, -1,  0, color_config.bottom, FaceOrientation::BOTTOM},
-		{ 1,  0,  0, color_config.right, FaceOrientation::RIGHT},
-		{-1,  0,  0, color_config.left, FaceOrientation::LEFT}
-	}};
+	std::array<FaceConfig, NUMBER_OF_FACES> faces = {
+		{{0, 0, 1, color_config.front, FaceOrientation::FRONT},
+		 {0, 0, -1, color_config.back, FaceOrientation::BACK},
+		 {0, 1, 0, color_config.top, FaceOrientation::TOP},
+		 {0, -1, 0, color_config.bottom, FaceOrientation::BOTTOM},
+		 {1, 0, 0, color_config.right, FaceOrientation::RIGHT},
+		 {-1, 0, 0, color_config.left, FaceOrientation::LEFT}}};
 
 	// create the faces of the cube and subdivides them, for clipping purposes
 	int face_index = 0;
 	for (const auto &face : faces) {
-		this->faces[face_index++] = Face(
-			offset_center(face.dx, face.dy, face.dz),
-			edge_length,
-			face.color,
-			face.orientation
-		);
+		this->faces[face_index++] =
+			Face(offset_center(face.dx, face.dy, face.dz), edge_length,
+				 face.color, face.orientation);
 	}
 }
 
 Vector Cube::offset_center(float x, float y, float z) const {
-	return Vector(
-		center.at(0) + x * edge_length * 0.5f,
-		center.at(1) + y * edge_length * 0.5f,
-		center.at(2) + z * edge_length * 0.5f
-	);
+	return Vector(center.at(0) + x * edge_length * 0.5f,
+				  center.at(1) + y * edge_length * 0.5f,
+				  center.at(2) + z * edge_length * 0.5f);
 }
 
-std::array<Face, NUMBER_OF_FACES>& Cube::get_faces() {
-	return this->faces;
-}
+std::array<Face, NUMBER_OF_FACES> &Cube::get_faces() { return this->faces; }

@@ -10,14 +10,15 @@
  */
 class Renderer {
 	private:
-		Camera &camera; // reference to the camera object
+		Camera &camera;					   // reference to the camera object
 		CubeColorConfig cube_color_config; // color configuration for the cube
-		Color background_color; // background color for the screen
+		Color background_color;			   // background color for the screen
 
 	public:
 		/**
 		 * @brief Constructor for the Renderer class.
-		 * Initializes the camera, cube color configuration, and background color.
+		 * Initializes the camera, cube color configuration, and background
+		 * color.
 		 *
 		 * @param camera Reference to the Camera object.
 		 * @param cube_color_config Color configuration for the cube.
@@ -35,7 +36,8 @@ class Renderer {
 };
 
 /**
- * @brief Transforms the cube's vertices and faces based on the calculated matrix
+ * @brief Transforms the cube's vertices and faces based on the calculated
+ * matrix
  */
 void transform_cube(Cube &cube, Camera &camera);
 
