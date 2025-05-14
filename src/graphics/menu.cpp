@@ -42,11 +42,11 @@ Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_button) {
 					 &font);
 
 	std::string text_rows[INFO_TEXT_ROW_COUNT] = {
-		"Press red and blue knobs to move around",
-		"the menu. Press the green knob to click",
-		"in the menu. Rotate knobs to adjust face",
-		"colors in the menu. Press the green knob",
-		"to exit the 3D cube render. "};
+		"In the menu, press red and blue knobs to",
+		"change selection, the green knob to click,",
+		"and rotate knobs to adjust face colors. In",
+		"the cube view, press the red knob to exit or",
+		"rotate knobs to change zoom, pitch and yaw."};
 
 	for (size_t i = 0; i < INFO_TEXT_ROW_COUNT; ++i) {
 		screen.draw_text(text_rows[i], X_OFFSET,
