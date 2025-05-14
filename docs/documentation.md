@@ -44,7 +44,6 @@ Responsible for rendering both 3D and 2D graphics.
 * `Renderer.cpp`: Core renderer that transforms 3D coordinates to 2D and draws the cube.
 * `transform_3d.cpp`: Calculates and applies 3D transformation matrices.
 * `transform_2d.cpp`: Handles perspective projection and drawing using Bresenham’s algorithm.
-* `test_render.cpp`: A `main()` - based testing file for rendering using virtual peripherals.
 
 #### `src/mz_apo/`
 
@@ -66,7 +65,6 @@ Contains a Python-based virtual peripheral simulator.
 * A Python script renders the virtual LCD and simulates knobs via file-based I/O in the `memory/` directory.
 * Usage instructions are provided in `scripts/virtual_peripherals/README.md`.
 * The script mimics the structure of `src/peripherals/`, but hardware access is replaced with file-based emulation. The `Mapping` class is voided.
-* `test_virtual.cpp`: A `main()` - based file used for testing with virtual peripherals.
 
 #### `src/main.cpp`
 
