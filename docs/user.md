@@ -13,16 +13,19 @@ the program and how to use it.
 - Enter the cloned repository: `cd apo-cube`
 - Create an `.envrc` file: `cp .envrc.sample .envrc`
 - In the `.envrc` file set the `TARGET_IP` to the IP address of your MZ_APO
-- Run the program: `make run` (for MZ_APO) or `make runv` (for virtual peripherals `scripts/virtual_peripherals`)
+- Run the program: `make run` (for MZ_APO) or `make runv` (for virtual
+  peripherals `scripts/virtual_peripherals`)
 
 ## Peripherals Mode
 
-The program can be run in two modes: 
-- real hardware mode on MZ_APO 
+The program can be run in two modes:
+
+- real hardware mode on MZ_APO
 - virtual peripherals mode using python script `virtual_peripherals.py`.
 
-Both modes are similar in functionality, but the virtual mode allows for running our program without 
-the need for MZ_APO hardware. To use the virtual mode, check the `scripts/virtual_peripherals/README.md`
+Both modes are similar in functionality, but the virtual mode allows for
+running our program without the need for MZ_APO hardware. To use the virtual
+mode, check the `scripts/virtual_peripherals/README.md`
 
 ## Using `apo-cube`
 
@@ -51,4 +54,5 @@ around the cube:
 The user may notice that the closer the camera is to the cube, the more of the
 LED line lights up to indicate this.
 
-The minimum distance is limited based on the cube properties, so the cube stays fully visible all the time.
+The minimum distance is limited based on the cube properties, so the cube stays
+fully visible all the time.
