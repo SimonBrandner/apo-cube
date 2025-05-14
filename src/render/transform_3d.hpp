@@ -4,7 +4,6 @@
 #include "../geometry/camera.hpp"
 #include "../math/matrix.hpp"
 #include "../math/vector.hpp"
-#include "../geometry/face.hpp"
 
 #define NEAR_PLANE 1e-6f // minimum distance to the near plane
 

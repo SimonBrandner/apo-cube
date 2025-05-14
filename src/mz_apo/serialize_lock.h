@@ -1,8 +1,6 @@
 #ifndef SERIALIZE_LOCK_H
 #define SERIALIZE_LOCK_H
 
-#include <stdint.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
