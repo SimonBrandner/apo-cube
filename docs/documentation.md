@@ -121,12 +121,19 @@ The main file that initializes the application and switches between the menu and
 
 ---
 
+### World Axis
+
+The world axis is defined as follows (right-handed coordinate system):
+* X-axis: Left to Right
+* Y-axis: Bottom to Top
+* Z-axis: Back to Front
+
 ### Camera Properties
 
 The `Camera` class includes:
 
-* `yaw`: Y-axis rotation (left-right).
-* `pitch`: X-axis rotation (up-down).
+* `yaw`: Y-axis rotation.
+* `pitch`: X-axis rotation.
 * `roll`: Z-axis rotation (unused but defined).
 * `distance`: Distance from camera to cube.
 
