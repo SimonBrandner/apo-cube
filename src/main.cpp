@@ -14,6 +14,8 @@
 #include "./peripherals/utils.hpp"
 #include "./render/renderer.hpp"
 
+#define DISTANCE_LED_COEFFICIENT 0.25f
+
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		  CubeColorConfig &cube_color_config) {
 	InputPeripherals input_peripherals =
@@ -87,12 +89,17 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		Screen screen = renderer.renderer_cube();
 		output_peripherals.set_screen(screen);
 
-		bool leds[32];
+		bool leds[LED_COUNT];
 		std::fill(std::begin(leds), std::end(leds), true);
 
 		float min_distance_limit = camera.get_min_distance();
-		float distance = abs(camera.get_position() - CUBE_CENTER);
-		for (size_t i = 0; i < std::min(distance - min_distance_limit, 32.0f); ++i) {
+		// We subtract 0.01f to fix a rounding error where rotating around the
+		// cube would cause the left-most LED to blink
+		float distance = abs(camera.get_position() - CUBE_CENTER) - 0.01f;
+		for (size_t i = 0; i < std::min((distance - min_distance_limit) *
+											DISTANCE_LED_COEFFICIENT,
+										LED_COUNT * 1.0f);
+			 ++i) {
 			leds[i] = false;
 		}
 		output_peripherals.set_leds(leds);
