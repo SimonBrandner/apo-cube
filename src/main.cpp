@@ -23,6 +23,7 @@ bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 	OutputPeripherals output_peripherals =
 		OutputPeripherals(peripherals_memory_mapping);
 
+	bool exit;
 	int8_t selected_button = 0;
 	while (true) {
 		// Handle inputs
@@ -42,9 +43,11 @@ bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		// Handle presses
 		if (press_delta.green) {
 			if (selected_button == START_BUTTON_INDEX) {
-				return false;
+				exit = false;
+				break;
 			} else if (selected_button == EXIT_BUTTON_INDEX) {
-				return true;
+				exit = true;
+				break;
 			}
 		}
 		if (press_delta.red) {
@@ -60,7 +63,12 @@ bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		output_peripherals.set_screen(screen);
 	}
 
-	return false;
+	if (exit) {
+		Screen screen = draw_exit_screen();
+		output_peripherals.set_screen(screen);
+	}
+
+	return exit;
 }
 
 void run(PeripheralMemoryMapping peripherals_memory_mapping,

@@ -13,5 +13,6 @@
 #define INFO_TEXT_ROW_COUNT 5
 
 Screen draw_menu(CubeColorConfig cube_coloring_config, int8_t selected_face);
+Screen draw_exit_screen();
 
 #endif // MENU_HPP
