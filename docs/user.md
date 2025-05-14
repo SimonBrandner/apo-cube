@@ -40,9 +40,9 @@ program. The following controls can be used in the menu:
 - knob rotation - when a face is selected, turning a knob will change the
   corresponding part of the face's RGB value.
 
-![image](screen.png)
+![image](./images/menu.png)
 
-(The image shows the menu in a state where the bottom face is selected.)
+(The image shows the menu in a state where the left face is selected.)
 
 Once you enter the game, the following controls can be used to move the camera
 around the cube:
@@ -51,6 +51,10 @@ around the cube:
 - red knob rotation - change the distance of the camera from the cube,
 - green knob rotation - change the camera's pitch and
 - blue knob rotation - change the camera's yaw.
+
+![image](./images/cube.png)
+
+(The image shows the rendered cube.)
 
 The user may notice that the closer the camera is to the cube, the more of the
 LED line lights up to indicate this.
