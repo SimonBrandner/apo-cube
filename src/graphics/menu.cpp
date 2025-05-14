@@ -1,7 +1,5 @@
 #include "menu.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <string>
 
 #include "../mz_apo/font_types.h"
