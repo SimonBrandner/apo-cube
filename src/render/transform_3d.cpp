@@ -29,25 +29,16 @@ Matrix get_transformation_matrix(Camera &camera, Vector cube_center) {
 
 	// new position of the camera
 	Vector new_position = cube_center + Vector(rel_x, rel_y, rel_z);
-	camera.set_position(new_position.get_x(), new_position.get_y(), new_position.get_z());
+	camera.set_position(new_position.get_x(), new_position.get_y(),
+						new_position.get_z());
 
-	float yaw_array[9] = {
-		cos_yaw, 0, -sin_yaw,
-		0,       1, 0,
-		sin_yaw, 0, cos_yaw
-	};
+	float yaw_array[9] = {cos_yaw, 0, -sin_yaw, 0, 1, 0, sin_yaw, 0, cos_yaw};
 
-	float pitch_array[9] = {
-		1, 0,          0,
-		0, cos_pitch, -sin_pitch,
-		0, sin_pitch,  cos_pitch
-	};
+	float pitch_array[9] = {1,			0, 0,		  0,		cos_pitch,
+							-sin_pitch, 0, sin_pitch, cos_pitch};
 
-	float roll_array[9] = {
-		cos_roll, -sin_roll, 0,
-		sin_roll,  cos_roll, 0,
-		0,         0,        1
-	};
+	float roll_array[9] = {cos_roll, -sin_roll, 0, sin_roll, cos_roll,
+						   0,		 0,			0, 1};
 
 	Matrix yaw_matrix(yaw_array);
 	Matrix pitch_matrix(pitch_array);
@@ -58,7 +49,8 @@ Matrix get_transformation_matrix(Camera &camera, Vector cube_center) {
 	return rotation_matrix;
 }
 
-void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera, Vector &point) {
+void transform_vector_3d(const Matrix &rotation_matrix, Camera &camera,
+						 Vector &point) {
 	point = point - camera.get_position();
 	point = rotation_matrix * point;
 }

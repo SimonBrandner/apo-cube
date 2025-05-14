@@ -6,10 +6,10 @@
 
 #define LED_COUNT 32 // Number of LEDs in the MZ_APO LED strip
 
-
 class OutputPeripherals {
 	private:
-		PeripheralMemoryMapping peripheral_memory_mapping; // Memory mapping for the peripherals
+		PeripheralMemoryMapping
+			peripheral_memory_mapping; // Memory mapping for the peripherals
 
 	public:
 		/**

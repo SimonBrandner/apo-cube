@@ -22,7 +22,8 @@ void rescale_2d_to_screen(Vector &point2d);
 void convert_to_2d(Vector &point, float fov);
 
 /**
- * @brief Draws all edges of a face on the screen using Bresenham's line algorithm.
+ * @brief Draws all edges of a face on the screen using Bresenham's line
+ * algorithm.
  *
  * @param face The face to be drawn.
  * @param screen The screen on which the face will be drawn.
@@ -36,6 +37,7 @@ void calculate_pixels_bresenham(Face &face, Screen &screen);
  * @param screen The screen on which the face will be filled.
  * @param is_pixel A 2D array indicating which pixels are already filled.
  */
-void fill_face(Face &face, Screen &screen, bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void fill_face(Face &face, Screen &screen,
+			   bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 #endif // TRANSFORM_2D_HPP

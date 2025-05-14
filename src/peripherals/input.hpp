@@ -40,9 +40,10 @@ struct KnobPress {
  */
 class InputPeripherals {
 	private:
-		PeripheralMemoryMapping peripheral_memory_mapping; // Memory mapping for the peripherals
-		KnobPress press_state; // Current press state of the knobs
-		KnobRotation rotation_state; // Current rotation state of the knobs
+		PeripheralMemoryMapping
+			peripheral_memory_mapping; // Memory mapping for the peripherals
+		KnobPress press_state;		   // Current press state of the knobs
+		KnobRotation rotation_state;   // Current rotation state of the knobs
 		bool first_read = false; // Flag to indicate if this is the first read
 
 	public:
@@ -51,7 +52,8 @@ class InputPeripherals {
 		 *
 		 * Initializes the input peripherals with the given memory mapping.
 		 *
-		 * @param peripheral_memory_mapping The memory mapping for the peripherals.
+		 * @param peripheral_memory_mapping The memory mapping for the
+		 * peripherals.
 		 */
 		InputPeripherals(PeripheralMemoryMapping peripheral_memory_mapping);
 

@@ -11,11 +11,11 @@
 class Camera {
 	private:
 		Vector position; // camera position in 3D space
-		float yaw; // rotation around the Y axis
-		float pitch; // rotation around the X axis
-		float fov; // field of view (in degrees)
-		float roll; // rotation around the Z axis
-		float distance; // distance from the camera to the object being viewed
+		float yaw;		 // rotation around the Y axis
+		float pitch;	 // rotation around the X axis
+		float fov;		 // field of view (in degrees)
+		float roll;		 // rotation around the Z axis
+		float distance;	 // distance from the camera to the object being viewed
 
 	public:
 		/**

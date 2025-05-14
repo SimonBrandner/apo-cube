@@ -1,12 +1,12 @@
 #ifndef CUBE_HPP
 #define CUBE_HPP
 
-#include "face.hpp"
 #include "../graphics/color.hpp"
+#include "face.hpp"
 
 #define CUBE_CENTER Vector(0, 0, -15) // Default center point of the cube
-#define CUBE_EDGE_LENGTH 10 // Default edge length of the cube
-#define NUMBER_OF_FACES 6 // Number of faces in a cube
+#define CUBE_EDGE_LENGTH 10			  // Default edge length of the cube
+#define NUMBER_OF_FACES 6			  // Number of faces in a cube
 
 /**
  * @brief CubeColorConfig is a struct that holds the color configuration for
@@ -44,8 +44,8 @@ struct CubeColorConfig {
 class Cube {
 	private:
 		CubeColorConfig color_config; // color configuration of the cube
-		float edge_length; // length of the edges of the cube
-		Vector center; // center point of the cube
+		float edge_length;			  // length of the edges of the cube
+		Vector center;				  // center point of the cube
 		std::array<Face, NUMBER_OF_FACES> faces; // array of faces of the cube
 
 	public:
@@ -56,7 +56,8 @@ class Cube {
 		 * @param edge_length The length of the edges of the cube.
 		 * @param color_config The color configuration of the cube.
 		 */
-		Cube(Vector center_point, float edge_length, CubeColorConfig color_config);
+		Cube(Vector center_point, float edge_length,
+			 CubeColorConfig color_config);
 
 		/**
 		 * @brief Returns the center point of the cube.
@@ -71,7 +72,7 @@ class Cube {
 		 * @brief Getter for an array of faces of the cube.
 		 * @return The array of faces of the cube.
 		 */
-		std::array<Face, NUMBER_OF_FACES>& get_faces();
+		std::array<Face, NUMBER_OF_FACES> &get_faces();
 };
 
 #endif // CUBE_HPP

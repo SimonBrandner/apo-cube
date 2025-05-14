@@ -30,32 +30,37 @@ class Vector {
 		Vector(float x, float y, float z);
 
 		/**
-		 * @brief Constructor initializes the vector with the given array of values.
+		 * @brief Constructor initializes the vector with the given array of
+		 * values.
 		 * @param data Array containing the x, y, z components of the vector.
 		 */
 		Vector(float data[3]);
 
 		/**
 		 * @brief Overloads the + operator for vector addition.
-		 * @return A new Vector that is the sum of this vector and the given vector.
+		 * @return A new Vector that is the sum of this vector and the given
+		 * vector.
 		 */
 		const Vector operator+(const Vector &rhs) const;
 
 		/**
 		 * @brief Overloads the - operator for vector subtraction.
-		 * @return A new Vector that is the difference of this vector and the given vector.
+		 * @return A new Vector that is the difference of this vector and the
+		 * given vector.
 		 */
 		const Vector operator-(const Vector &rhs) const;
 
 		/**
 		 * @brief Overloads the * operator for vector multiplication.
-		 * @return A new Vector that is the product of this vector and the given vector.
+		 * @return A new Vector that is the product of this vector and the given
+		 * vector.
 		 */
 		const Vector operator*(const Vector &rhs) const;
 
 		/**
 		 * @brief Overloads the / operator for scalar division.
-		 * @return A new Vector that is the quotient of this vector and the given scalar.
+		 * @return A new Vector that is the quotient of this vector and the
+		 * given scalar.
 		 */
 		const Vector operator/(float scalar) const;
 
@@ -70,12 +75,14 @@ class Vector {
 		 * @brief Computes the cross-product of this vector and another vector.
 		 *
 		 * @param rhs The other vector.
-		 * @return A new Vector that is the cross-product of this vector and the given vector.
+		 * @return A new Vector that is the cross-product of this vector and the
+		 * given vector.
 		 */
 		Vector cross(const Vector &rhs) const;
 
 		/**
-		 * @brief Calculates the distance between this vector and another vector.
+		 * @brief Calculates the distance between this vector and another
+		 * vector.
 		 *
 		 * @param rhs The other vector.
 		 * @return The distance between this vector and the given vector.

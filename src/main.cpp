@@ -18,9 +18,10 @@
 #define DISTANCE_LED_COEFFICIENT 0.25f
 
 /**
-* @brief This function manages the rendering and interaction with the menu.
-* @return true if the exit button is pressed, false for entering the render mode
-*/
+ * @brief This function manages the rendering and interaction with the menu.
+ * @return true if the exit button is pressed, false for entering the render
+ * mode
+ */
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		  CubeColorConfig &cube_color_config) {
 	InputPeripherals input_peripherals =
