@@ -123,10 +123,12 @@ The main file that initializes the application and switches between the menu and
 
 ### World Axis
 
-The world axis is defined as follows (right-handed coordinate system):
+The world axis is defined as follows (a right-handed coordinate system):
 * X-axis: Left to Right
 * Y-axis: Bottom to Top
 * Z-axis: Back to Front
+
+---
 
 ### Camera Properties
 
