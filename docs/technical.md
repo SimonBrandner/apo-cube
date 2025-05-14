@@ -6,11 +6,11 @@ Our project uses a combination of **C (based on the `mz_apo` template)** and
 interaction through rotary knobs, with visual feedback via LEDs.
 
 We chose C++ for its object-oriented programming (OOP) features, such as
-classes and encapsulation, which are more challenging to implement in pure C.
+classes and encapsulation, which are very useful but absent in C.
 
 The project builds upon the default [MZ APO
 template](https://cw.fel.cvut.cz/b242/courses/b35apo/semestral/template), which
-provides basic functions for communicating with the MZ_APO hardware.
+provides basic functions for working with the MZ_APO hardware.
 
 ---
 
@@ -21,31 +21,32 @@ files related to application functionality.
 
 #### `src/geometry/`
 
-Contains classes related to the render process.
+Contains classes representhing geometrical objects related to the render
+process.
 
-- `Cube.cpp`: Represents the cube, including its 6 faces, center position, and
+- `cube.cpp`: Represents the cube, including its 6 faces, center position, and
   edge size.
-- `Face.cpp`: Represents a single cube face, storing its vertices, color, and
+- `face.cpp`: Represents a single cube face, storing its vertices, color, and
   distance from the camera.
-- `Camera.cpp`: Manages the camera's position and orientation in 3D space,
+- `camera.cpp`: Manages the camera's position and orientation in 3D space,
   including `yaw`, `pitch`, `roll` (unused), and distance from the cube.
 
 #### `src/graphics/`
 
 Handles the display-related functionalities.
 
-- `Screen.cpp`: Represents the LCD screen buffer, containing pixel data and
+- `screen.cpp`: Represents the LCD screen buffer, containing pixel data and
   drawing methods.
-- `Color.cpp`: Manages color representation and conversion to the RGB565 format
+- `color.cpp`: Manages color representation and conversion to the RGB565 format
   used by the LCD.
 - `menu.cpp`: Contains the menu elements and rendering logic.
 
 #### `src/math/`
 
-Implements custom math utilities.
+Implements custom math structures and utilities.
 
-- `Matrix.cpp`: Implements a 3x3 matrix with standard matrix operations.
-- `Vector.cpp`: Represents a 3D vector with vector math operations.
+- `matrix.cpp`: Implements a 3x3 matrix with standard matrix operations.
+- `vector.cpp`: Represents a 3D vector with vector math operations.
 - `utils.cpp`: Provides helper functions for mathematical operations (e.g.,
   trigonometric functions, modulo).
 
@@ -53,7 +54,7 @@ Implements custom math utilities.
 
 Responsible for rendering both 3D and 2D graphics.
 
-- `Renderer.cpp`: Core renderer that transforms 3D coordinates to 2D and draws
+- `renderer.cpp`: Core renderer that transforms 3D coordinates to 2D and draws
   the cube.
 - `transform_3d.cpp`: Calculates and applies 3D transformation matrices.
 - `transform_2d.cpp`: Handles perspective projection and drawing using
@@ -69,9 +70,9 @@ for interacting with MZ_APO hardware.
 
 Manages input/output peripherals.
 
-- `Input.cpp`: Handles rotary knob input (clicks and rotation).
-- `Output.cpp`: Manages output to the LCD and LEDs.
-- `Mapping.cpp`: Maps memory addresses for direct hardware access.
+- `input.cpp`: Handles rotary knob input (clicks and rotation).
+- `output.cpp`: Manages output to the LCD and LEDs.
+- `mapping.cpp`: Maps memory addresses for direct hardware access.
 - `utils.cpp`: Provides setup routines for peripherals.
 
 #### `scripts/virtual_peripherals/`
@@ -82,7 +83,7 @@ Contains a Python-based virtual peripheral simulator.
   I/O in the `memory/` directory.
 - Usage instructions are provided in `scripts/virtual_peripherals/README.md`.
 - The script mimics the structure of `src/peripherals/`, but hardware access is
-  replaced with file-based emulation. The `Mapping` class is voided.
+  replaced with file-based emulation. The `Mapping` class is avoided.
 
 #### `src/main.cpp`
 
@@ -96,7 +97,7 @@ and rendering modes.
 1. **Initialization (MZ_APO Only)**
 
    - The program begins by setting up access to MZ_APO hardware after being
-     flashed.
+     started.
 
 2. **Menu Mode**
 
