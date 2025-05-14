@@ -10,7 +10,6 @@
 #include "../math/vector.hpp"
 #include "transform_3d.hpp"
 
-// rescale the 2D coordinates to match the screen size
 void rescale_2d_to_screen(Vector &point2d) {
 	float x_screen, y_screen;
 
@@ -29,7 +28,6 @@ void rescale_2d_to_screen(Vector &point2d) {
 	point2d = Vector(x_screen, y_screen, point2d.get_z());
 }
 
-// convert 3D point to 2D point using perspective projection
 void convert_to_2d(Vector &point, float fov) {
 	float x = point.get_x();
 	float y = point.get_y();
@@ -51,8 +49,6 @@ void convert_to_2d(Vector &point, float fov) {
 	point = projected;
 }
 
-// calculates the line pixels of the face
-// implementation of Bresenham's line algorithm
 void calculate_pixels_bresenham(Face &face, Screen &screen) {
 	bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH] = {false};
 
@@ -100,7 +96,6 @@ void calculate_pixels_bresenham(Face &face, Screen &screen) {
 	fill_face(face, screen, is_pixel);
 }
 
-// fills the faces with the square by lines
 void fill_face(Face &face, Screen &screen,  bool is_pixel[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	int min_x = SCREEN_WIDTH, min_y = SCREEN_HEIGHT;
 	int max_x = 0, max_y = 0;

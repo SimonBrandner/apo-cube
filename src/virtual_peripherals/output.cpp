@@ -19,7 +19,6 @@ char connect_bools_into_byte(bool bits[BYTE]) {
 
 OutputPeripherals::OutputPeripherals(PeripheralMemoryMapping _) {}
 
-// sets the 32 LEDs file to 32 * 0/1
 void OutputPeripherals::set_leds(bool leds[FSIZELEDS * BYTE]) {
 	std::ofstream file(FILE_NAME_LEDS, std::ios::binary);
 	if (!file) {
@@ -36,7 +35,6 @@ void OutputPeripherals::set_leds(bool leds[FSIZELEDS * BYTE]) {
 	file.close();
 }
 
-// sets the screen file to the 2D array of RGB565 values
 void OutputPeripherals::set_screen(Screen screen) {
 	std::ofstream file(FILE_NAME_SCREEN, std::ios::binary);
 	if (!file) {

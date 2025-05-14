@@ -6,11 +6,10 @@
 #include "../math/vector.hpp"
 #include "cube.hpp"
 
+
 Camera::Camera()
 	: position(0, 0, 0), yaw(0), pitch(0), fov(60), roll(0), distance(20) {}
 
-// this function finds the minimum distance in which is the cube fully visible
-// calculating using the lowest angle of the view frustum with fully visible cube
 float Camera::get_min_distance() const {
 
 	// a cube can be rotating anyway, so we can assume the cube is a sphere.

@@ -14,8 +14,13 @@
 #include "./peripherals/utils.hpp"
 #include "./render/renderer.hpp"
 
+// coefficient for increasing the range of the LEDs
 #define DISTANCE_LED_COEFFICIENT 0.25f
 
+/**
+* @brief This function manages the rendering and interaction with the menu.
+* @return true if the exit button is pressed, false for entering the render mode
+*/
 bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 		  CubeColorConfig &cube_color_config) {
 	InputPeripherals input_peripherals =
@@ -63,6 +68,11 @@ bool menu(PeripheralMemoryMapping peripherals_memory_mapping,
 	return false;
 }
 
+/**
+ * @brief This function manages the rendering process of the cube and the
+ * input of the knobs and output of the screen and LEDs.
+ * It also shows how many frames per second are being rendered.
+ */
 void run(PeripheralMemoryMapping peripherals_memory_mapping,
 		 CubeColorConfig cube_color_config) {
 	InputPeripherals input_peripherals =
@@ -116,6 +126,9 @@ void run(PeripheralMemoryMapping peripherals_memory_mapping,
 	}
 }
 
+/**
+ * @brief This function manages the scenes: Menu and Cube rendering.
+ */
 int main(int argc, char *argv[]) {
 	PeripheralMemoryMapping peripherals_memory_mapping = setup();
 
