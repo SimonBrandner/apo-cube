@@ -7,12 +7,15 @@ the program and how to use it.
 ## Running `apo-cube`
 
 - Install the necessary dependencies: `gcc-7-arm-linux-gnueabihf` (this can be
-  done using Nix with `nix develop`)
+  done using Nix either by using `direnv` and enabling `use flake` in `.envrc` or
+  by running `nix develop` manually)
 - Connect your MZ_APO to the network and find out its IP address
 - Clone the repository: `git clone https://github.com/SimonBrandner/apo-cube`
 - Enter the cloned repository: `cd apo-cube`
 - Create an `.envrc` file: `cp .envrc.sample .envrc`
 - In the `.envrc` file set the `TARGET_IP` to the IP address of your MZ_APO
+- Either use `direnv allow` (if you have `direnv`) or source the `.envrc` file
+  manually
 - Run the program: `make run` (for MZ_APO) or `make runv` (for virtual
   peripherals - see next section)
 
